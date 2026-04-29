@@ -1,0 +1,148 @@
+@model ProjectTemplate.Models.Ecommerce.ShopIndexViewModel
+@{
+    ViewData["Title"] = "Dyqani";
+    ViewData["Description"] = "Shfleto të gjitha produktet e Enisi Center – elektronikë, veshmbathje, ushqim dhe shumë më tepër.";
+}
+
+<div class="shop-page">
+    <!-- ── Sidebar ───────────────────────────────────────────────────────── -->
+    <aside class="shop-sidebar">
+        <h3>Kategorite</h3>
+        <ul class="filter-list">
+            <li>
+                <a asp-controller="Shop" asp-action="Index"
+                   class="filter-link @(Model.SelectedCategory == null && string.IsNullOrEmpty(Model.SearchQuery) ? "active" : "")">
+                    Të gjitha
+                </a>
+            </li>
+            @foreach (var cat in Model.Categories)
+            {
+                <li>
+                    <a asp-controller="Shop" asp-action="Index"
+                       asp-route-categoryId="@cat.Id"
+                       class="filter-link @(Model.SelectedCategory == cat.Id.ToString() ? "active" : "")">
+                        @cat.Name
+                    </a>
+                </li>
+            }
+        </ul>
+
+        <h3 style="margin-top:2rem">Çmimi</h3>
+        <div class="price-filter">
+            <a asp-controller="Shop" asp-action="Index" asp-route-categoryId="@Model.SelectedCategory" asp-route-sort="price_asc" class="filter-link">Nga më i lirë</a>
+            <a asp-controller="Shop" asp-action="Index" asp-route-categoryId="@Model.SelectedCategory" asp-route-sort="price_desc" class="filter-link">Nga më i shtrenjtë</a>
+        </div>
+    </aside>
+
+    <!-- ── Main Content ──────────────────────────────────────────────────── -->
+    <main class="shop-main">
+        <!-- Toolbar -->
+        <div class="shop-toolbar">
+            <div class="shop-results-info">
+                @if (!string.IsNullOrEmpty(Model.SearchQuery))
+                {
+                    <span>Rezultate për "<strong>@Model.SearchQuery</strong>": @Model.TotalProducts produkte</span>
+                }
+                else
+                {
+                    <span>@Model.TotalProducts produkte</span>
+                }
+            </div>
+            <div class="sort-controls">
+                <select class="sort-select" id="sortSelect" onchange="applySort(this.value)">
+                    <option value="" selected="@(Model.SortBy == null)">Renditja parazgjedhur</option>
+                    <option value="price_asc"  selected="@(Model.SortBy == "price_asc")">Çmimi: nga i ulëti</option>
+                    <option value="price_desc" selected="@(Model.SortBy == "price_desc")">Çmimi: nga i larti</option>
+                    <option value="name_asc"   selected="@(Model.SortBy == "name_asc")">Emri A–Z</option>
+                    <option value="newest"     selected="@(Model.SortBy == "newest")">Të rejat</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        @if (Model.Products.Any())
+        {
+            <div class="product-grid">
+                @foreach (var p in Model.Products)
+                {
+                    <div class="product-card" id="product-@p.Id">
+                        <a asp-controller="Shop" asp-action="Detail" asp-route-id="@p.Id" class="product-card-link">
+                            <div class="product-img-wrap">
+                                <img src="@(p.ImageUrl ?? "/img/placeholder.png")" alt="@p.Name" class="product-img" loading="lazy" />
+                                @if (p.IsOnSale)
+                                {
+                                    <span class="badge-sale">-@p.DiscountPercent%</span>
+                                }
+                                @if (!p.InStock)
+                                {
+                                    <span class="badge-sold-out">Jo në stok</span>
+                                }
+                            </div>
+                            <div class="product-info">
+                                <p class="product-cat">@(p.CategoryName ?? p.Category?.Name)</p>
+                                <h3 class="product-name">@p.Name</h3>
+                                @if (!string.IsNullOrEmpty(p.Brand))
+                                {
+                                    <p class="product-brand">@p.Brand</p>
+                                }
+                                <div class="product-price-row">
+                                    <span class="product-price">@p.DisplayPrice.ToString("F2") €</span>
+                                    @if (p.IsOnSale)
+                                    {
+                                        <span class="product-old-price">@p.Price.ToString("F2") €</span>
+                                    }
+                                </div>
+                            </div>
+                        </a>
+                        @if (p.InStock)
+                        {
+                            <button class="btn-add-cart" onclick="addToCart(@p.Id, this)">
+                                + Shporta
+                            </button>
+                        }
+                        else
+                        {
+                            <button class="btn-add-cart disabled" disabled>Jo në stok</button>
+                        }
+                    </div>
+                }
+            </div>
+
+            <!-- Pagination -->
+            @if (Model.TotalPages > 1)
+            {
+                <div class="pagination">
+                    @for (int i = 1; i <= Model.TotalPages; i++)
+                    {
+                        <a asp-controller="Shop" asp-action="Index"
+                           asp-route-q="@Model.SearchQuery"
+                           asp-route-categoryId="@Model.SelectedCategory"
+                           asp-route-sort="@Model.SortBy"
+                           asp-route-page="@i"
+                           class="page-link @(i == Model.Page ? "active" : "")">@i</a>
+                    }
+                </div>
+            }
+        }
+        else
+        {
+            <div class="empty-state">
+                <div class="empty-icon">🔍</div>
+                <h3>Nuk u gjetën produkte</h3>
+                <p>Provoni me terma të ndryshëm ose shfleto kategoritë tona.</p>
+                <a asp-controller="Shop" asp-action="Index" class="btn-primary">Shiko të gjitha produktet</a>
+            </div>
+        }
+    </main>
+</div>
+
+@section Scripts {
+<script>
+function applySort(value) {
+    const url = new URL(window.location.href);
+    url.searchParams.set('sort', value);
+    url.searchParams.set('page', '1');
+    window.location.href = url.toString();
+}
+</script>
+}

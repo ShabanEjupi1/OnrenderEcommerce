@@ -1,0 +1,82 @@
+@model ProjectTemplate.Models.Ecommerce.OrderConfirmationViewModel
+@{
+    var order = Model.Order;
+    ViewData["Title"] = "Porosia u Konfirmua";
+}
+
+<div class="confirmation-page">
+    <div class="ec-container">
+        <div class="confirmation-card">
+            <div class="confirmation-icon">✅</div>
+            <h1>Faleminderit, @order.CustomerName!</h1>
+            <p class="confirmation-sub">Porosia juaj u pranua me sukses.</p>
+
+            <div class="order-number-badge">
+                <span>Numri i Porosisë</span>
+                <strong>#@order.OrderNumber</strong>
+            </div>
+
+            <div class="confirmation-details">
+                <div class="conf-detail-row">
+                    <span>📅 Data:</span>
+                    <strong>@order.CreatedAt.ToString("dd/MM/yyyy HH:mm")</strong>
+                </div>
+                <div class="conf-detail-row">
+                    <span>📞 Telefoni:</span>
+                    <strong>@order.CustomerPhone</strong>
+                </div>
+                @if (!string.IsNullOrEmpty(order.CustomerEmail))
+                {
+                    <div class="conf-detail-row">
+                        <span>✉️ Email:</span>
+                        <strong>@order.CustomerEmail</strong>
+                    </div>
+                }
+                @if (!string.IsNullOrEmpty(order.DeliveryAddress))
+                {
+                    <div class="conf-detail-row">
+                        <span>📍 Adresa:</span>
+                        <strong>@order.DeliveryAddress</strong>
+                    </div>
+                }
+                <div class="conf-detail-row">
+                    <span>💳 Pagesa:</span>
+                    <strong>@(order.PaymentMethod == ProjectTemplate.Models.Ecommerce.PaymentMethod.CashOnDelivery ? "Pagesa me dorëzim" : "Transfer bankar")</strong>
+                </div>
+            </div>
+
+            <!-- Items -->
+            <div class="conf-items">
+                <h3>Produktet e Porositura</h3>
+                @foreach (var item in order.Items)
+                {
+                    <div class="conf-item">
+                        <span>@item.Quantity.ToString("G")x @item.ProductName</span>
+                        <strong>@item.TotalPrice.ToString("F2") €</strong>
+                    </div>
+                }
+                <div class="conf-total">
+                    <span>Total:</span>
+                    <strong>@order.TotalAmount.ToString("F2") €</strong>
+                </div>
+            </div>
+
+            <div class="conf-note">
+                <p>🔔 Do t'ju kontaktojmë shpejt në <strong>@order.CustomerPhone</strong> për konfirmimin e porosisë.</p>
+                @if (!string.IsNullOrEmpty(order.CustomerEmail))
+                {
+                    <p>📧 Konfirmimi i porosisë u dërgua në <strong>@order.CustomerEmail</strong>.</p>
+                }
+            </div>
+
+            <div class="conf-actions">
+                <a asp-controller="Shop" asp-action="Index" class="btn-primary">
+                    Vazhdo me Blerjet
+                </a>
+                <a asp-controller="Home" asp-action="Index" class="btn-ghost">
+                    Kthehu në Ballina
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

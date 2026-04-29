@@ -1,80 +1,256 @@
-﻿@{
-    var isSq = System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq";
-    ViewData["Title"] = isSq ? "Ballina" : "Home";
+@{
+    ViewData["Title"] = "Ballina";
+    ViewData["Description"] = "Enisi Center – dyqani juaj online me oferta të parezistueshme. Blini elektronikë, veshmbathje, ushqim dhe shumë më tepër.";
 }
 
-<div class="hero">
-    <div class="hero-inner" style="max-width: 1200px; margin: auto;">
-        <h1 class="hero-title">@(isSq ? "MirÃ«sevini nÃ« YourBrand" : "Welcome to YourBrand")</h1>
-        <p class="hero-sub" style="font-size: 1.5em; margin-bottom: 20px;">
-            @(isSq ? "Zgjidhja Juaj GjithÃ«pÃ«rfshirÃ«se PÃ«r Pika TÃ« Shitjes" : "Your All-In-One Point of Sale Solution")
+<!-- ── Hero Section ────────────────────────────────────────────────────── -->
+<section class="ec-hero">
+    <div class="ec-hero-content">
+        <div class="hero-badge">🛍️ Oferta Speciale Pranverë 2025</div>
+        <h1 class="ec-hero-title">
+            Blini me <em>stil</em>,<br/>kurseni me <em>kuptim</em>
+        </h1>
+        <p class="ec-hero-subtitle">
+            Mijëra produkte me çmime konkurruese, dorëzim i shpejtë dhe shërbim i pakrahasueshëm.
         </p>
-        <p class="hero-desc" style="font-size: 1.2em; line-height: 1.6; margin-bottom: 30px;">
-            @(isSq ? "Sistemi i gjeneratÃ«s sÃ« ardhshme i pÃ«rshtatur pÃ«r Pizzeri, Supermarkete dhe Dyqane Veshjesh. PerformancÃ« e lartÃ«, e bukur nÃ« dizajn dhe e ndÃ«rtuar pÃ«r t'u shkallÃ«zuar globalisht. PÃ«rjetoni tÃ« ardhmen e menaxhimit tÃ« shitjes me pakicÃ«." : "The next generation system tailored for Pizzerias, Supermarkets, and Clothing Stores. High performance, beautifully designed, and built to scale globally. Experience the future of retail management.")
-        </p>
-        <a asp-controller="Home" asp-action="Services" class="btn-primary" style="margin-bottom: 50px; display: inline-block;">
-            @(isSq ? "Eksploro ShÃ«rbimet Tona" : "Explore Our Services")
-        </a>
-
-        <div>
-            <img src="~/img/front-pos-page.png" alt="Front POS Dashboard" class="hero-image" />
+        <div class="hero-actions">
+            <a asp-controller="Shop" asp-action="Index" class="btn-primary-lg">
+                Shfleto Produktet &rarr;
+            </a>
+            <a asp-controller="Home" asp-action="About" class="btn-ghost-lg">
+                Mëso Më Shumë
+            </a>
         </div>
-
-        <div class="home-section-box" style="margin-top: 3rem;">
-            <h2>
-                @(isSq ? "Fuqizimi i Bizneseve Moderne" : "Empowering Modern Businesses")
-            </h2>
-            <p>
-                @(isSq ? "YourBrand thekson operacionet tuaja duke unifikuar tÃ« gjitha aspektet e biznesit nÃ« njÃ« platformÃ« intuitive. QoftÃ« duke menaxhuar porosi tÃ« shpejta pÃ«r pizzeria apo pagesa masive tÃ« supermarketeve, YourBrand Ã«shtÃ« themeli i besueshÃ«m pÃ«r suksesin e biznesit tuaj. Integrim i plotÃ«, raporte tÃ« thella dhe qasje e vazhdueshme e bÃ«jnÃ« kÃ«tÃ« sistem njÃ« zgjidhje tÃ« padiskutueshme." : "YourBrand streamlines your operations by unifying all business aspects into an intuitive platform. Whether handling fast-paced pizzeria orders or bulk supermarket checkouts, YourBrand is the dependable foundation for your business's success. With advanced reporting, inventory management, and intuitive user interfaces, managing a modern retail business has never been easier.")
-            </p>
+        <div class="hero-stats">
+            <div class="stat"><strong>500+</strong><span>Produkte</span></div>
+            <div class="stat"><strong>24h</strong><span>Dorëzim</span></div>
+            <div class="stat"><strong>100%</strong><span>Garanci</span></div>
         </div>
-
-        <div class="home-grid">
-            <div class="home-section-box">
-                <h3 style="color: var(--accent-green);">@(isSq ? "Pse tÃ« zgjidhni ne?" : "Why Choose Us?")</h3>
-                <ul>
-                    <li>âœ… @(isSq ? "Dizajn modern dhe i lehtÃ« pÃ«r t'u pÃ«rdorur" : "Modern and easy-to-use design")</li>
-                    <li>âœ… @(isSq ? "ShpejtÃ«si dhe performancÃ« e lartÃ«" : "High speed and performance")</li>
-                    <li>âœ… @(isSq ? "MbÃ«shtetje teknike 24/7" : "24/7 technical support")</li>
-                    <li>âœ… @(isSq ? "PÃ«rshtatje sipas nevojave tuaja" : "Customization to your needs")</li>
-                </ul>
+    </div>
+    <div class="ec-hero-visual">
+        <div class="hero-card-stack">
+            <div class="hero-card hero-card-1">
+                <div class="card-emoji">📱</div>
+                <div>Elektronikë</div>
+                <strong>Nga 49€</strong>
             </div>
-            <div class="home-section-box">
-                 <h3 style="color: var(--accent-blue);">@(isSq ? "Kush e pÃ«rdor YourBrand?" : "Who Uses YourBrand?")</h3>
-                 <p style="margin-bottom: 1rem; color: var(--text-muted);">@(isSq ? "Sistemi ynÃ« i besohet nga mbi 500+ biznese anembanÃ« KosovÃ«s dhe rajonit, duke pÃ«rfshirÃ«:" : "Our system is trusted by over 500+ businesses across Kosova and the region, including:")</p>
-                 <ul style="list-style-type: disc; padding-left: 20px;">
-                    <li>@(isSq ? "Rrjete Restorantesh & Pizzeri" : "Restaurant Chains & Pizzerias")</li>
-                    <li>@(isSq ? "Markete & Supermarkete" : "Markets & Supermarkets")</li>
-                    <li>@(isSq ? "Dyqane Rrobash & Butiqe" : "Clothing Stores & Boutiques")</li>
-                     <li>@(isSq ? "Sallone Bukurie & Spa" : "Beauty Salons & Spas")</li>
-                 </ul>
+            <div class="hero-card hero-card-2">
+                <div class="card-emoji">👗</div>
+                <div>Veshmbathje</div>
+                <strong>Nga 19€</strong>
+            </div>
+            <div class="hero-card hero-card-3">
+                <div class="card-emoji">🏠</div>
+                <div>Shtëpi & Kuzhinë</div>
+                <strong>Nga 9€</strong>
             </div>
         </div>
+    </div>
+</section>
 
-        <div style="margin-top: 5rem; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 4rem;">
-            <h2 style="font-size: 2.5em; margin-bottom: 2rem;">
-                @(isSq ? "Ã‡farÃ« thonÃ« klientÃ«t tanÃ«?" : "What do our clients say?")
-            </h2>
-            <div style="display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;">
-                <div class="home-section-box" style="flex: 1; min-width: 300px; max-width: 350px;">
-                    <p style="font-style: italic; color: #ccc;">"YourBrand ka revolucionarizuar mÃ«nyrÃ«n se si menaxhojmÃ« arkÃ«n tonÃ«. Ã‹shtÃ« shumÃ« i shpejtÃ«, pa gabime dhe mbÃ«shtetja nga ana e tyre Ã«shtÃ« e jashtÃ«zakonshme."</p>
-                    <p style="margin-top: 1rem; font-weight: bold; color: var(--accent-blue);">- Luan Gashi, Supermarket 'Lida'</p>
-                </div>
-                <div class="home-section-box" style="flex: 1; min-width: 300px; max-width: 350px;">
-                    <p style="font-style: italic; color: #ccc;">"Mbase kemi ndÃ«rruar pesÃ« sisteme tÃ« ndryshme nÃ« restorantin tonÃ« gjatÃ« viteve, por qÃ« kur vendosÃ«m kÃ«tÃ« as qÃ« na bie nÃ« mend pÃ«r tjetÃ«r. Punon si sahat!"</p>
-                    <p style="margin-top: 1rem; font-weight: bold; color: var(--accent-green);">- ArbÃ«r Haxhiu, Pizzeria 'Napoli'</p>
-                </div>
-                <div class="home-section-box" style="flex: 1; min-width: 300px; max-width: 350px;">
-                    <p style="font-style: italic; color: #ccc;">"Analizat vizuale dhe sinkronizimi 'Cloud' na ndihmojnÃ« tÃ« shohim se cilat rroba na ecin mÃ« tepÃ«r dhe t'i porositim prapÃ«. Dizajn fantastik!"</p>
-                    <p style="margin-top: 1rem; font-weight: bold; color: var(--accent-purple);">- Valmira Deda, Fashion Store</p>
-                </div>
+<!-- ── Feature Strips ─────────────────────────────────────────────────── -->
+<section class="feature-strip">
+    <div class="feature-strip-inner">
+        <div class="feature-item">
+            <span class="feature-icon">🚚</span>
+            <div>
+                <strong>Dorëzim Falas</strong>
+                <p>Për porosi mbi 50€</p>
             </div>
+        </div>
+        <div class="feature-item">
+            <span class="feature-icon">🔒</span>
+            <div>
+                <strong>Pagim i Sigurt</strong>
+                <p>SSL • Cash • Transfer</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <span class="feature-icon">↩️</span>
+            <div>
+                <strong>Kthim 30 Ditë</strong>
+                <p>Pa pyetje shtesë</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <span class="feature-icon">🎧</span>
+            <div>
+                <strong>Mbështetje 24/7</strong>
+                <p>Gjithmonë gati</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-            <a asp-controller="Home" asp-action="Contact" class="btn-primary" style="margin-top: 3rem; display: inline-block;">
-                @(isSq ? "BÃ«hu pjesÃ« e tregimit tonÃ«!" : "Become part of our story!")
+<!-- ── Category Grid ─────────────────────────────────────────────────── -->
+<section class="ec-section">
+    <div class="ec-container">
+        <div class="section-header">
+            <h2>Kategorite</h2>
+            <a asp-controller="Shop" asp-action="Index">Shih të gjitha &rarr;</a>
+        </div>
+        <div class="category-grid">
+            <a asp-controller="Shop" asp-action="Index" asp-route-q="elektronike" class="cat-card cat-blue">
+                <span class="cat-icon">📱</span>
+                <strong>Elektronikë</strong>
+            </a>
+            <a asp-controller="Shop" asp-action="Index" asp-route-q="elektroshtepiake" class="cat-card cat-purple">
+                <span class="cat-icon">🏠</span>
+                <strong>Elektroshtepiake</strong>
+            </a>
+            <a asp-controller="Shop" asp-action="Index" asp-route-q="veshmbathje" class="cat-card cat-rose">
+                <span class="cat-icon">👗</span>
+                <strong>Veshmbathje</strong>
+            </a>
+            <a asp-controller="Shop" asp-action="Index" asp-route-q="ushqim" class="cat-card cat-green">
+                <span class="cat-icon">🛒</span>
+                <strong>Ushqim & Pije</strong>
+            </a>
+            <a asp-controller="Shop" asp-action="Index" asp-route-q="kozmetike" class="cat-card cat-pink">
+                <span class="cat-icon">💄</span>
+                <strong>Kozmetikë</strong>
+            </a>
+            <a asp-controller="Shop" asp-action="Index" asp-route-q="shtepi" class="cat-card cat-orange">
+                <span class="cat-icon">🍳</span>
+                <strong>Shtëpi & Kuzhinë</strong>
+            </a>
+            <a asp-controller="Shop" asp-action="Index" asp-route-q="sport" class="cat-card cat-teal">
+                <span class="cat-icon">⚽</span>
+                <strong>Sport</strong>
+            </a>
+            <a asp-controller="Shop" asp-action="Index" asp-route-q="lodra" class="cat-card cat-yellow">
+                <span class="cat-icon">🧸</span>
+                <strong>Lodra & Fëmijë</strong>
             </a>
         </div>
     </div>
-</div>
+</section>
 
+<!-- ── Featured Products ─────────────────────────────────────────────── -->
+<section class="ec-section ec-section-alt">
+    <div class="ec-container">
+        <div class="section-header">
+            <h2>🔥 Produkte të Rekomanduara</h2>
+            <a asp-controller="Shop" asp-action="Index">Shih të gjitha &rarr;</a>
+        </div>
+        <div class="product-grid" id="featuredProducts">
+            <div class="loading-shimmer"></div>
+            <div class="loading-shimmer"></div>
+            <div class="loading-shimmer"></div>
+            <div class="loading-shimmer"></div>
+        </div>
+    </div>
+</section>
 
+<!-- ── Promo Banner ───────────────────────────────────────────────────── -->
+<section class="promo-banner">
+    <div class="ec-container">
+        <div class="promo-inner">
+            <div>
+                <div class="promo-badge">⚡ Ofertë e Kufizuar</div>
+                <h2>Zbritje deri 30% në Elektronikë</h2>
+                <p>Zgjidh nga shumë produkte me çmime fantastike. Oferta skadon së shpejti!</p>
+                <a asp-controller="Shop" asp-action="Index" asp-route-q="elektronike" class="btn-primary-lg">
+                    Shfrytëzo Ofertën
+                </a>
+            </div>
+            <div class="promo-visual">
+                <div class="promo-badge-big">-30%</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── New Arrivals ────────────────────────────────────────────────────── -->
+<section class="ec-section">
+    <div class="ec-container">
+        <div class="section-header">
+            <h2>✨ Arritjet e Reja</h2>
+            <a asp-controller="Shop" asp-action="Index" asp-route-sort="newest">Shih të rejat &rarr;</a>
+        </div>
+        <div class="product-grid" id="newProducts">
+            <div class="loading-shimmer"></div>
+            <div class="loading-shimmer"></div>
+            <div class="loading-shimmer"></div>
+            <div class="loading-shimmer"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Testimonials ──────────────────────────────────────────────────── -->
+<section class="ec-section ec-section-alt">
+    <div class="ec-container">
+        <div class="section-header centered">
+            <h2>Çfarë thonë klientët tanë</h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"Produktet janë shumë cilësore dhe dorëzimi ishte super i shpejtë. Do të blej sërish patjetër!"</p>
+                <div class="reviewer">
+                    <div class="reviewer-avatar">LG</div>
+                    <div><strong>Luan Gashi</strong><span>Prishtinë</span></div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"Enisi Center është dyqani im i preferuar online. Çmimet janë të shkëlqyera dhe shërbimi fantastic!"</p>
+                <div class="reviewer">
+                    <div class="reviewer-avatar">VM</div>
+                    <div><strong>Valmira Morina</strong><span>Mitrovicë</span></div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"Kam blerë shumë herë dhe gjithmonë jam i kënaqur. Produktet vijnë të paketuara mirë dhe në kohë."</p>
+                <div class="reviewer">
+                    <div class="reviewer-avatar">AH</div>
+                    <div><strong>Arben Haliti</strong><span>Ferizaj</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+<script>
+// Load featured products dynamically
+async function loadProducts(containerId, url) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    try {
+        const resp = await fetch(url);
+        const data = await resp.json();
+        if (!data.length) { container.innerHTML = '<p class="no-results">Nuk ka produkte.</p>'; return; }
+        container.innerHTML = data.map(p => `
+            <div class="product-card" data-id="${p.id}">
+                <a href="/shop/product/${p.id}" class="product-card-link">
+                    <div class="product-img-wrap">
+                        <img src="${p.image || '/img/placeholder.png'}" alt="${p.name}" class="product-img" loading="lazy" />
+                        ${p.isOnSale ? `<span class="badge-sale">-${p.discountPercent}%</span>` : ''}
+                    </div>
+                    <div class="product-info">
+                        <p class="product-cat">${p.categoryName || ''}</p>
+                        <h3 class="product-name">${p.name}</h3>
+                        <div class="product-price-row">
+                            <span class="product-price">${p.displayPrice} €</span>
+                            ${p.isOnSale ? `<span class="product-old-price">${p.price} €</span>` : ''}
+                        </div>
+                    </div>
+                </a>
+                <button class="btn-add-cart" onclick="addToCart(${p.id}, this)">
+                    + Shporta
+                </button>
+            </div>
+        `).join('');
+    } catch(e) {
+        container.innerHTML = '<p class="no-results">Nuk mund të ngarkohen produktet.</p>';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadProducts('featuredProducts', '/Shop/Featured');
+    loadProducts('newProducts', '/Shop/Newest');
+});
+</script>
+}

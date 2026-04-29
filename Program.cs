@@ -1,9 +1,9 @@
-﻿using ProjectTemplate.Data;
+using ProjectTemplate.Data;
 using ProjectTemplate.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-// ---- Load .env file ---
+// ── Load .env ──────────────────────────────────────────────────────────────────
 var envPath = Path.Combine(Directory.GetCurrentDirectory(), ".env");
 if (File.Exists(envPath))
 {
@@ -11,52 +11,45 @@ if (File.Exists(envPath))
     {
         var parts = line.Split('=', 2, StringSplitOptions.RemoveEmptyEntries);
         if (parts.Length == 2)
-        {
-            Environment.SetEnvironmentVariable(parts[0], parts[1]);
-        }
+            Environment.SetEnvironmentVariable(parts[0].Trim(), parts[1].Trim());
     }
 }
-// -----------------------
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add environment variables to config
 builder.Configuration.AddEnvironmentVariables();
 
-// â”€â”€ Services â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Localisation ───────────────────────────────────────────────────────────────
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-builder.Services.AddControllersWithViews()
-    .AddViewLocalization();
-
+builder.Services.AddControllersWithViews().AddViewLocalization();
 builder.Services.Configure<Microsoft.AspNetCore.Builder.RequestLocalizationOptions>(options =>
 {
-    var supportedCultures = new[] { "en", "sq" };
-    options.SetDefaultCulture("en");
-    options.AddSupportedCultures(supportedCultures);
-    options.AddSupportedUICultures(supportedCultures);
+    var supported = new[] { "sq", "en" };
+    options.SetDefaultCulture("sq");
+    options.AddSupportedCultures(supported);
+    options.AddSupportedUICultures(supported);
 });
+
+// ── Caching / Compression / Session ───────────────────────────────────────────
 builder.Services.AddOutputCache();
-builder.Services.AddResponseCompression(options =>
-{
-    options.EnableForHttps = true;
-});
+builder.Services.AddResponseCompression(o => o.EnableForHttps = true);
 builder.Services.AddMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromHours(2);
+    options.IdleTimeout = TimeSpan.FromHours(4);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
+    options.Cookie.Name = ".EnisiCenter.Session";
 });
 
-var rawConnString = builder.Configuration["SUPABASE_CONNECTION_STRING"] 
-    ?? builder.Configuration.GetConnectionString("DefaultConnection") 
+// ── Database ───────────────────────────────────────────────────────────────────
+var rawConn = builder.Configuration["SUPABASE_CONNECTION_STRING"]
+    ?? builder.Configuration.GetConnectionString("DefaultConnection")
     ?? "Data Source=app.db";
 
-var connectionString = rawConnString;
-
-if (rawConnString.StartsWith("postgres://") || rawConnString.StartsWith("postgresql://"))
+var connectionString = rawConn;
+if (rawConn.StartsWith("postgres://") || rawConn.StartsWith("postgresql://"))
 {
-    var uri = new Uri(rawConnString);
+    var uri = new Uri(rawConn);
     var userInfo = uri.UserInfo.Split(':');
     var password = userInfo.Length > 1 ? userInfo[1] : "";
     connectionString = $"Host={uri.Host};Port={(uri.Port > 0 ? uri.Port : 5432)};Database={uri.LocalPath.TrimStart('/')};Username={userInfo[0]};Password={password};Ssl Mode=Require;Trust Server Certificate=true;Pooling=true;";
@@ -65,136 +58,84 @@ if (rawConnString.StartsWith("postgres://") || rawConnString.StartsWith("postgre
 builder.Services.AddDbContextPool<AppDbContext>(options =>
 {
     if (connectionString.Contains("app.db"))
-    {
         options.UseSqlite(connectionString);
-    }
     else
-    {
         options.UseNpgsql(connectionString);
-    }
 });
 
-builder.Services.AddMemoryCache();
+// ── Application services ───────────────────────────────────────────────────────
 builder.Services.AddScoped<IChapterService, ChapterService>();
 builder.Services.AddScoped<IGameSessionService, GameSessionService>();
 builder.Services.AddScoped<ILeaderboardService, LeaderboardService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 
+// Ecommerce services
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+
 var app = builder.Build();
 
+// ── Port binding for Render ────────────────────────────────────────────────────
 var port = Environment.GetEnvironmentVariable("PORT");
 if (!string.IsNullOrEmpty(port))
-{
     app.Urls.Add($"http://*:{port}");
-}
 
-// â”€â”€ Middleware â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Middleware ─────────────────────────────────────────────────────────────────
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-
 app.UseResponseCompression();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
 app.UseRequestLocalization();
-
 app.UseOutputCache();
 app.UseSession();
 app.UseAuthorization();
 
-// â”€â”€ Seed database â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Database initialisation ────────────────────────────────────────────────────
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
     if (db.Database.ProviderName != null && db.Database.ProviderName.Contains("Npgsql"))
-     {
-         try
-         {
-             var creator = db.Database.GetService<Microsoft.EntityFrameworkCore.Storage.IRelationalDatabaseCreator>();
-             try
-             {
-                 if (!creator.Exists())
-                 {
-                     creator.Create();
-                 }
-             }
-             catch { /* Ignore database creation failures */ }
-
-             try {
-                 // Apply any pending migrations to keep Supabase integration tables up to date
-                 db.Database.Migrate();
-             } 
-             catch { /* Ignore migration errors on start if they fail */ }
-
-             var connection = db.Database.GetDbConnection();
-             bool hasTables = false;
-             try
-             {
-                 connection.Open();
-                 using var command = connection.CreateCommand();
-                 command.CommandText = "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'Chapters';";
-                 var count = Convert.ToInt64(command.ExecuteScalar());
-                 hasTables = count > 0;
-             }
-             finally
-             {
-                 connection.Close();
-             }
-
-             if (!hasTables)
-             {
-                 // In case migration was skipped or failed and database is empty
-                 try {
-                     creator.CreateTables();
-                 } catch { }
-             }
-             else
-             {
-                 // Add missing columns if database exists but needs sync
-                 try {
-                     var conn = db.Database.GetDbConnection();
-                     if (conn.State != System.Data.ConnectionState.Open) conn.Open();
-                     using var cmd = conn.CreateCommand();
-                     cmd.CommandText = @"
-                         ALTER TABLE ""Chapters"" ADD COLUMN IF NOT EXISTS ""Language"" text DEFAULT 'en';
-                         ALTER TABLE ""Chapters"" ADD COLUMN IF NOT EXISTS ""GameType"" text DEFAULT 'Coding';
-                         ALTER TABLE ""GameSessions"" ADD COLUMN IF NOT EXISTS ""PlayerName"" text DEFAULT '';
-                         ALTER TABLE ""GameSessions"" ADD COLUMN IF NOT EXISTS ""Language"" text DEFAULT 'en';
-                         ALTER TABLE ""GameSessions"" ADD COLUMN IF NOT EXISTS ""GameType"" text DEFAULT 'Coding';
-                     ";
-                     cmd.ExecuteNonQuery();
-                     conn.Close();
-                 } catch { }
-             }
-         }
-         catch (Exception ex)
-         {
-             Console.WriteLine($"Error initializing db: {ex.Message}");
-         }
-     }
+    {
+        try
+        {
+            var creator = db.Database.GetService<Microsoft.EntityFrameworkCore.Storage.IRelationalDatabaseCreator>();
+            try { if (!creator.Exists()) creator.Create(); } catch { }
+            try { db.Database.Migrate(); } catch { }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[DB Init] {ex.Message}");
+        }
+    }
     else
     {
         db.Database.EnsureCreated();
     }
 
-    try
-    {
-        DbSeeder.Seed(db);
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Error seeding db: {ex.Message}");
-    }
+    // Seed quiz/game data (existing seeder — unchanged)
+    try { DbSeeder.Seed(db); }
+    catch (Exception ex) { Console.WriteLine($"[Seeder] {ex.Message}"); }
+
+    // Seed demo products for Enisi Center if catalog is empty
+    try { EcommerceSeeder.Seed(db); }
+    catch (Exception ex) { Console.WriteLine($"[EcommerceSeeder] {ex.Message}"); }
 }
 
-// â”€â”€ Routes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Routes ─────────────────────────────────────────────────────────────────────
+app.MapControllerRoute(
+    name: "shop_product",
+    pattern: "shop/product/{id:int}/{slug?}",
+    defaults: new { controller = "Shop", action = "Detail" });
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-

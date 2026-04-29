@@ -1,0 +1,144 @@
+@model ProjectTemplate.Models.Ecommerce.CartViewModel
+@{
+    ViewData["Title"] = "Shporta";
+}
+
+<div class="cart-page">
+    <div class="ec-container">
+        <h1 class="page-title">🛒 Shporta Ime</h1>
+
+        @if (!Model.Cart.Items.Any())
+        {
+            <div class="empty-state">
+                <div class="empty-icon">🛒</div>
+                <h3>Shporta juaj është bosh</h3>
+                <p>Shtoni produkte për të vazhduar me blerjen.</p>
+                <a asp-controller="Shop" asp-action="Index" class="btn-primary">Vazhdo me blerjen</a>
+            </div>
+        }
+        else
+        {
+            <div class="cart-layout">
+                <!-- Cart Items -->
+                <div class="cart-items">
+                    <table class="cart-table">
+                        <thead>
+                            <tr>
+                                <th>Produkti</th>
+                                <th>Çmimi</th>
+                                <th>Sasia</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="cartBody">
+                        @foreach (var item in Model.Cart.Items)
+                        {
+                            <tr id="cart-row-@item.ProductId" class="cart-row">
+                                <td class="cart-product-col">
+                                    <img src="@(item.ImageUrl ?? "/img/placeholder.png")" alt="@item.ProductName" class="cart-thumb" />
+                                    <div>
+                                        <strong>@item.ProductName</strong>
+                                        @if (!string.IsNullOrEmpty(item.Unit))
+                                        {
+                                            <small class="text-muted">/ @item.Unit</small>
+                                        }
+                                    </div>
+                                </td>
+                                <td>@item.UnitPrice.ToString("F2") €</td>
+                                <td>
+                                    <div class="cart-qty-control">
+                                        <button class="qty-btn-sm" onclick="updateQty(@item.ProductId, @(item.Quantity - 1))">-</button>
+                                        <span class="cart-qty" id="qty-@item.ProductId">@item.Quantity.ToString("G")</span>
+                                        <button class="qty-btn-sm" onclick="updateQty(@item.ProductId, @(item.Quantity + 1))">+</button>
+                                    </div>
+                                </td>
+                                <td class="cart-item-total" id="total-@item.ProductId">@item.TotalPrice.ToString("F2") €</td>
+                                <td>
+                                    <button class="btn-remove" onclick="removeItem(@item.ProductId)" title="Fshi">✕</button>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+
+                    <div class="cart-actions">
+                        <a asp-controller="Shop" asp-action="Index" class="btn-ghost">← Vazhdo me blerjen</a>
+                        <button class="btn-ghost btn-danger" onclick="clearCart()">Zbraz Shportën</button>
+                    </div>
+                </div>
+
+                <!-- Summary -->
+                <div class="cart-summary">
+                    <h3>Përmbledhja e Porosisë</h3>
+                    <div class="summary-row">
+                        <span>Nëntotal:</span>
+                        <strong id="cartSubTotal">@Model.Cart.SubTotal.ToString("F2") €</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span>Dërgesa:</span>
+                        <strong class="text-green">Falas</strong>
+                    </div>
+                    <div class="summary-row summary-total">
+                        <span>Total:</span>
+                        <strong id="cartTotal">@Model.Cart.SubTotal.ToString("F2") €</strong>
+                    </div>
+                    <a asp-controller="Checkout" asp-action="Index" class="btn-checkout">
+                        Vazhdo me Porosinë →
+                    </a>
+                    <div class="summary-trust">
+                        <span>🔒 Pagim i sigurt</span>
+                        <span>🚚 Dorëzim i shpejtë</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+<script>
+async function updateQty(productId, quantity) {
+    if (quantity < 0) return;
+    const resp = await fetch('/Cart/UpdateQuantity', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productId, quantity })
+    });
+    const data = await resp.json();
+    if (data.success) {
+        if (quantity === 0) {
+            document.getElementById('cart-row-' + productId)?.remove();
+        } else {
+            document.getElementById('qty-' + productId).textContent = quantity;
+            document.getElementById('total-' + productId).textContent = data.itemTotal + ' €';
+        }
+        document.getElementById('cartSubTotal').textContent = data.subTotal + ' €';
+        document.getElementById('cartTotal').textContent = data.subTotal + ' €';
+        updateCartBadge(data.cartCount);
+        if (data.cartCount === 0) location.reload();
+    }
+}
+
+async function removeItem(productId) {
+    const resp = await fetch('/Cart/Remove', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productId })
+    });
+    const data = await resp.json();
+    if (data.success) {
+        document.getElementById('cart-row-' + productId)?.remove();
+        document.getElementById('cartSubTotal').textContent = data.subTotal + ' €';
+        document.getElementById('cartTotal').textContent = data.subTotal + ' €';
+        updateCartBadge(data.cartCount);
+        if (data.cartCount === 0) location.reload();
+    }
+}
+
+async function clearCart() {
+    if (!confirm('A doni të zbrazni shportën?')) return;
+    location.href = '/Cart/Clear';
+}
+</script>
+}

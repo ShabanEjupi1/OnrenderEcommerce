@@ -1,73 +1,135 @@
-﻿<!DOCTYPE html>
-<html lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name">
+<!DOCTYPE html>
+<html lang="sq">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@(ViewData["Title"] != null ? ViewData["Title"] + " Â· YourBrand" : "YourBrand Starter")</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <title>@(ViewData["Title"] != null ? ViewData["Title"] + " — Enisi Center" : "Enisi Center | Dyqani Juaj Online")</title>
+    <meta name="description" content="@(ViewData["Description"] ?? "Enisi Center – dyqani juaj online me produktet më cilësore. Blini me besim, me çmime konkurruese dhe dorëzim të shpejtë.")" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
 </head>
 <body>
-    <div class="scanlines" aria-hidden="true"></div>
+    <!-- ── Top Bar ─────────────────────────────────────────────────────────── -->
+    <div class="top-bar">
+        <span>🚚 Dorëzim falas për porosi mbi 50€</span>
+        <span>📞 +383 45 594 549</span>
+        <span>📍 Podujevë, Kosovë</span>
+    </div>
 
-    <nav class="site-nav">
-        <a class="nav-brand" asp-controller="Home" asp-action="Index">
-            <img src="~/favicon.ico" alt="YourBrand Logo" class="brand-icon" style="height:24px;width:auto;vertical-align:middle;margin-right:8px;" /> YourBrand
-        </a>
-        <button class="hamburger-btn" id="mobileMenuBtn" aria-label="Toggle navigation">
-            â˜°
-        </button>
-        <div class="nav-links" id="navLinks">
-            <a asp-controller="Home" asp-action="Index">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "Ballina" : "Home")</a>
-            <a asp-controller="Home" asp-action="Services">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "ShÃ«rbimet" : "Services")</a>
-            <a asp-controller="Home" asp-action="Features">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "VeÃ§oritÃ«" : "Features")</a>
-            <a asp-controller="Home" asp-action="About">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "Rreth Nesh" : "About Us")</a>
-            <a asp-controller="Home" asp-action="Faq">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "Pyetjet" : "FAQ")</a>
-            <a asp-controller="Home" asp-action="Pricing">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "Ã‡mimet" : "Pricing")</a>
-            <a asp-controller="Home" asp-action="Careers">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "Karriera" : "Careers")</a>
-            <a asp-controller="Home" asp-action="Contact">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "Kontakt" : "Contact")</a>
-            <a asp-controller="Home" asp-action="Training">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "Trajnim" : "Training")</a>
-            <a asp-controller="Game" asp-action="Leaderboard">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "LiderÃ«t" : "Leaderboard")</a>
+    <!-- ── Navigation ─────────────────────────────────────────────────────── -->
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="site-logo" asp-controller="Home" asp-action="Index">
+                <span class="logo-icon">⬡</span>
+                <span class="logo-text">Enisi<em>Center</em></span>
+            </a>
 
-            <form id="langForm" asp-controller="Home" asp-action="SetLanguage" method="post" style="display:inline-block; margin-left: 15px;">
-                <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
-                <select name="culture" onchange="document.getElementById('langForm').submit();" style="background:#222; color:#fff; border:1px solid #444; border-radius:4px; padding:2px;">
-                    <option value="en" selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name != "sq")">English</option>
-                    <option value="sq" selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq")">Shqip</option>
-                </select>
-            </form>
+            <!-- Search bar -->
+            <div class="header-search">
+                <form asp-controller="Shop" asp-action="Index" method="get" class="search-form">
+                    <input type="text" name="q" id="searchInput" class="search-input"
+                           placeholder="Kërko produkte..." value="@ViewData["SearchQuery"]"
+                           autocomplete="off" />
+                    <button type="submit" class="search-btn" aria-label="Kërko">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                    </button>
+                </form>
+                <div id="searchSuggestions" class="search-suggestions"></div>
+            </div>
+
+            <!-- Actions -->
+            <div class="header-actions">
+                <a asp-controller="Shop" asp-action="Index" class="header-action" title="Dyqani">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
+                        <path d="M16 10a4 4 0 01-8 0"/>
+                    </svg>
+                    <span class="action-label">Dyqani</span>
+                </a>
+                <a asp-controller="Cart" asp-action="Index" class="header-action cart-action" title="Shporta">
+                    <span class="cart-badge" id="cartBadge">@(ViewData["CartCount"] ?? 0)</span>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.96-1.61L23 6H6"/>
+                    </svg>
+                    <span class="action-label">Shporta</span>
+                </a>
+                <button class="hamburger-btn" id="mobileMenuBtn" aria-label="Meny">☰</button>
+            </div>
         </div>
-    </nav>
+
+        <!-- ── Category Navigation ──────────────────────────────────────────── -->
+        <nav class="cat-nav" id="catNav">
+            <div class="cat-nav-inner">
+                <a asp-controller="Shop" asp-action="Index" class="cat-nav-item">Të gjitha</a>
+                <a asp-controller="Shop" asp-action="Index" asp-route-categoryId="" class="cat-nav-item">Elektroshtepiake</a>
+                <a asp-controller="Shop" asp-action="Index" class="cat-nav-item">Elektronikë</a>
+                <a asp-controller="Shop" asp-action="Index" class="cat-nav-item">Ushqim & Pije</a>
+                <a asp-controller="Shop" asp-action="Index" class="cat-nav-item">Veshmbathje</a>
+                <a asp-controller="Shop" asp-action="Index" class="cat-nav-item">Kozmetikë</a>
+                <a asp-controller="Shop" asp-action="Index" class="cat-nav-item">Shtëpi & Kuzhinë</a>
+                <a asp-controller="Home" asp-action="About" class="cat-nav-item">Rreth Nesh</a>
+                <a asp-controller="Home" asp-action="Contact" class="cat-nav-item">Kontakt</a>
+            </div>
+        </nav>
+    </header>
 
     <main class="site-main">
         @RenderBody()
     </main>
 
+    <!-- ── Footer ──────────────────────────────────────────────────────────── -->
     <footer class="site-footer">
-        <div style="margin-top: 15px; font-size: 0.9em; opacity: 0.9; text-align: center; padding-top: 10px;">
-            <p style="font-size: 1.2em; font-weight: bold; margin-bottom: 5px;">
-                <img src="~/favicon.ico" alt="YourBrand Logo" style="height:20px;width:auto;vertical-align:middle;margin-right:4px;" /> YourBrand
-            </p>
-            <p>@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "ZÃ«vendÃ«soni tekstet, lidhjet dhe asetet me pÃ«rmbajtjen e projektit tuaj." : "Replace this placeholder content, navigation, and assets with your project-specific content.")</p>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a class="site-logo" asp-controller="Home" asp-action="Index">
+                    <span class="logo-icon">⬡</span>
+                    <span class="logo-text">Enisi<em>Center</em></span>
+                </a>
+                <p>Dyqani juaj i besueshëm online. Produkte cilësore, çmime konkurruese dhe shërbim i shkëlqyer.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook" class="social-link">f</a>
+                    <a href="#" aria-label="Instagram" class="social-link">📸</a>
+                    <a href="#" aria-label="WhatsApp" class="social-link">💬</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Dyqani</h4>
+                <a asp-controller="Shop" asp-action="Index">Të gjitha produktet</a>
+                <a asp-controller="Shop" asp-action="Index" asp-route-sort="newest">Të rejat</a>
+                <a asp-controller="Shop" asp-action="Index" asp-route-sort="price_asc">Çmimi më i ulët</a>
+            </div>
+            <div class="footer-col">
+                <h4>Informacione</h4>
+                <a asp-controller="Home" asp-action="About">Rreth Nesh</a>
+                <a asp-controller="Home" asp-action="Contact">Kontakto</a>
+                <a asp-controller="Home" asp-action="Faq">Pyetjet (FAQ)</a>
+            </div>
+            <div class="footer-col">
+                <h4>Kontakt</h4>
+                <p>📍 Prishtinë, Kosovë</p>
+                <p>📞 +383 44 000 000</p>
+                <p>✉️ info@enisicenter.com</p>
+                <p>⏰ E Hënë–E Shtunë: 08:00–20:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© @DateTime.Now.Year Enisi Center. Të gjitha të drejtat e rezervuara.</p>
+            <div class="payment-badges">
+                <span>💳 Kartë</span>
+                <span>💵 Cash</span>
+                <span>🏦 Transfer</span>
+            </div>
         </div>
     </footer>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script>
-        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
-            var nav = document.getElementById('navLinks');
-            nav.classList.toggle('active');
-        });
-    </script>
     @await RenderSectionAsync("Scripts", required: false)
-
-    <div id="support-agent-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end;">
-        <a href="/Home/Contact" style="background-color: #2196f3; color: white; border: none; border-radius: 50%; width: 60px; height: 60px; font-size: 24px; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center; text-decoration: none;" title="Contact Support">
-            ðŸ’¬
-        </a>
-    </div>
 </body>
 </html>
-

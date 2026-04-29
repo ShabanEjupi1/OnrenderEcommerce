@@ -1,0 +1,123 @@
+@model ProjectTemplate.Models.Ecommerce.CheckoutViewModel
+@{
+    ViewData["Title"] = "Porosia";
+}
+
+<div class="checkout-page">
+    <div class="ec-container">
+        <h1 class="page-title">📋 Plotëso Porosinë</h1>
+
+        <div class="checkout-layout">
+            <!-- Left: Form -->
+            <div class="checkout-form-col">
+                <form asp-action="PlaceOrder" method="post" id="checkoutForm">
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-section">
+                        <h3>📞 Informacionet Tuaja</h3>
+                        <div class="form-group">
+                            <label asp-for="CustomerName">Emri dhe Mbiemri *</label>
+                            <input asp-for="CustomerName" class="form-input" placeholder="p.sh. Luan Gashi" />
+                            <span asp-validation-for="CustomerName" class="field-error"></span>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label asp-for="CustomerPhone">Numri i Telefonit *</label>
+                                <input asp-for="CustomerPhone" class="form-input" placeholder="+383 44 000 000" />
+                                <span asp-validation-for="CustomerPhone" class="field-error"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CustomerEmail">Email (opcionale)</label>
+                                <input asp-for="CustomerEmail" class="form-input" placeholder="email@shembull.com" />
+                                <span asp-validation-for="CustomerEmail" class="field-error"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>🚚 Adresa e Dorëzimit</h3>
+                        <div class="form-group">
+                            <label asp-for="DeliveryAddress">Adresa (opcionale)</label>
+                            <input asp-for="DeliveryAddress" class="form-input" placeholder="Rruga, Numri, Qyteti" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Notes">Shënime shtesë</label>
+                            <textarea asp-for="Notes" class="form-textarea" rows="3"
+                                      placeholder="Udhëzime speciale për dorëzim, apo ndonjë kërkesë tjetër..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>💳 Mënyra e Pagesës</h3>
+                        <div class="payment-options">
+                            <label class="payment-option">
+                                <input type="radio" asp-for="PaymentMethod" value="CashOnDelivery" checked />
+                                <span class="payment-icon">💵</span>
+                                <div>
+                                    <strong>Pagesa me dorëzim</strong>
+                                    <small>Paguani kur të merrni porosinë</small>
+                                </div>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" asp-for="PaymentMethod" value="BankTransfer" />
+                                <span class="payment-icon">🏦</span>
+                                <div>
+                                    <strong>Transfer bankar</strong>
+                                    <small>Transferoni në llogarinë tonë</small>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-place-order" id="placeOrderBtn">
+                        🛍️ Konfirmo Porosinë
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right: Order Summary -->
+            <div class="checkout-summary-col">
+                <div class="order-summary-card">
+                    <h3>📦 Përmbledhja</h3>
+                    @foreach (var item in Model.Cart.Items)
+                    {
+                        <div class="summary-item">
+                            <span class="summary-item-qty">@item.Quantity.ToString("G")x</span>
+                            <span class="summary-item-name">@item.ProductName</span>
+                            <span class="summary-item-price">@item.TotalPrice.ToString("F2") €</span>
+                        </div>
+                    }
+                    <div class="summary-divider"></div>
+                    <div class="summary-row">
+                        <span>Nëntotal:</span>
+                        <strong>@Model.Cart.SubTotal.ToString("F2") €</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span>Dërgesa:</span>
+                        <strong class="text-green">Falas</strong>
+                    </div>
+                    <div class="summary-row summary-total">
+                        <span>Total:</span>
+                        <strong>@Model.Cart.SubTotal.ToString("F2") €</strong>
+                    </div>
+
+                    <div class="checkout-trust">
+                        <div>🔒 Siguri & Privatësi</div>
+                        <div>🚚 Dorëzim i shpejtë</div>
+                        <div>↩️ Kthim 30 ditë</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+document.getElementById('checkoutForm').addEventListener('submit', function() {
+    const btn = document.getElementById('placeOrderBtn');
+    btn.textContent = '⏳ Duke procesuar...';
+    btn.disabled = true;
+});
+</script>
+}

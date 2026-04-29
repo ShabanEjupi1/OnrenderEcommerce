@@ -1,0 +1,74 @@
+@{
+    ViewData["Title"] = "Produktet — Admin";
+    var products = ViewBag.Products as List<ProjectTemplate.Models.Ecommerce.Product> ?? new();
+    var categories = ViewBag.Categories as List<ProjectTemplate.Models.Ecommerce.ProductCategory> ?? new();
+}
+
+<div class="admin-page">
+    <div class="admin-header">
+        <h1>📦 Produktet</h1>
+        <div class="admin-nav">
+            <a asp-action="Dashboard" class="admin-nav-link">Dashboard</a>
+            <a asp-action="Orders"    class="admin-nav-link">Porositë</a>
+            <a asp-action="Import"    class="admin-nav-link">Import CSV</a>
+            <a asp-action="Logout"    class="admin-nav-link btn-ghost-sm">Dil</a>
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null) { <div class="alert-success">✅ @TempData["Success"]</div> }
+    @if (TempData["Error"]   != null) { <div class="alert-error">❌ @TempData["Error"]</div> }
+
+    <div class="admin-toolbar">
+        <form method="get" class="admin-search-form">
+            <input name="q" class="form-input" placeholder="Kërko produkte..." value="@ViewBag.Query" style="max-width:300px" />
+            <select name="catId" class="sort-select">
+                <option value="">Të gjitha kategorite</option>
+                @foreach (var c in categories)
+                {
+                    <option value="@c.Id" selected="@(ViewBag.SelectedCat?.ToString() == c.Id.ToString())">@c.Name</option>
+                }
+            </select>
+            <button type="submit" class="btn-primary" style="padding:8px 16px">Kërko</button>
+        </form>
+        <a asp-action="EditProduct" asp-route-id="0" class="btn-primary">+ Produkt i Ri</a>
+    </div>
+
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Produkti</th><th>Kategoria</th><th>Çmimi</th><th>Stoku</th><th>Aktiv</th><th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var p in products)
+        {
+            <tr>
+                <td>
+                    <div style="display:flex;align-items:center;gap:10px">
+                        <img src="@(p.ImageUrl ?? "/img/placeholder.png")" style="width:40px;height:40px;object-fit:cover;border-radius:6px" alt="" />
+                        <div>
+                            <strong>@p.Name</strong>
+                            @if (!string.IsNullOrEmpty(p.Brand)) { <small class="text-muted"> — @p.Brand</small> }
+                        </div>
+                    </div>
+                </td>
+                <td>@(p.CategoryName ?? "—")</td>
+                <td>
+                    @p.Price.ToString("F2") €
+                    @if (p.IsOnSale) { <span class="badge-sale-sm">→ @p.DisplayPrice.ToString("F2") €</span> }
+                </td>
+                <td>@p.StockQuantity.ToString("G")</td>
+                <td>@(p.IsActive ? "✅" : "❌")</td>
+                <td>
+                    <a asp-action="EditProduct" asp-route-id="@p.Id" class="btn-ghost-sm">Edito</a>
+                    <form asp-action="DeleteProduct" method="post" style="display:inline" onsubmit="return confirm('A jeni i sigurt?')">
+                        <input type="hidden" name="id" value="@p.Id" />
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn-ghost-sm btn-danger">Fshi</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

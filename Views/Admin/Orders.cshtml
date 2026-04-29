@@ -1,0 +1,97 @@
+@{
+    ViewData["Title"] = "Porositë — Admin";
+    var orders = ViewBag.Orders as List<ProjectTemplate.Models.Ecommerce.Order> ?? new();
+}
+
+<div class="admin-page">
+    <div class="admin-header">
+        <h1>🛍️ Porositë</h1>
+        <div class="admin-nav">
+            <a asp-action="Dashboard" class="admin-nav-link">Dashboard</a>
+            <a asp-action="Products"  class="admin-nav-link">Produktet</a>
+            <a asp-action="Logout"    class="admin-nav-link btn-ghost-sm">Dil</a>
+        </div>
+    </div>
+
+    @if (!orders.Any())
+    {
+        <div class="empty-state"><div class="empty-icon">📋</div><h3>Nuk ka porosi akoma</h3></div>
+    }
+    else
+    {
+        <table class="admin-table">
+            <thead>
+                <tr><th>Nr.</th><th>Klienti</th><th>Tel.</th><th>Email</th><th>Total</th><th>Pagesa</th><th>Statusi</th><th>Data</th><th>Veprime</th></tr>
+            </thead>
+            <tbody>
+            @foreach (var o in orders)
+            {
+                <tr>
+                    <td><strong>#@o.OrderNumber</strong></td>
+                    <td>@o.CustomerName</td>
+                    <td>@o.CustomerPhone</td>
+                    <td>@(o.CustomerEmail ?? "—")</td>
+                    <td><strong>@o.TotalAmount.ToString("F2") €</strong></td>
+                    <td>@(o.PaymentMethod == ProjectTemplate.Models.Ecommerce.PaymentMethod.CashOnDelivery ? "Cash" : "Transfer")</td>
+                    <td>
+                        <select class="status-select" onchange="updateStatus(@o.Id, this.value)"
+                                style="font-size:.85rem;padding:4px 8px;border-radius:6px;border:1px solid #334155;background:#1e293b;color:#f1f5f9">
+                            @foreach (var s in Enum.GetValues<ProjectTemplate.Models.Ecommerce.OrderStatus>())
+                            {
+                                <option value="@((int)s)" selected="@(o.Status == s)">
+                                    @(s switch {
+                                        ProjectTemplate.Models.Ecommerce.OrderStatus.Pending    => "Në pritje",
+                                        ProjectTemplate.Models.Ecommerce.OrderStatus.Confirmed  => "Konfirmuar",
+                                        ProjectTemplate.Models.Ecommerce.OrderStatus.Processing => "Në procesim",
+                                        ProjectTemplate.Models.Ecommerce.OrderStatus.Shipped    => "Dërguar",
+                                        ProjectTemplate.Models.Ecommerce.OrderStatus.Delivered  => "Dorëzuar",
+                                        ProjectTemplate.Models.Ecommerce.OrderStatus.Cancelled  => "Anuluar",
+                                        _ => s.ToString()
+                                    })
+                                </option>
+                            }
+                        </select>
+                    </td>
+                    <td>@o.CreatedAt.ToString("dd/MM HH:mm")</td>
+                    <td>
+                        <button class="btn-ghost-sm" onclick="toggleItems('@o.OrderNumber')">Shiko</button>
+                    </td>
+                </tr>
+                <tr id="items-@o.OrderNumber" style="display:none;background:#0f172a">
+                    <td colspan="9" style="padding:16px">
+                        <strong>Produktet:</strong>
+                        @foreach (var item in o.Items)
+                        {
+                            <div>@item.Quantity.ToString("G")x @item.ProductName — <strong>@item.TotalPrice.ToString("F2") €</strong></div>
+                        }
+                        @if (!string.IsNullOrEmpty(o.Notes))
+                        {
+                            <div style="margin-top:8px;color:#94a3b8">📝 @o.Notes</div>
+                        }
+                        @if (!string.IsNullOrEmpty(o.DeliveryAddress))
+                        {
+                            <div style="color:#94a3b8">📍 @o.DeliveryAddress</div>
+                        }
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+</div>
+
+@section Scripts {
+<script>
+async function updateStatus(orderId, status) {
+    await fetch('/Admin/UpdateOrderStatus', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderId, status: parseInt(status) })
+    });
+}
+function toggleItems(orderNum) {
+    const row = document.getElementById('items-' + orderNum);
+    row.style.display = row.style.display === 'none' ? 'table-row' : 'none';
+}
+</script>
+}

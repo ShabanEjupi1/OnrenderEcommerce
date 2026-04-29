@@ -1,0 +1,67 @@
+@{
+    ViewData["Title"] = "Dashboard — Admin";
+    var orders = ViewBag.RecentOrders as List<ProjectTemplate.Models.Ecommerce.Order>;
+    var totalProducts = (int)(ViewBag.TotalProducts ?? 0);
+}
+
+<div class="admin-page">
+    <div class="admin-header">
+        <h1>📊 Dashboard</h1>
+        <div class="admin-nav">
+            <a asp-action="Products" class="admin-nav-link">Produktet</a>
+            <a asp-action="Orders"   class="admin-nav-link">Porositë</a>
+            <a asp-action="Import"   class="admin-nav-link">Import CSV</a>
+            <a asp-action="Logout"   class="admin-nav-link btn-ghost-sm">Dil</a>
+        </div>
+    </div>
+
+    <div class="admin-stats">
+        <div class="admin-stat-card">
+            <span class="stat-icon">📦</span>
+            <strong>@totalProducts</strong>
+            <span>Produkte</span>
+        </div>
+        <div class="admin-stat-card">
+            <span class="stat-icon">🛍️</span>
+            <strong>@(orders?.Count ?? 0)</strong>
+            <span>Porosi të fundit</span>
+        </div>
+    </div>
+
+    <div class="admin-section">
+        <div class="admin-section-header">
+            <h2>Porositë e Fundit</h2>
+            <a asp-action="Orders">Shih të gjitha →</a>
+        </div>
+        @if (orders != null && orders.Any())
+        {
+            <table class="admin-table">
+                <thead>
+                    <tr><th>Nr.</th><th>Klienti</th><th>Tel.</th><th>Total</th><th>Statusi</th><th>Data</th></tr>
+                </thead>
+                <tbody>
+                @foreach (var o in orders)
+                {
+                    <tr>
+                        <td><strong>#@o.OrderNumber</strong></td>
+                        <td>@o.CustomerName</td>
+                        <td>@o.CustomerPhone</td>
+                        <td><strong>@o.TotalAmount.ToString("F2") €</strong></td>
+                        <td><span class="status-badge status-@o.Status.ToString().ToLower()">@o.StatusLabel</span></td>
+                        <td>@o.CreatedAt.ToString("dd/MM HH:mm")</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-muted">Nuk ka porosi akoma.</p>
+        }
+    </div>
+
+    <div class="admin-actions">
+        <a asp-action="EditProduct" asp-route-id="0" class="btn-primary">+ Produkt i Ri</a>
+        <a asp-action="Import" class="btn-ghost">📤 Import CSV</a>
+    </div>
+</div>

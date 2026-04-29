@@ -1,0 +1,42 @@
+@{
+    ViewData["Title"] = "Admin Login";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Admin Login — Enisi Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/enisi.css" asp-append-version="true" />
+    <style>
+        body { background: #0a0f1e; display:flex; align-items:center; justify-content:center; min-height:100vh; }
+        .login-box { background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:48px; width:360px; text-align:center; }
+        .login-box h1 { color:#f59e0b; margin-bottom:8px; }
+        .login-box p { color:#94a3b8; margin-bottom:24px; }
+        .field-error { color: #f87171; font-size:.85rem; }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <div style="font-size:2.5rem;margin-bottom:12px">⬡</div>
+        <h1>Admin Panel</h1>
+        <p>Enisi Center</p>
+
+        <form method="post">
+            @Html.AntiForgeryToken()
+            <div class="form-group" style="text-align:left">
+                <label style="color:#cbd5e1;font-size:.9rem">Fjalëkalimi</label>
+                <input type="password" name="password" class="form-input" placeholder="Vendos fjalëkalimin"
+                       style="margin-top:6px" autofocus />
+            </div>
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <p class="field-error" style="margin-bottom:12px">Fjalëkalimi i gabuar.</p>
+            }
+            <button type="submit" class="btn-place-order" style="margin-top:8px">Hyr →</button>
+        </form>
+    </div>
+</body>
+</html>
