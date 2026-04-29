@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.Name">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@(ViewData["Title"] != null ? ViewData["Title"] + " Â· YourBrand" : "YourBrand Starter")</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+</head>
+<body>
+    <div class="scanlines" aria-hidden="true"></div>
+
+    <nav class="site-nav">
+        <a class="nav-brand" asp-controller="Home" asp-action="Index">
+            <img src="~/favicon.ico" alt="YourBrand Logo" class="brand-icon" style="height:24px;width:auto;vertical-align:middle;margin-right:8px;" /> YourBrand
+        </a>
+        <button class="hamburger-btn" id="mobileMenuBtn" aria-label="Toggle navigation">
+            â˜°
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a asp-controller="Home" asp-action="Index">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "Ballina" : "Home")</a>
+            <a asp-controller="Home" asp-action="Services">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "ShÃ«rbimet" : "Services")</a>
+            <a asp-controller="Home" asp-action="Features">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "VeÃ§oritÃ«" : "Features")</a>
+            <a asp-controller="Home" asp-action="About">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "Rreth Nesh" : "About Us")</a>
+            <a asp-controller="Home" asp-action="Faq">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "Pyetjet" : "FAQ")</a>
+            <a asp-controller="Home" asp-action="Pricing">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "Ã‡mimet" : "Pricing")</a>
+            <a asp-controller="Home" asp-action="Careers">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "Karriera" : "Careers")</a>
+            <a asp-controller="Home" asp-action="Contact">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "Kontakt" : "Contact")</a>
+            <a asp-controller="Home" asp-action="Training">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "Trajnim" : "Training")</a>
+            <a asp-controller="Game" asp-action="Leaderboard">@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "LiderÃ«t" : "Leaderboard")</a>
+
+            <form id="langForm" asp-controller="Home" asp-action="SetLanguage" method="post" style="display:inline-block; margin-left: 15px;">
+                <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                <select name="culture" onchange="document.getElementById('langForm').submit();" style="background:#222; color:#fff; border:1px solid #444; border-radius:4px; padding:2px;">
+                    <option value="en" selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name != "sq")">English</option>
+                    <option value="sq" selected="@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq")">Shqip</option>
+                </select>
+            </form>
+        </div>
+    </nav>
+
+    <main class="site-main">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div style="margin-top: 15px; font-size: 0.9em; opacity: 0.9; text-align: center; padding-top: 10px;">
+            <p style="font-size: 1.2em; font-weight: bold; margin-bottom: 5px;">
+                <img src="~/favicon.ico" alt="YourBrand Logo" style="height:20px;width:auto;vertical-align:middle;margin-right:4px;" /> YourBrand
+            </p>
+            <p>@(System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq" ? "ZÃ«vendÃ«soni tekstet, lidhjet dhe asetet me pÃ«rmbajtjen e projektit tuaj." : "Replace this placeholder content, navigation, and assets with your project-specific content.")</p>
+        </div>
+    </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            var nav = document.getElementById('navLinks');
+            nav.classList.toggle('active');
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <div id="support-agent-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end;">
+        <a href="/Home/Contact" style="background-color: #2196f3; color: white; border: none; border-radius: 50%; width: 60px; height: 60px; font-size: 24px; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center; text-decoration: none;" title="Contact Support">
+            ðŸ’¬
+        </a>
+    </div>
+</body>
+</html>
+

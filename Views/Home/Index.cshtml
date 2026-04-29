@@ -1,0 +1,80 @@
+﻿@{
+    var isSq = System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq";
+    ViewData["Title"] = isSq ? "Ballina" : "Home";
+}
+
+<div class="hero">
+    <div class="hero-inner" style="max-width: 1200px; margin: auto;">
+        <h1 class="hero-title">@(isSq ? "MirÃ«sevini nÃ« YourBrand" : "Welcome to YourBrand")</h1>
+        <p class="hero-sub" style="font-size: 1.5em; margin-bottom: 20px;">
+            @(isSq ? "Zgjidhja Juaj GjithÃ«pÃ«rfshirÃ«se PÃ«r Pika TÃ« Shitjes" : "Your All-In-One Point of Sale Solution")
+        </p>
+        <p class="hero-desc" style="font-size: 1.2em; line-height: 1.6; margin-bottom: 30px;">
+            @(isSq ? "Sistemi i gjeneratÃ«s sÃ« ardhshme i pÃ«rshtatur pÃ«r Pizzeri, Supermarkete dhe Dyqane Veshjesh. PerformancÃ« e lartÃ«, e bukur nÃ« dizajn dhe e ndÃ«rtuar pÃ«r t'u shkallÃ«zuar globalisht. PÃ«rjetoni tÃ« ardhmen e menaxhimit tÃ« shitjes me pakicÃ«." : "The next generation system tailored for Pizzerias, Supermarkets, and Clothing Stores. High performance, beautifully designed, and built to scale globally. Experience the future of retail management.")
+        </p>
+        <a asp-controller="Home" asp-action="Services" class="btn-primary" style="margin-bottom: 50px; display: inline-block;">
+            @(isSq ? "Eksploro ShÃ«rbimet Tona" : "Explore Our Services")
+        </a>
+
+        <div>
+            <img src="~/img/front-pos-page.png" alt="Front POS Dashboard" class="hero-image" />
+        </div>
+
+        <div class="home-section-box" style="margin-top: 3rem;">
+            <h2>
+                @(isSq ? "Fuqizimi i Bizneseve Moderne" : "Empowering Modern Businesses")
+            </h2>
+            <p>
+                @(isSq ? "YourBrand thekson operacionet tuaja duke unifikuar tÃ« gjitha aspektet e biznesit nÃ« njÃ« platformÃ« intuitive. QoftÃ« duke menaxhuar porosi tÃ« shpejta pÃ«r pizzeria apo pagesa masive tÃ« supermarketeve, YourBrand Ã«shtÃ« themeli i besueshÃ«m pÃ«r suksesin e biznesit tuaj. Integrim i plotÃ«, raporte tÃ« thella dhe qasje e vazhdueshme e bÃ«jnÃ« kÃ«tÃ« sistem njÃ« zgjidhje tÃ« padiskutueshme." : "YourBrand streamlines your operations by unifying all business aspects into an intuitive platform. Whether handling fast-paced pizzeria orders or bulk supermarket checkouts, YourBrand is the dependable foundation for your business's success. With advanced reporting, inventory management, and intuitive user interfaces, managing a modern retail business has never been easier.")
+            </p>
+        </div>
+
+        <div class="home-grid">
+            <div class="home-section-box">
+                <h3 style="color: var(--accent-green);">@(isSq ? "Pse tÃ« zgjidhni ne?" : "Why Choose Us?")</h3>
+                <ul>
+                    <li>âœ… @(isSq ? "Dizajn modern dhe i lehtÃ« pÃ«r t'u pÃ«rdorur" : "Modern and easy-to-use design")</li>
+                    <li>âœ… @(isSq ? "ShpejtÃ«si dhe performancÃ« e lartÃ«" : "High speed and performance")</li>
+                    <li>âœ… @(isSq ? "MbÃ«shtetje teknike 24/7" : "24/7 technical support")</li>
+                    <li>âœ… @(isSq ? "PÃ«rshtatje sipas nevojave tuaja" : "Customization to your needs")</li>
+                </ul>
+            </div>
+            <div class="home-section-box">
+                 <h3 style="color: var(--accent-blue);">@(isSq ? "Kush e pÃ«rdor YourBrand?" : "Who Uses YourBrand?")</h3>
+                 <p style="margin-bottom: 1rem; color: var(--text-muted);">@(isSq ? "Sistemi ynÃ« i besohet nga mbi 500+ biznese anembanÃ« KosovÃ«s dhe rajonit, duke pÃ«rfshirÃ«:" : "Our system is trusted by over 500+ businesses across Kosova and the region, including:")</p>
+                 <ul style="list-style-type: disc; padding-left: 20px;">
+                    <li>@(isSq ? "Rrjete Restorantesh & Pizzeri" : "Restaurant Chains & Pizzerias")</li>
+                    <li>@(isSq ? "Markete & Supermarkete" : "Markets & Supermarkets")</li>
+                    <li>@(isSq ? "Dyqane Rrobash & Butiqe" : "Clothing Stores & Boutiques")</li>
+                     <li>@(isSq ? "Sallone Bukurie & Spa" : "Beauty Salons & Spas")</li>
+                 </ul>
+            </div>
+        </div>
+
+        <div style="margin-top: 5rem; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 4rem;">
+            <h2 style="font-size: 2.5em; margin-bottom: 2rem;">
+                @(isSq ? "Ã‡farÃ« thonÃ« klientÃ«t tanÃ«?" : "What do our clients say?")
+            </h2>
+            <div style="display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center;">
+                <div class="home-section-box" style="flex: 1; min-width: 300px; max-width: 350px;">
+                    <p style="font-style: italic; color: #ccc;">"YourBrand ka revolucionarizuar mÃ«nyrÃ«n se si menaxhojmÃ« arkÃ«n tonÃ«. Ã‹shtÃ« shumÃ« i shpejtÃ«, pa gabime dhe mbÃ«shtetja nga ana e tyre Ã«shtÃ« e jashtÃ«zakonshme."</p>
+                    <p style="margin-top: 1rem; font-weight: bold; color: var(--accent-blue);">- Luan Gashi, Supermarket 'Lida'</p>
+                </div>
+                <div class="home-section-box" style="flex: 1; min-width: 300px; max-width: 350px;">
+                    <p style="font-style: italic; color: #ccc;">"Mbase kemi ndÃ«rruar pesÃ« sisteme tÃ« ndryshme nÃ« restorantin tonÃ« gjatÃ« viteve, por qÃ« kur vendosÃ«m kÃ«tÃ« as qÃ« na bie nÃ« mend pÃ«r tjetÃ«r. Punon si sahat!"</p>
+                    <p style="margin-top: 1rem; font-weight: bold; color: var(--accent-green);">- ArbÃ«r Haxhiu, Pizzeria 'Napoli'</p>
+                </div>
+                <div class="home-section-box" style="flex: 1; min-width: 300px; max-width: 350px;">
+                    <p style="font-style: italic; color: #ccc;">"Analizat vizuale dhe sinkronizimi 'Cloud' na ndihmojnÃ« tÃ« shohim se cilat rroba na ecin mÃ« tepÃ«r dhe t'i porositim prapÃ«. Dizajn fantastik!"</p>
+                    <p style="margin-top: 1rem; font-weight: bold; color: var(--accent-purple);">- Valmira Deda, Fashion Store</p>
+                </div>
+            </div>
+
+            <a asp-controller="Home" asp-action="Contact" class="btn-primary" style="margin-top: 3rem; display: inline-block;">
+                @(isSq ? "BÃ«hu pjesÃ« e tregimit tonÃ«!" : "Become part of our story!")
+            </a>
+        </div>
+    </div>
+</div>
+
+

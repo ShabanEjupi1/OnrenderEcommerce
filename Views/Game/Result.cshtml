@@ -1,0 +1,78 @@
+@model ResultViewModel
+@{
+    ViewData["Title"] = "Quest Complete";
+    int pct = (int)((double)Model.Session.CorrectAnswers / Model.TotalChapters * 100);
+}
+
+<div class="result-wrap">
+
+    <div class="result-hero">
+        <div class="result-trophy" aria-hidden="true">🏺</div>
+        <h1 class="result-title">Archive Restored!</h1>
+        <p class="result-player">Well done, <strong>@Model.Session.PlayerName</strong></p>
+
+        <div class="result-stats">
+            <div class="stat-box">
+                <div class="stat-value">@Model.Session.Score</div>
+                <div class="stat-label">Points</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">@Model.Session.CorrectAnswers/@Model.TotalChapters</div>
+                <div class="stat-label">Correct</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">@pct%</div>
+                <div class="stat-label">Accuracy</div>
+            </div>
+        </div>
+
+        <div class="rank-display">
+            <span class="rank-icon">★</span>
+            <span class="rank-text">@Model.Session.Rank</span>
+        </div>
+    </div>
+
+    <!-- Chapter Breakdown -->
+    <div class="breakdown-card">
+        <h2 class="breakdown-title">Chapter Breakdown</h2>
+        <div class="breakdown-list">
+            @foreach (var d in Model.Details)
+            {
+                <div class="breakdown-row @(d.WasCorrect ? "row-ok" : "row-bad")">
+                    <div class="bd-header">
+                        <span class="bd-icon">@(d.WasCorrect ? "✓" : "✗")</span>
+                        <span class="bd-label">@d.ChapterLabel</span>
+                        <span class="bd-concept">@d.Concept</span>
+                    </div>
+                    @if (!d.WasCorrect)
+                    {
+                        <div class="bd-detail">
+                            <span class="bd-yours">Your answer: @d.ChosenAnswer</span>
+                            <span class="bd-correct">Correct: @d.CorrectAnswer</span>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Concepts Learned -->
+    <div class="concepts-card">
+        <h2 class="breakdown-title">Concepts You've Explored</h2>
+        <div class="concept-grid">
+            @foreach (var d in Model.Details)
+            {
+                <div class="concept-tile @(d.WasCorrect ? "tile-ok" : "tile-dim")">
+                    @d.Concept
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="result-actions">
+        <a asp-controller="Home" asp-action="Index" class="btn-primary">↩ Play Again</a>
+        <a asp-controller="Game" asp-action="Leaderboard" class="btn-ghost">View Leaderboard</a>
+    </div>
+
+</div>

@@ -1,0 +1,71 @@
+﻿@model ProjectTemplate.Models.LeaderboardViewModel
+@{
+    ViewData["Title"] = "Leaderboard";
+}
+
+<div class="game-wrap">
+    <div class="result-hero" style="padding-top:2rem; padding-bottom:1rem;">
+        <h1 class="result-title">Leaderboard</h1>
+        <p class="hero-desc">The top archivers across the system.</p>
+    </div>
+
+    <div class="home-leaderboard" style="margin-top:0;">
+        <div class="section-title">Global Rankings</div>
+        <table class="lb-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player</th>
+                    <th>Score</th>
+                    <th>Correct</th>
+                    <th>Archivist Rank</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Entries.Any())
+                {
+                    var rank = 1;
+                    foreach (var entry in Model.Entries)
+                    {
+                        var isTop = rank <= 3;
+                        <tr class="@(isTop ? "top-row" : "")">
+                            <td>
+                                @if (rank == 1)
+                                {
+                                    <span class="rank-badge" style="background:var(--accent-yellow); color:#000;">#1</span>
+                                }
+                                else if (rank <= 3)
+                                {
+                                    <span class="rank-badge" style="background:rgba(251, 191, 36, 0.2); color:var(--accent-yellow);">#@rank</span>
+                                }
+                                else
+                                {
+                                    <span style="opacity:0.5;">#@rank</span>
+                                }
+                            </td>
+                            <td>
+                                <strong>@entry.PlayerName</strong>
+                                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.25rem;">
+                                    @entry.AchievedAt.ToString("MMM dd, yyyy")
+                                </div>
+                            </td>
+                            <td style="color:var(--accent-blue); font-weight:700;">@entry.Score</td>
+                            <td>@entry.CorrectAnswers</td>
+                            <td>
+                                <span class="rank-badge" style="background:rgba(52, 211, 153, 0.1); color:var(--accent-green);">@entry.Rank</span>
+                            </td>
+                        </tr>
+                        rank++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" style="text-align:center; padding:2rem; opacity:0.5;">No entries yet. Be the first!</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

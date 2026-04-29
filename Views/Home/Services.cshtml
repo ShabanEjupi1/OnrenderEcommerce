@@ -1,0 +1,67 @@
+﻿@{
+    var isSq = System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq";
+    ViewData["Title"] = isSq ? "ShÃ«rbimet" : "Services";
+}
+
+<div class="hero">
+    <div class="hero-inner" style="max-width: 1200px; margin: auto; text-align: left;">
+        <h1 class="hero-title" style="text-align: center;">@(isSq ? "ShÃ«rbimet Tona" : "Our Services")</h1>
+        <p class="hero-sub" style="text-align: center; margin-bottom: 40px;">@(isSq ? "Zgjidhje tÃ« PÃ«rshtatura tÃ« POS" : "Tailored POS Solutions")</p>
+
+        <div style="text-align: center; margin-bottom: 40px; font-size: 1.2em; line-height: 1.6;">
+            @(isSq ? "Ne ofrojmÃ« softuer tÃ« performancÃ«s sÃ« lartÃ« qÃ« i ndihmon bizneset tÃ« ecin pÃ«rpara me shpejtÃ«si dhe saktÃ«si." : "We deliver high-performance software that helps businesses move forward with speed and accuracy.")
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 40px; margin-bottom: 60px; background: rgba(0,0,0,0.4); border-radius: 8px; padding: 30px;">
+            <div style="flex: 1; min-width: 300px;">
+                <h3 style="color: #ff5722;">ðŸ• @(isSq ? "POS PÃ«r Pizzeri" : "Pizzeria POS")</h3>
+                <p>@(isSq ? "Menaxhoni porositÃ« dhe radhÃ«t e dÃ«rgesave mÃ« shpejt se kurrÃ«. TÃ« integruara plotÃ«sisht me sistemet e shfaqjes sÃ« kuzhinÃ«s pÃ«r tÃ« optimizuar rrjedhÃ«n e punÃ«s." : "Handle orders, customized toppings, and delivery queues faster than ever. Fully integrated with kitchen display systems to optimize the workflow from prep to plate.")</p>
+                <img src="~/img/kitchen-page.png" alt="Kitchen Display" style="width:100%; border-radius: 4px; border: 1px solid rgba(255,255,255,0.2); margin-top: 15px;" />
+            </div>
+            <div style="flex: 1; min-width: 300px;">
+                <h3 style="color: #4caf50;">ðŸ›’ @(isSq ? "POS PÃ«r Supermarkete" : "Supermarket POS")</h3>
+                <p>@(isSq ? "ShpejtÃ«si e lartÃ« e transaksioneve, skanim i barkodeve, promocione dinamike dhe menaxhim i stokut i dizajnuar pÃ«r vÃ«llime tÃ« larta tÃ« shitjes me pakicÃ«." : "High transaction throughput, integrated barcode scanning, dynamic promotions, and heavy-duty stock management designed for high-volume retail environments.")</p>
+                <img src="~/img/barcodes-page.png" alt="Barcodes & Items" style="width:100%; border-radius: 4px; border: 1px solid rgba(255,255,255,0.2); margin-top: 15px;" />
+            </div>
+            <div style="flex: 1; min-width: 300px;">
+                <h3 style="color: #2196f3;">ðŸ‘• @(isSq ? "POS PÃ«r Rroba" : "Clothing POS")</h3>
+                <p>@(isSq ? "Mbani gjurmÃ«t e madhÃ«sive, ngjyrave dhe trendeve sezonale pa ndÃ«rprerje pÃ«r tÃ« maksimizuar pÃ«rvojÃ«n e klientit dhe saktÃ«sinÃ« e inventarit." : "Keep track of sizes, colors, multi-location inventory, and seasonal trends seamlessly to maximize customer experience and inventory accuracy.")</p>
+                <img src="~/img/articles-page.png" alt="Articles & Inventory" style="width:100%; border-radius: 4px; border: 1px solid rgba(255,255,255,0.2); margin-top: 15px;" />
+            </div>
+        </div>
+
+        <h2 style="text-align: center; margin-bottom: 30px; color: #ffeb3b;">@(isSq ? "Raportim i Avancuar" : "Comprehensive Reporting")</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); padding: 30px; border-radius: 8px;">
+            <div style="flex: 1; min-width: 300px;">
+                <img src="~/img/sales-page.png" alt="Sales Data" style="width: 100%; border-radius: 4px;" />
+            </div>
+            <div style="flex: 1; min-width: 300px;">
+                <h4>@(isSq ? "AnalitikÃ« nÃ« KohÃ« Reale" : "Real-Time Analytics")</h4>
+                <p>@(isSq ? "Ndiqni performancÃ«n e biznesit tuaj globalisht. PavarÃ«sisht nÃ«se jeni duke monitoruar shitjet ditore tÃ« njÃ« dyqani apo disa dyqaneve, ju siguroni tÃ« dhÃ«na tÃ« menjÃ«hershme." : "Track your business performance globally. Whether monitoring a single store's daily sales or enterprise-wide metrics, YourBrand provides instant, actionable data.")</p>
+                <p>@(isSq ? "Analizoni trendet e shitjeve sipas datave, kohÃ«rave dhe produkteve specifike pÃ«r tÃ« formÃ«suar vendimet tuaja strategjike." : "Analyze sales trends across specific dates, times, and products to inform your strategic decisions.")</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 60px; text-align: left;">
+            <h2 style="text-align: center; margin-bottom: 40px;">@(isSq ? "ShÃ«rbime tÃ« Tjera tÃ« Ofruara" : "Other Services Offered")</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+                <div style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 8px;">
+                    <h3 style="color: #9c27b0; margin-bottom: 15px;">ðŸŒ @(isSq ? "Dizajn dhe Zhvillim tÃ« Faqeve" : "Website Design & Development")</h3>
+                    <p>@(isSq ? "HartojmÃ« dhe ndÃ«rtojmÃ« web faqe funksionale dhe pamje mahnitÃ«se pÃ«r biznesin tuaj. Portofole, dyqane online (e-commerce), apo blogje â€“ ne ofrojmÃ« zgjidhjen e plotÃ« pÃ«r prezencÃ«n tuaj online." : "Design and build stunning, functional websites for your business. From portfolios to online stores (e-commerce) and blogs â€“ we offer the complete solution for your online presence.")</p>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 8px;">
+                    <h3 style="color: #e91e63; margin-bottom: 15px;">ðŸ“± @(isSq ? "Aplikacione Mobile" : "Mobile Applications")</h3>
+                    <p>@(isSq ? "ZhvillojmÃ« aplikacione moderne pÃ«r pajisjet iOS dhe Android, tÃ« dizajnuara pÃ«r performancÃ« tÃ« lartÃ« dhe pÃ«rvojÃ« tÃ« shkÃ«lqyeshme tÃ« pÃ«rdoruesit. Ne i bÃ«jmÃ« idetÃ« tuaja vizuale nÃ« ekranet e telefonave." : "Develop modern applications for iOS and Android devices, designed for high performance and an excellent user experience. We bringing your visual ideas to smartphone screens.")</p>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.05); padding: 25px; border-radius: 8px;">
+                    <h3 style="color: #00bcd4; margin-bottom: 15px;">âš™ï¸ @(isSq ? "Sisteme tÃ« Personalizuara" : "Custom Systems")</h3>
+                    <p>@(isSq ? "Biznesi juaj ka nevoja unike? Ekipi ynÃ« mundÃ«son zhvillimin e softuerÃ«ve tÃ« ndÃ«rtuar pÃ«r qÃ«llime specifike (p.sh. ERP, CRM), krejtÃ«sisht tÃ« pÃ«rshtatshme me proceset tuaja operative." : "Does your business have unique needs? Our team can develop purpose-built software (e.g., ERP, CRM) fully tailored to your operational processes.")</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

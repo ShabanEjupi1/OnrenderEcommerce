@@ -1,0 +1,76 @@
+﻿@{
+    var isSq = System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq";
+    ViewData["Title"] = isSq ? "Karriera" : "Careers";
+}
+
+<div class="hero">
+    <div class="hero-inner" style="max-width: 800px; margin: auto;">
+        <h1 class="hero-title">@(isSq ? "Bashkohuni me Ne" : "Join Us")</h1>
+        <p class="hero-sub" style="margin-bottom: 20px;">
+            @(isSq ? "YourBrand Ã«shtÃ« nÃ« kÃ«rkim tÃ« talenteve" : "YourBrand is looking for top talent")
+        </p>
+
+        <p class="hero-desc" style="font-size: 1.1em; line-height: 1.6; text-align: left; background: rgba(0,0,0,0.3); padding: 30px; border-radius: 8px;">
+            @(isSq ? "PÃ«rdorini aftÃ«sitÃ« tuaja teknike dhe dizajnerÃ« pÃ«r tÃ« transformuar ndÃ«rmarrjet anembanÃ« KosovÃ«s dhe rajonit. Ne vlerÃ«sojmÃ« kreativitetin, pasionin pÃ«r inxhinieri dhe dÃ«shirÃ«n pÃ«r tÃ« mÃ«suar." : "Apply your technical and design skills to transform businesses across Kosova and the region. We value creativity, engineering passion, and a desire to learn.")
+        </p>
+
+        <h3 style="margin-top: 40px; margin-bottom: 20px; color: var(--accent-green); text-align: left;">
+            @(isSq ? "Pozitat e Hapura" : "Open Positions")
+        </h3>
+
+        <div style="display: flex; flex-direction: column; gap: 20px; text-align: left;">
+            <!-- Job 1 -->
+            <div class="home-section-box" style="display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--accent-blue);">
+                <div>
+                    <h4 style="font-size: 1.25em; margin-bottom: 5px;">.NET Backend Engineer</h4>
+                    <span class="chip" style="background: rgba(56,189,248,0.1); color: var(--accent-blue);">PrishtinÃ« / Hibrid</span>
+                    <span class="chip" style="background: rgba(255,255,255,0.05); color: var(--text-muted); border: none;">Full-Time</span>
+                </div>
+                <a href="mailto:contact@example.com" class="btn-ghost">
+                    @(isSq ? "Apliko" : "Apply Now")
+                </a>
+            </div>
+
+            <!-- Job 2 -->
+            <div class="home-section-box" style="display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--accent-purple);">
+                <div>
+                    <h4 style="font-size: 1.25em; margin-bottom: 5px;">Frontend Web Developer (React & Blazor)</h4>
+                    <span class="chip" style="background: rgba(167,139,250,0.1); color: var(--accent-purple);">PrishtinÃ« / Hibrid</span>
+                    <span class="chip" style="background: rgba(255,255,255,0.05); color: var(--text-muted); border: none;">Full-Time</span>
+                </div>
+                <a href="mailto:contact@example.com" class="btn-ghost">
+                    @(isSq ? "Apliko" : "Apply Now")
+                </a>
+            </div>
+
+            <!-- Job 3 -->
+            <div class="home-section-box" style="display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--accent-red);">
+                <div>
+                    <h4 style="font-size: 1.25em; margin-bottom: 5px;">UX/UI Designer</h4>
+                    <span class="chip" style="background: rgba(244,63,94,0.1); color: var(--accent-red);">PrishtinÃ« / Remote</span>
+                    <span class="chip" style="background: rgba(255,255,255,0.05); color: var(--text-muted); border: none;">Part-Time</span>
+                </div>
+                <a href="mailto:contact@example.com" class="btn-ghost">
+                    @(isSq ? "Apliko" : "Apply Now")
+                </a>
+            </div>
+        </div>
+
+        <div style="margin-top: 50px;">
+            <p style="color: var(--text-muted); font-size: 1.1em; margin-bottom: 20px;">
+                @(isSq ? "PÃ«rse duhet t'i bashkoheni ekipit tÃ« YourBrand?" : "Why should you join the YourBrand team?")
+            </p>
+            <ul style="list-style: none; padding: 0; display: grid; gap: 15px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); text-align: left;">
+                <li style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 8px;">ðŸš€ @(isSq ? "KulturÃ« inovative pa gjeneralizime korporative" : "Innovative culture with zero corporate red-tape")</li>
+                <li style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 8px;">ðŸ’» @(isSq ? "Pajisje moderne (MacBook Pro, dy monitorÃ« 4K)" : "Modern equipment (MacBook Pro, dual 4K monitors)")</li>
+                <li style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 8px;">ðŸŽ“ @(isSq ? "Buxhet zhvillimi dhe trajnime mbarÃ«kombÃ«tare" : "Development budget & nation-wide trainings")</li>
+                <li style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 8px;">ðŸ• @(isSq ? "Ushqim dhe pije falas nÃ« ambientet e zyrÃ«s" : "Free catered lunch and snacks in office")</li>
+            </ul>
+
+            <p style="color: var(--text-muted); margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                @(isSq ? "Nuk e shihni pozicionin tuaj tÃ« idealit? DÃ«rgoni CV tuaj nÃ«" : "Don't see your ideal role? Send your CV to") <strong>contact@example.com</strong> @(isSq ? "dhe ne do ta mbajmÃ« pÃ«r pozita tÃ« ardhshme." : "and we'll hold it for future openings.")
+            </p>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,70 @@
+﻿@{
+    var isSq = System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq";
+    ViewData["Title"] = isSq ? "Ã‡mimet" : "Pricing";
+}
+
+<div class="hero">
+    <h1 class="hero-title">@(isSq ? "Planet e Ã‡mimeve" : "Pricing Plans")</h1>
+    <p class="hero-desc">@(isSq ? "Zgjidhni planin YourBrand qÃ« fuqizon ekipin tuaj tÃ« shitjes me pakicÃ«." : "Choose the YourBrand plan that powers your retail team.")</p>
+</div>
+
+<div class="pricing-cards">
+    <div class="pricing-card">
+        <h3>Starter</h3>
+        <p class="price">$19<span>/mo</span></p>
+        <p class="pricing-desc">@(isSq ? "E pÃ«rkryer pÃ«r bizneset e vogla qÃ« fillojnÃ« udhÃ«timin e tyre dixhital." : "Perfect for small businesses starting their digital journey.")</p>
+        <ul>
+            <li>âœ” @(isSq ? "Deri nÃ« 5 PÃ«rdorues" : "Up to 5 Users")</li>
+            <li>âœ” @(isSq ? "Modulet BazÃ«" : "Basic Modules")</li>
+            <li>âœ” @(isSq ? "MbÃ«shtetje Standarde" : "Standard Support")</li>
+        </ul>
+        <a asp-controller="Home" asp-action="Contact" class="btn-ghost">@(isSq ? "Fillo Tani" : "Get Started")</a>
+    </div>
+
+    <div class="pricing-card popular">
+        <div class="popular-badge">@(isSq ? "MÃ« i Popullarizuari" : "Most Popular")</div>
+        <h3>Professional</h3>
+        <p class="price">$49<span>/mo</span></p>
+        <p class="pricing-desc">@(isSq ? "Funksione tÃ« avancuara pÃ«r tÃ« super-fuqizuar arkÃ«tarÃ«t tuaj." : "Advanced features to supercharge your cashiers.")</p>
+        <ul>
+            <li>âœ” @(isSq ? "Deri nÃ« 25 PÃ«rdorues" : "Up to 25 Users")</li>
+            <li>âœ” @(isSq ? "TÃ« gjitha Modulet e Avancuara" : "All Advanced Modules")</li>
+            <li>âœ” @(isSq ? "Liderbordet Live" : "Live Leaderboards")</li>
+            <li>âœ” @(isSq ? "MbÃ«shtetje Prioritare" : "Priority Support")</li>
+        </ul>
+        <a asp-controller="Home" asp-action="Contact" class="btn-primary">Get Pro</a>
+    </div>
+
+    <div class="pricing-card">
+        <h3>Enterprise</h3>
+        <p class="price">Custom</p>
+        <p class="pricing-desc">@(isSq ? "PÃ«r rrjetet e mÃ«dha tÃ« shitjes me pakicÃ« qÃ« kanÃ« nevojÃ« pÃ«r personalizim masiv." : "For large retail chains needing heavy customization.")</p>
+        <ul>
+            <li>âœ” @(isSq ? "PÃ«rdorues tÃ« Pakufizuar" : "Unlimited Users")</li>
+            <li>âœ” @(isSq ? "Modulet e Plota pÃ«r NdÃ«rmarrje" : "Full Enterprise Modules")</li>
+            <li>âœ” API Access</li>
+            <li>âœ” @(isSq ? "Menaxher i Dedikuar" : "Dedicated Manager")</li>
+            <li>âœ” @(isSq ? "Instalim On-Premise (Opsional)" : "On-Premise Installation (Optional)")</li>
+        </ul>
+        <a asp-controller="Home" asp-action="Contact" class="btn-ghost">@(isSq ? "Na Kontaktoni" : "Contact Us")</a>
+    </div>
+</div>
+
+<div class="pricing-extras" style="max-width: 1000px; margin: 60px auto; text-align: left; padding: 20px;">
+    <h2 style="text-align: center; margin-bottom: 30px;">@(isSq ? "Ã‡farÃ« pÃ«rfshihet nÃ« tÃ« gjitha planet?" : "What's included in all plans?")</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+        <div class="home-section-box" style="flex: 1; min-width: 300px;">
+            <h4 style="color: var(--accent-blue);">@(isSq ? "Migrimi Falas" : "Free Data Migration")</h4>
+            <p>@(isSq ? "ShpÃ«rngulja nga njÃ« tjetÃ«r POS sistem Ã«shtÃ« shumÃ« e lehtÃ«! Ne ofrojmÃ« migrim falas dhe tÃ« sigurt pÃ«r t'u siguruar qÃ« asgjÃ« tÃ« mos humbasÃ« kur vendosni tÃ« lÃ«vizni." : "Moving from another POS is very easy! We provide complimentary and secure data migration ensuring nothing gets misplaced when choosing to switch.")</p>
+        </div>
+        <div class="home-section-box" style="flex: 1; min-width: 300px;">
+            <h4 style="color: var(--accent-green);">@(isSq ? "AsistencÃ« dhe MbÃ«shtetje" : "Assistance and Support")</h4>
+            <p>@(isSq ? "MbÃ«shtetja jonÃ« teknike u shÃ«rben klientÃ«ve online dhe personalisht gjatÃ« ditÃ«ve tÃ« punÃ«s." : "Our reliable tech support serves clients enthusiastically, both strictly online or in-person operations during working days.")</p>
+        </div>
+        <div class="home-section-box" style="flex: 1; min-width: 300px;">
+            <h4 style="color: var(--accent-yellow);">@(isSq ? "Trajnim pÃ«r Personelin" : "Staff Training")</h4>
+            <p>@(isSq ? "Kur u zgjidhni YourBrand, ekipi juaj do pÃ«rfitojÃ« disa orÃ« trajnim direkt pÃ«r ta mÃ«suar panelin dhe t'i jepni atyre rritje tÃ« dukshme besueshmÃ«rie nÃ« sistemin." : "When selecting YourBrand, your team automatically obtains a few instructional training hours with an active instructor ensuring comprehensive confidence managing the exact interface daily.")</p>
+        </div>
+    </div>
+</div>
+

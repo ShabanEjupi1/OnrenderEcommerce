@@ -1,0 +1,125 @@
+@model ChapterViewModel
+@{
+    ViewData["Title"] = Model.Chapter.Label;
+    int displayNum    = Model.CurrentIndex + 1;
+}
+
+<div class="game-wrap">
+
+    <!-- Progress -->
+    <div class="progress-section">
+        <div class="progress-meta">
+            <span class="prog-label">Chapter @displayNum of @Model.TotalChapters</span>
+            <span class="prog-score">Score: <strong>@Model.Score</strong> &nbsp;|&nbsp; Correct: <strong>@Model.CorrectAnswers/@Model.TotalChapters</strong></span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: @Model.ProgressPercent.ToString("F0")%"></div>
+        </div>
+    </div>
+
+    <!-- Chapter Card -->
+    <div class="chapter-card" id="chapter-card">
+        <div class="card-header">
+            <div class="card-dot"></div>
+            <span class="card-label">@Model.Chapter.Label</span>
+            <span class="concept-badge">@Model.Chapter.Concept</span>
+        </div>
+
+        <div class="card-body">
+
+            <!-- Story -->
+            <div class="story-text">
+                @Html.Raw(Model.Chapter.StoryHtml)
+            </div>
+
+            <!-- Code Block -->
+            <div class="code-block">
+                <div class="code-tag">PYTHON</div>
+                <pre>@Html.Raw(Model.Chapter.CodeHtml)</pre>
+            </div>
+
+            <!-- Quiz -->
+            <div class="quiz-prompt">
+                @Model.Chapter.QuizPrompt
+            </div>
+
+            <!-- Choices -->
+            <div class="choices" id="choices">
+                @foreach (var choice in Model.Chapter.Choices)
+                {
+                    <button class="choice-btn"
+                            data-choice-id="@choice.Id"
+                            onclick="submitAnswer(@choice.Id, this)">
+                        <span class="choice-arrow">▶</span> @choice.Text
+                    </button>
+                }
+            </div>
+
+            <!-- Feedback -->
+            <div class="feedback hidden" id="feedback"></div>
+
+            <!-- Next -->
+            <div class="next-wrap hidden" id="next-wrap">
+                <a id="next-btn" asp-controller="Game" asp-action="Next" class="btn-primary">
+                    Continue the Quest →
+                </a>
+                <span id="last-msg" class="hidden" style="display:none"></span>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+let answered = false;
+
+async function submitAnswer(choiceId, btn) {
+    if (answered) return;
+    answered = true;
+
+    // Disable all buttons
+    document.querySelectorAll('.choice-btn').forEach(b => b.disabled = true);
+
+    const token = document.querySelector('input[name="__RequestVerificationToken"]')?.value;
+
+    const res = await fetch('@Url.Action("Answer", "Game")', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'RequestVerificationToken': token ?? ''
+        },
+        body: `choiceId=${choiceId}`
+    });
+
+    const data = await res.json();
+
+    // Highlight chosen
+    btn.classList.add(data.wasCorrect ? 'correct' : 'wrong');
+
+    // Highlight correct if wrong
+    if (!data.wasCorrect) {
+        document.querySelectorAll('.choice-btn').forEach(b => {
+            if (parseInt(b.dataset.choiceId) === data.correctChoiceId) {
+                b.classList.add('correct');
+            }
+        });
+    }
+
+    // Show feedback
+    const fb = document.getElementById('feedback');
+    fb.innerHTML = data.feedback;
+    fb.className = 'feedback ' + (data.wasCorrect ? 'fb-ok' : 'fb-bad');
+
+    // Show next
+    const nextWrap = document.getElementById('next-wrap');
+    nextWrap.classList.remove('hidden');
+
+    if (data.isLastChapter) {
+        document.getElementById('next-btn').href = '@Url.Action("Result", "Game")';
+        document.getElementById('next-btn').textContent = 'See Your Results →';
+    }
+}
+</script>
+<input name="__RequestVerificationToken" type="hidden" value="" />
+}

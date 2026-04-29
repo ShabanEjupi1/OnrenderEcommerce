@@ -1,0 +1,41 @@
+﻿@{
+    var isSq = System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq";
+    ViewData["Title"] = isSq ? "Rreth Nesh" : "About Us";
+}
+
+<div class="hero">
+    <div class="hero-inner" style="max-width: 1200px; margin: auto;">
+        <h1 class="hero-title">@(isSq ? "Rreth Nesh" : "About Us")</h1>
+        <p class="hero-sub">@(isSq ? "Historia e YourBrand" : "The story of YourBrand")</p>
+        <p class="hero-desc" style="font-size: 1.25em; line-height: 1.6; max-width: 800px; margin: 0 auto 40px auto; text-align: left;">
+            @(isSq ? "Ne jemi tÃ« pÃ«rkushtuar pÃ«r tÃ« ndÃ«rtuar softuerin mÃ« tÃ« fortÃ«, me performancÃ« tÃ« lartÃ« dhe vizualisht tÃ«rheqÃ«s pÃ«r Pikat e Shitjes pÃ«r bizneset nÃ« mbarÃ« botÃ«n, duke filluar nga Kosova. NdÃ«rtuar mbi arkitekturÃ«n moderne .NET 8, i optimizuar lartÃ«, dhe i shkallÃ«zuar pÃ«rmes Supabase dhe PostgreSQL." : "We are dedicated to building the most robust, high-performance, and visually appealing Point of Sales software for businesses worldwide, starting from Kosova. Built on top of modern .NET 8 architecture, highly optimized, and scalable via Supabase and PostgreSQL.")
+        </p>
+
+        <div style="text-align: left; max-width: 800px; margin: 0 auto 40px auto; background: rgba(0,0,0,0.3); padding: 30px; border-radius: 8px;">
+            <h3>@(isSq ? "Si filloi gjithÃ§ka" : "How It All Started")</h3>
+            <p>
+                @(isSq ? "GjithÃ§ka nisi me njÃ« vizion tÃ« thjeshtÃ«: t'i japim bizneseve mjetet e duhura pÃ«r tÃ« menaxhuar burimet e tyre. NÃ« vitet e para, ne ndÃ«rmorÃ«m hapa pÃ«r tÃ« studiuar tregun lokal dhe nevojat reale tÃ« bizneseve nÃ« sektorÃ« tÃ« ndryshÃ«m, pÃ«rfshirÃ« pizzeritÃ«, kafenetÃ«, dhe dyqanet e rrobave." : "It all began with a simple vision: to give businesses the right tools to manage their resources. In the early years, we took steps to study the local market and the real needs of businesses across various sectors, including pizzerias, cafes, and clothing stores.")
+            </p>
+            <p>
+                @(isSq ? "Pas njÃ« procesi tÃ« thellÃ« tÃ« kÃ«rkimit dhe zhvillimit, ne krijuam platformÃ«n e parÃ« tÃ« YourBrand e cila ndryshoi pÃ«rvojÃ«n e menaxhimit tÃ« shitjeve. Kemi evoluar vazhdimisht pÃ«rmes versioneve tÃ« ndryshme, dhe YourBrand v3.0 Ã«shtÃ« kulmi i pÃ«rvojÃ«s sonÃ« shumÃ«vjeÃ§are." : "After an intensive research and development process, we launched the first YourBrand platform, changing the sales management experience. We have continuously evolved through various versions, and YourBrand v3.0 is the culmination of our years of experience.")
+            </p>
+            <p>
+                @(isSq ? "TÃ« gjitha zgjidhjet tona janÃ« tÃ« njohura pÃ«r shpejtÃ«si dhe saktÃ«si absolute." : "All our solutions are known for absolute speed and accuracy.")
+            </p>
+        </div>
+
+        <div style="display: flex; gap: 30px; margin-top: 50px; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 300px; background: rgba(0,0,0,0.5); padding: 30px; border-radius: 8px;">
+                <h3 style="color: #4caf50;">@(isSq ? "Vizioni YnÃ«" : "Our Vision")</h3>
+                <p>@(isSq ? "TÃ« bÃ«hemi zgjidhja kryesore softuerike pÃ«r pakicÃ«n moderne dhe gastronominÃ«, duke thjeshtuar rrjedhat komplekse tÃ« punÃ«s nÃ« mÃ«nyrÃ« qÃ« pronarÃ«t tÃ« fokusohen nÃ« atÃ« qÃ« ka rÃ«ndÃ«si: tek klientÃ«t e tyre." : "To become the leading software solution for modern retail and gastronomy, simplifying complex workflows so owners can focus on what matters most: their customers.")</p>
+                <img src="~/img/finances-page.png" style="width: 100%; border-radius: 4px; margin-top: 15px;" />
+            </div>
+            <div style="flex: 1; min-width: 300px; background: rgba(0,0,0,0.5); padding: 30px; border-radius: 8px;">
+                <h3 style="color: #2196f3;">@(isSq ? "PartnerÃ«t TanÃ«" : "Our Partners")</h3>
+                <p>@(isSq ? "Ne ndÃ«rtojmÃ« marrÃ«dhÃ«nie afatgjata me partnerÃ«t e biznesit, duke krijuar ekosisteme tÃ« besueshmÃ«risÃ« dhe pÃ«rmirÃ«simit tÃ« vazhdueshÃ«m." : "We build lasting relationships with business partners, creating ecosystems of reliability, trust, and continuous improvement.")</p>
+                <img src="~/img/business-partners-page.png" style="width: 100%; border-radius: 4px; margin-top: 15px;" />
+            </div>
+        </div>
+    </div>
+</div>
+

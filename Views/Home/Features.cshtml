@@ -1,0 +1,65 @@
+@{
+    var isSq = System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq";
+    ViewData["Title"] = isSq ? "Veçoritë Tona" : "Our Features";
+}
+
+<div class="hero">
+    <div class="hero-inner" style="max-width: 1200px; margin: auto;">
+        <h1 class="hero-title">@(isSq ? "Çfarë Ofrojmë?" : "What We Offer")</h1>
+        <p class="hero-sub" style="margin-bottom: 40px;">
+            @(isSq ? "Një aplikacion i fuqishëm me funksionalitete pa limit" : "A powerful application with limitless features")
+        </p>
+
+        <div class="home-grid">
+            <div class="home-section-box">
+                <h3 style="color: var(--accent-blue);">⚡ @(isSq ? "Shpejtësi Rrufe" : "Lightning Speed")</h3>
+                <p>@(isSq ? "Sistemi jonë proceson mijëra transaksione në sekond pa asnjë lloj defekti apo ngadalësimi." : "Our system processes thousands of transactions per second without any defects or slowdowns.")</p>
+            </div>
+            
+            <div class="home-section-box">
+                <h3 style="color: var(--accent-green);">🔒 @(isSq ? "Siguri Inxhinierike" : "Engineering Security")</h3>
+                <p>@(isSq ? "Të dhënat tuaja ruhen në qendra të të dhënave super të sigurta (AWS / Azure) me enkriptim ushtarak (AES-256)." : "Your data is stored in ultra-secure datacenters (AWS / Azure) with military-grade encryption (AES-256).")</p>
+            </div>
+
+            <div class="home-section-box">
+                <h3 style="color: var(--accent-yellow);">📊 @(isSq ? "Pulti Ndërveprues" : "Interactive Dashboard")</h3>
+                <p>@(isSq ? "Shikoni grafikonet tuaja të shitjes, krahasimet mujore dhe vizualizime 3D të inventarit tuaj – e gjitha live." : "View your sales charts, monthly comparisons, and 3D visualizations of your inventory - all live.")</p>
+            </div>
+
+            <div class="home-section-box">
+                <h3 style="color: var(--accent-purple);">🔄 @(isSq ? "Integrim me Palë Të Treta" : "Third-Party Integrations")</h3>
+                <p>@(isSq ? "Jemi të integruar me printerë fiskalë (Republika e Kosovës), pajisje POS për banka dhe shërbime dërgese DHL, etj." : "We are integrated with fiscal printers (Republic of Kosova), bank POS devices, and delivery services like DHL, etc.")</p>
+            </div>
+
+            <div class="home-section-box">
+                <h3 style="color: var(--accent-red);">📱 @(isSq ? "Aplikacion Bashkëpunues" : "Collaborative App")</h3>
+                <p>@(isSq ? "Stafi i thellë bashkëpunues mund të koordinoj në të njëjtin mjedis pune nga disa pajisje." : "Deeply collaborative staff can coordinate in the same workspace from multiple devices.")</p>
+            </div>
+
+            <div class="home-section-box">
+                <h3 style="color: var(--text-main);">☁️ @(isSq ? "Sinkronizimi Cloud" : "Cloud Sync")</h3>
+                <p>@(isSq ? "Mbijeton ndërprerjet e internetit me databazën lokale automatikisht e cila sinkronizohet në cloud sapo të kthehet lidhja." : "Survives internet outages via local database which automatically syncs to the cloud when connection returns.")</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 60px; text-align: left;">
+            <h2>@(isSq ? "Si funksionon?" : "How does it work?")</h2>
+            <div class="home-section-box" style="margin-bottom: 20px;">
+                <h4 style="color: var(--accent-blue); margin-bottom: 10px; font-size: 1.25em;">@(isSq ? "1. Konfigurimi i Shpejtë" : "1. Quick Setup")</h4>
+                <p>@(isSq ? "Sistemi ynë kërkon vetëm disa minuta për t'u instaluar dhe përshtatur për nevojat reale të dyqanit apo restorantit tuaj. Importoni produktet tuaja nga listat ekzistuese (Excel / CSV) dhe filloni menjëherë punën pa asnjë stërvitje të gjatë." : "Our system requires only a few minutes to install and adapt to the real needs of your store or restaurant. Import your products from existing lists (Excel / CSV) and start working immediately with practically zero learning curve.")</p>
+            </div>
+            <div class="home-section-box" style="margin-bottom: 20px;">
+                <h4 style="color: var(--accent-green); margin-bottom: 10px; font-size: 1.25em;">@(isSq ? "2. Menaxhimi i Inventarit" : "2. Inventory Management")</h4>
+                <p>@(isSq ? "Ndjekja e çdo artikulli me paralajmërime për mungesë stoku dhe menaxhim i detajuar i stoqeve në depo të ndryshme me një klikim. Statistikat ju ndihmojnë të shmangni humbjet dhe të bëni plane për porositë e ardhshme nga furnitorët (B2B)." : "Tracking of every item with low-stock alerts and detailed inventory management across multiple warehouses with a single click. Statistics help you avoid shrink and plan future restock orders from your suppliers seamlessly.")</p>
+            </div>
+            <div class="home-section-box" style="margin-bottom: 20px;">
+                <h4 style="color: var(--accent-purple); margin-bottom: 10px; font-size: 1.25em;">@(isSq ? "3. Shitjet e Shpejta dhe Faturimi" : "3. Fast Checkout and Billing")</h4>
+                <p>@(isSq ? "Skanoni barkode dhe shtoni produkte brenda sekondave. Mundësoni ndarjen e faturës, integrimin me pikat e besnikërisë për klientët tuaj dhe lidhjen pa tel me printerët tatimorë. Ky funksionalitet është thelbësor gjatë kohës kur keni fluks klientësh në arka." : "Scan barcodes and add products within seconds. Enable bill splitting, integration with customer loyalty points, and wireless connection with fiscal printers. This functionality is absolutely essential during peak operational hours.")</p>
+            </div>
+            <div class="home-section-box" style="margin-bottom: 20px;">
+                <h4 style="color: var(--accent-red); margin-bottom: 10px; font-size: 1.25em;">@(isSq ? "4. Analizat dhe Raportimi në Kohë Reale" : "4. Real-time Analytics and Reporting")</h4>
+                <p>@(isSq ? "Kontrolloni performancën nëpërmjet paneleve vizualisht tërheqëse, shihni raportet e përditshme ose mujore, fitimin bruto, TVSH-në, dhe artikujt më të shitur nga kudo me aksesin tuaj online në platformën Cloud apo nga aplikacioni juaj i dedikuar celular." : "Review performance intuitively through visually appealing dashboards, evaluate daily or monthly reports, gross margins, VAT liability, and top-selling items from anywhere strictly utilizing your online cloud access or dedicated mobile app.")</p>
+            </div>
+        </div>
+    </div>
+</div>
