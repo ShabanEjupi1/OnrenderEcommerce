@@ -1,37 +1,37 @@
-﻿@{
+@{
     var isSq = System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq";
     ViewData["Title"] = isSq ? "Pyetjet" : "FAQ";
 }
 
 <div class="hero">
     <h1 class="hero-title">@(isSq ? "Pyetjet e Bëra Më Shpesh" : "Frequently Asked Questions")</h1>
-    <p class="hero-desc">@(isSq ? "Keni pyetje për sistemin YourBrand? Ne kemi përgjigjet që po i kërkoni." : "Got questions about the YourBrand system? We have the answers you're looking for.")</p>
+    <p class="hero-desc">@(isSq ? "Keni pyetje për Enisi Center? Ne kemi përgjigjet që po i kërkoni." : "Got questions about Enisi Center? We have the answers you're looking for.")</p>
 </div>
 
 <div class="faq-section">
     <div class="faq-item">
-        <h3>@(isSq ? "Çfarë është YourBrand?" : "What is YourBrand?")</h3>
-        <p>@(isSq ? "YourBrand është një sistem modern Point of Sale (POS) i dedikuar për supermarkete, pizeri dhe dyqane rrobash. Ai shërben si pikë qendrore ku bëhen pagesat e klientëve, si dhe luan një rol shumë të rëndësishëm në mbajtjen e evidencës së stoqeve dhe ofrimin e statistikave të shitjeve." : "YourBrand is a modern Point of Sale (POS) system tailored for supermarkets, pizzerias, and clothing stores. It serves as the primary terminal for customer checkout, while deeply integrating real-time stock inventory and producing comprehensive sales analytics.")</p>
+        <h3>@(isSq ? "Çfarë është Enisi Center?" : "What is Enisi Center?")</h3>
+        <p>@(isSq ? "Enisi Center është dyqani juaj i besuar online që ofron një gamë të gjerë produktesh duke përfshirë elektronikë, pajisje shtëpiake, ushqim dhe shumë më tepër, me çmime konkurruese." : "Enisi Center is your trusted online store offering a wide range of products including electronics, home appliances, food, and much more at competitive prices.")</p>
     </div>
 
     <div class="faq-item">
-        <h3>@(isSq ? "A mbështetet nga pajisjet celulare?" : "Is it supported on mobile devices?")</h3>
-        <p>@(isSq ? "Sigurisht! Arkëtarët ose kamerierët tuaj mund të kryejnë punën nga tabletat apo telefoni, ndërsa ju si menaxher mund të vëzhgoni nga celulari kudo që jeni gjatë ditës." : "Absolutely! Your cashiers or waitstaff can execute entirely from tablets or phones, whereas you as the manager can supervise remotely from your cellular device wherever you travel during the day.")</p>
+        <h3>@(isSq ? "Si mund të bëj një porosi?" : "How can I place an order?")</h3>
+        <p>@(isSq ? "Ju mund të porosisni shumë lehtë duke i shtuar produktet në shportë dhe duke vazhduar në arkë për të plotësuar të dhënat e dërgesës." : "You can easily order by adding products to your cart and proceeding to checkout to fill in your delivery details.")</p>
     </div>
 
     <div class="faq-item">
-        <h3>@(isSq ? "Si lidhet YourBrand me arkën time fiskale?" : "How does YourBrand integrate with my fiscal printer?")</h3>
-        <p>@(isSq ? "YourBrand është i certifikuar dhe integron plotësisht me modelet e ndryshme të printerëve fiskalë operativë në Kosovë (si dhe pajisjet POS të bankave). Mjafton vetëm instalimi i një agjenti sekondar në kompjuterin tuaj, pa asnjë vonesë printimi." : "YourBrand is certified and integrates flawlessly with multiple fiscal printer models operating in Kosova (as well as bank POS devices). Simply install our lightweight secondary agent on your PC, experiencing practically zero print latency.")</p>
+        <h3>@(isSq ? "Cilat janë metodat e pagesës?" : "What are the payment methods?")</h3>
+        <p>@(isSq ? "Ne ofrojmë pagesë me para në dorëzim (Cash) dhe pagesa përmes kartës suaj bankare." : "We offer cash on delivery and payments via your bank card.")</p>
     </div>
 
     <div class="faq-item">
-        <h3>@(isSq ? "Sa kushton dhe a ka pagesa të fshehura?" : "How much does it cost and are there hidden fees?")</h3>
-        <p>@(isSq ? "Shikoni faqen tonë të Çmimeve për të parë paketat e plota. Ju paguani vetëm tarifën mujore/vjetore pa kosto ose qira shtesë nga ne." : "Check out our Pricing page to review full tier features. You only commit to the monthly/yearly subscription rate openly disclosed, with absolutely no concealed costs from our end.")</p>
+        <h3>@(isSq ? "Sa kohë zgjat dërgesa?" : "How long does shipping take?")</h3>
+        <p>@(isSq ? "Dërgesat realizohen në mënyrë të shpejtë brenda 24 deri në 48 orë në të gjithë territorin e Kosovës." : "Deliveries are made quickly within 24 to 48 hours throughout the territory of Kosova.")</p>
     </div>
 
     <div class="faq-item">
-        <h3>@(isSq ? "Çfarë ndodh nëse bie interneti?" : "What happens if internet goes down?")</h3>
-        <p>@(isSq ? "Asgjë. Puna juaj do të vazhdojë pa ndërprerje kurse databaza lokalisht ruan me kujdes transaksionet deri në momentin që lidhja e internetit rikthehet." : "Nothing at all. Your operation endures without failure since the local database safely queues your continuous transactions until the moment your internet connection naturally recovers.")</p>
+        <h3>@(isSq ? "A mund t'i kthej produktet e blera?" : "Can I return purchased products?")</h3>
+        <p>@(isSq ? "Po, nëse produkti nuk i përmbush pritshmëritë tuaja ose është i dëmtuar, mund të inicionin kthimin bazuar në rregullat tona të kthimit." : "Yes, if the product does not meet your expectations or is damaged, you can initiate a return based on our return policy.")</p>
     </div>
 </div>
 

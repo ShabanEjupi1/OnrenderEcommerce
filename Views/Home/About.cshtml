@@ -1,4 +1,4 @@
-﻿@{
+@{
     var isSq = System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "sq";
     ViewData["Title"] = isSq ? "Rreth Nesh" : "About Us";
 }
@@ -6,34 +6,32 @@
 <div class="hero">
     <div class="hero-inner" style="max-width: 1200px; margin: auto;">
         <h1 class="hero-title">@(isSq ? "Rreth Nesh" : "About Us")</h1>
-        <p class="hero-sub">@(isSq ? "Historia e YourBrand" : "The story of YourBrand")</p>
+        <p class="hero-sub">@(isSq ? "Historia e Enisi Center" : "The story of Enisi Center")</p>
         <p class="hero-desc" style="font-size: 1.25em; line-height: 1.6; max-width: 800px; margin: 0 auto 40px auto; text-align: left;">
-            @(isSq ? "Ne jemi të përkushtuar për të ndërtuar softuerin më të fortë, me performancë të lartë dhe vizualisht tërheqës për Pikat e Shitjes për bizneset në mbarë botën, duke filluar nga Kosova. Ndërtuar mbi arkitekturën moderne .NET 8, i optimizuar lartë, dhe i shkallëzuar përmes Supabase dhe PostgreSQL." : "We are dedicated to building the most robust, high-performance, and visually appealing Point of Sales software for businesses worldwide, starting from Kosova. Built on top of modern .NET 8 architecture, highly optimized, and scalable via Supabase and PostgreSQL.")
+            @(isSq ? "Enisi Center nisi si një nismë për të sjellë produktet e nevojshme më pranë qytetarëve me një shërbim cilësor. Sot jemi rritur dhe e kemi transformuar përvojën tonë në një dyqan modern online, të gatshëm për të plotësuar çdo kërkesë tuajën." : "Enisi Center started as an initiative to bring necessary products closer to citizens with quality service. Today we have grown and transformed our experience into a modern online store, ready to fulfill all your needs.")
         </p>
 
         <div style="text-align: left; max-width: 800px; margin: 0 auto 40px auto; background: rgba(0,0,0,0.3); padding: 30px; border-radius: 8px;">
             <h3>@(isSq ? "Si filloi gjithçka" : "How It All Started")</h3>
             <p>
-                @(isSq ? "Gjithçka nisi me një vizion të thjeshtë: t'i japim bizneseve mjetet e duhura për të menaxhuar burimet e tyre. Në vitet e para, ne ndërmorëm hapa për të studiuar tregun lokal dhe nevojat reale të bizneseve në sektorë të ndryshëm, përfshirë pizzeritë, kafenetë, dhe dyqanet e rrobave." : "It all began with a simple vision: to give businesses the right tools to manage their resources. In the early years, we took steps to study the local market and the real needs of businesses across various sectors, including pizzerias, cafes, and clothing stores.")
+                @(isSq ? "Filluam me një dyqan të thjeshtë lokal me qëllimin e vetëm për të ofruar produkte të besueshme për klientët tanë. Përkushtimi ynë ndaj cilësisë dhe çmimeve të drejta na bëri të fitojmë shpejt besimin e komunitetit." : "We started with a simple local store with the sole purpose of offering reliable products to our customers. Our dedication to quality and fair prices made us quickly earn the trust of the community.")
             </p>
             <p>
-                @(isSq ? "Pas një procesi të thellë të kërkimit dhe zhvillimit, ne krijuam platformën e parë të YourBrand e cila ndryshoi përvojën e menaxhimit të shitjeve. Kemi evoluar vazhdimisht përmes versioneve të ndryshme, dhe YourBrand v3.0 është kulmi i përvojës sonë shumëvjeçare." : "After an intensive research and development process, we launched the first YourBrand platform, changing the sales management experience. We have continuously evolved through various versions, and YourBrand v3.0 is the culmination of our years of experience.")
+                @(isSq ? "Me zhvillimin e teknologjisë, pamë nevojën për t'u digjitalizuar. Kështu krijuam këtë platformë e cila na mundëson t'i shërbejmë klientëve kudo në Kosovë me të njëjtin standard të lartë." : "With the development of technology, we saw the need to digitize. Thus we created this platform which enables us to serve customers anywhere in Kosova with the same high standard.")
             </p>
             <p>
-                @(isSq ? "Të gjitha zgjidhjet tona janë të njohura për shpejtësi dhe saktësi absolute." : "All our solutions are known for absolute speed and accuracy.")
+                @(isSq ? "Cilësia, shpejtësia dhe besueshmëria mbeten shtyllat kryesore të operimit tonë të përditshëm." : "Quality, speed, and reliability remain the main pillars of our daily operations.")
             </p>
         </div>
 
         <div style="display: flex; gap: 30px; margin-top: 50px; flex-wrap: wrap;">
             <div style="flex: 1; min-width: 300px; background: rgba(0,0,0,0.5); padding: 30px; border-radius: 8px;">
                 <h3 style="color: #4caf50;">@(isSq ? "Vizioni Ynë" : "Our Vision")</h3>
-                <p>@(isSq ? "Të bëhemi zgjidhja kryesore softuerike për pakicën moderne dhe gastronominë, duke thjeshtuar rrjedhat komplekse të punës në mënyrë që pronarët të fokusohen në atë që ka rëndësi: tek klientët e tyre." : "To become the leading software solution for modern retail and gastronomy, simplifying complex workflows so owners can focus on what matters most: their customers.")</p>
-                <img src="~/img/finances-page.png" style="width: 100%; border-radius: 4px; margin-top: 15px;" />
+                <p>@(isSq ? "Të jemi destinacioni kryesor i blerjeve online, duke u ofruar klientëve lehtësi, shumëllojshmëri artikujsh dhe siguri maksimale në çdo porosi." : "To be the premier destination for online shopping, offering customers convenience, variety of items, and maximum security in every order.")</p>
             </div>
             <div style="flex: 1; min-width: 300px; background: rgba(0,0,0,0.5); padding: 30px; border-radius: 8px;">
-                <h3 style="color: #2196f3;">@(isSq ? "Partnerët Tanë" : "Our Partners")</h3>
-                <p>@(isSq ? "Ne ndërtojmë marrëdhënie afatgjata me partnerët e biznesit, duke krijuar ekosisteme të besueshmërisë dhe përmirësimit të vazhdueshëm." : "We build lasting relationships with business partners, creating ecosystems of reliability, trust, and continuous improvement.")</p>
-                <img src="~/img/business-partners-page.png" style="width: 100%; border-radius: 4px; margin-top: 15px;" />
+                <h3 style="color: #2196f3;">@(isSq ? "Përkushtimi Ndaj Klientit" : "Commitment to the Customer")</h3>
+                <p>@(isSq ? "Klienti është në qendër të çdo gjëje që bëjmë. Kujdesi ndaj tyre na motivon të përmirësohemi pa rreshtur çdo ditë e më shumë." : "The customer is at the center of everything we do. Caring for them motivates us to continuously improve every single day.")</p>
             </div>
         </div>
     </div>
