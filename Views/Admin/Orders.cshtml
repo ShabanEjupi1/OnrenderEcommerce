@@ -5,7 +5,7 @@
 
 <div class="admin-page">
     <div class="admin-header">
-        <h1>??? Porositë</h1>
+        <h1>📦 Porositë</h1>
         <div class="admin-nav">
             <a asp-action="Dashboard" class="admin-nav-link">Dashboard</a>
             <a asp-action="Products"  class="admin-nav-link">Produktet</a>
@@ -15,7 +15,7 @@
 
     @if (!orders.Any())
     {
-        <div class="empty-state"><div class="empty-icon">??</div><h3>Nuk ka porosi akoma</h3></div>
+        <div class="empty-state"><div class="empty-icon">🛒</div><h3>Nuk ka porosi akoma</h3></div>
     }
     else
     {
@@ -66,11 +66,11 @@
                         }
                         @if (!string.IsNullOrEmpty(o.Notes))
                         {
-                            <div style="margin-top:8px;color:#94a3b8">?? @o.Notes</div>
+                            <div style="margin-top:8px;color:#94a3b8">📝 @o.Notes</div>
                         }
                         @if (!string.IsNullOrEmpty(o.DeliveryAddress))
                         {
-                            <div style="color:#94a3b8">?? @o.DeliveryAddress</div>
+                            <div style="color:#94a3b8">📍 @o.DeliveryAddress</div>
                         }
                     </td>
                 </tr>

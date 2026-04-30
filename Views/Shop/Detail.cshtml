@@ -43,10 +43,10 @@
             @if (!string.IsNullOrEmpty(p.CategoryName))
             {
                 <div class="detail-meta">
-                    <span class="meta-tag">?? @p.CategoryName</span>
+                    <span class="meta-tag">📁 @p.CategoryName</span>
                     @if (!string.IsNullOrEmpty(p.Unit))
                     {
-                        <span class="meta-tag">?? @p.Unit</span>
+                        <span class="meta-tag">⚖️ @p.Unit</span>
                     }
                     @if (p.InStock)
                     {
@@ -87,22 +87,22 @@
                         <button class="qty-btn" onclick="changeQty(1)">+</button>
                     </div>
                     <button class="btn-add-cart-lg" id="addToCartBtn" onclick="addToCartDetail(@p.Id)">
-                        ?? Shto në Shportë
+                        🛒 Shto në Shportë
                     </button>
                 </div>
             }
             else
             {
                 <div class="out-of-stock-notice">
-                    <p>?? Ky produkt nuk është i disponueshëm momentalisht.</p>
+                    <p>❌ Ky produkt nuk është i disponueshëm momentalisht.</p>
                 </div>
             }
 
             <!-- Trust badges -->
             <div class="trust-badges">
-                <div class="trust-badge">?? Dorëzim falas mbi 50€</div>
-                <div class="trust-badge">?? Kthim brenda 30 ditëve</div>
-                <div class="trust-badge">?? Pagim i sigurt</div>
+                <div class="trust-badge">🚚 Dorëzim falas mbi 50€</div>
+                <div class="trust-badge">🔄 Kthim brenda 30 ditëve</div>
+                <div class="trust-badge">🔒 Pagim i sigurt</div>
             </div>
 
             <!-- Share -->
@@ -169,13 +169,13 @@ async function addToCartDetail(productId) {
             btn.classList.add('success');
             updateCartBadge(data.cartCount);
             setTimeout(() => {
-                btn.textContent = '?? Shto në Shportë';
+                btn.textContent = '🛒 Shto në Shportë';
                 btn.classList.remove('success');
                 btn.disabled = false;
             }, 2000);
         }
     } catch {
-        btn.textContent = '?? Shto në Shportë';
+        btn.textContent = '🛒 Shto në Shportë';
         btn.disabled = false;
     }
 }
