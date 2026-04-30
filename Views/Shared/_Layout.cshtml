@@ -24,8 +24,7 @@
     <header class="site-header">
         <div class="header-inner">
             <a class="site-logo" asp-controller="Home" asp-action="Index">
-                <span class="logo-icon">⬡</span>
-                <span class="logo-text">Enisi<em>Center</em></span>
+                <img src="~/enisi_center_logo_high_res.png" alt="Enisi Center Logo" style="height: 45px; object-fit: contain;" />
             </a>
 
             <!-- Search bar -->
@@ -68,12 +67,12 @@
         <nav class="cat-nav" id="catNav">
             <div class="cat-nav-inner">
                 <a asp-controller="Shop" asp-action="Index" class="cat-nav-item">Të gjitha</a>
-                <a asp-controller="Shop" asp-action="Index" asp-route-categoryId="" class="cat-nav-item">Elektroshtepiake</a>
-                <a asp-controller="Shop" asp-action="Index" class="cat-nav-item">Elektronikë</a>
-                <a asp-controller="Shop" asp-action="Index" class="cat-nav-item">Ushqim & Pije</a>
-                <a asp-controller="Shop" asp-action="Index" class="cat-nav-item">Veshmbathje</a>
-                <a asp-controller="Shop" asp-action="Index" class="cat-nav-item">Kozmetikë</a>
-                <a asp-controller="Shop" asp-action="Index" class="cat-nav-item">Shtëpi & Kuzhinë</a>
+                <a asp-controller="Shop" asp-action="Index" asp-route-q="elektroshtepiake" class="cat-nav-item">Elektroshtepiake</a>
+                <a asp-controller="Shop" asp-action="Index" asp-route-q="elektronike" class="cat-nav-item">Elektronikë</a>
+                <a asp-controller="Shop" asp-action="Index" asp-route-q="ushqim" class="cat-nav-item">Ushqim & Pije</a>
+                <a asp-controller="Shop" asp-action="Index" asp-route-q="veshmbathje" class="cat-nav-item">Veshmbathje</a>
+                <a asp-controller="Shop" asp-action="Index" asp-route-q="kozmetik" class="cat-nav-item">Kozmetikë</a>
+                <a asp-controller="Shop" asp-action="Index" asp-route-q="shtëpi" class="cat-nav-item">Shtëpi & Kuzhinë</a>
                 <a asp-controller="Home" asp-action="About" class="cat-nav-item">Rreth Nesh</a>
                 <a asp-controller="Home" asp-action="Contact" class="cat-nav-item">Kontakt</a>
             </div>
@@ -87,44 +86,56 @@
     <!-- ── Footer ──────────────────────────────────────────────────────────── -->
     <footer class="site-footer">
         <div class="footer-inner">
-            <div class="footer-brand">
-                <a class="site-logo" asp-controller="Home" asp-action="Index">
-                    <span class="logo-icon">⬡</span>
-                    <span class="logo-text">Enisi<em>Center</em></span>
+            <div class="footer-brand-col">
+                <a class="site-logo-footer" asp-controller="Home" asp-action="Index">
+                    <img src="~/enisi_center_logo_high_res.png" alt="Enisi Center Logo" style="height: 50px; margin-bottom: 1rem; filter: brightness(0) invert(1);" />
                 </a>
-                <p>Dyqani juaj i besueshëm online. Produkte cilësore, çmime konkurruese dhe shërbim i shkëlqyer.</p>
+                <p class="footer-desc">Dyqani juaj i besueshëm online.<br>Produkte cilësore, çmime konkurruese dhe shërbim i shkëlqyer për çdo klient.</p>
                 <div class="footer-social">
-                    <a href="#" aria-label="Facebook" class="social-link">f</a>
-                    <a href="#" aria-label="Instagram" class="social-link">📸</a>
-                    <a href="#" aria-label="WhatsApp" class="social-link">💬</a>
+                    <a href="#" aria-label="Facebook" class="social-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg>
+                    </a>
+                    <a href="#" aria-label="Instagram" class="social-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </a>
+                    <a href="#" aria-label="WhatsApp" class="social-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path></svg>
+                    </a>
                 </div>
             </div>
-            <div class="footer-col">
-                <h4>Dyqani</h4>
-                <a asp-controller="Shop" asp-action="Index">Të gjitha produktet</a>
-                <a asp-controller="Shop" asp-action="Index" asp-route-sort="newest">Të rejat</a>
-                <a asp-controller="Shop" asp-action="Index" asp-route-sort="price_asc">Çmimi më i ulët</a>
-            </div>
-            <div class="footer-col">
-                <h4>Informacione</h4>
-                <a asp-controller="Home" asp-action="About">Rreth Nesh</a>
-                <a asp-controller="Home" asp-action="Contact">Kontakto</a>
-                <a asp-controller="Home" asp-action="Faq">Pyetjet (FAQ)</a>
-            </div>
-            <div class="footer-col">
-                <h4>Kontakt</h4>
-                <p>📍 Prishtinë, Kosovë</p>
-                <p>📞 +383 44 000 000</p>
-                <p>✉️ info@enisicenter.com</p>
-                <p>⏰ E Hënë–E Shtunë: 08:00–20:00</p>
+            
+            <div class="footer-links-grid">
+                <div class="footer-col">
+                    <h4>Dyqani</h4>
+                    <a asp-controller="Shop" asp-action="Index">Të gjitha produktet</a>
+                    <a asp-controller="Shop" asp-action="Index" asp-route-sort="newest">Të rejat</a>
+                    <a asp-controller="Shop" asp-action="Index" asp-route-sort="price_asc">Çmimi më i ulët</a>
+                    <a asp-controller="Shop" asp-action="Index" asp-route-sort="price_desc">Ofertat Speciale</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Informacione</h4>
+                    <a asp-controller="Home" asp-action="About">Rreth Nesh</a>
+                    <a asp-controller="Home" asp-action="Contact">Kontakto</a>
+                    <a asp-controller="Home" asp-action="Faq">Pyetjet e Shpeshta</a>
+                    <a asp-controller="Home" asp-action="Terms">Kushtet e Përdorimit</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Kontakt</h4>
+                    <ul class="footer-contact-info">
+                        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Podujevë, Kosovë</li>
+                        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path></svg> +383 45 594 549</li>
+                        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> info@enisicenter.com</li>
+                        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> E Hënë–E Shtunë: 08:00–20:00</li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="footer-bottom">
             <p>© @DateTime.Now.Year Enisi Center. Të gjitha të drejtat e rezervuara.</p>
             <div class="payment-badges">
-                <span>💳 Kartë</span>
-                <span>💵 Cash</span>
-                <span>🏦 Transfer</span>
+                <span class="payment-badge">💳 Kartë</span>
+                <span class="payment-badge">💵 Cash</span>
+                <span class="payment-badge">🏦 Transfer</span>
             </div>
         </div>
     </footer>
