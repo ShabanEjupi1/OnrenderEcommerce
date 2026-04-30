@@ -1,0 +1,34 @@
+@model bool?
+@{
+    ViewData["Title"] = "Çabonohuni";
+    var success = Model == true;
+    var notFound = Model == null;
+}
+
+<div style="min-height:60vh;display:flex;align-items:center;justify-content:center;padding:2rem">
+    <div style="background:white;border-radius:20px;padding:3rem;max-width:500px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.1)">
+        @if (success)
+        {
+            <div style="font-size:4rem;margin-bottom:1rem">✅</div>
+            <h1 style="font-size:2rem;color:#0f172a;margin-bottom:1rem">U çabonuat me sukses</h1>
+            <p style="color:#64748b;line-height:1.7">Emaili juaj u hoq nga lista e buletinit të <strong>Enisi Center</strong>. Nuk do të merrni më email promovues.</p>
+        }
+        else if (notFound)
+        {
+            <div style="font-size:4rem;margin-bottom:1rem">ℹ️</div>
+            <h1 style="font-size:2rem;color:#0f172a;margin-bottom:1rem">Lidhja e pavlefshme</h1>
+            <p style="color:#64748b;line-height:1.7">Ky link çabonimit nuk është i vlefshëm ose ky email nuk gjendet në listën tonë.</p>
+        }
+        else
+        {
+            <div style="font-size:4rem;margin-bottom:1rem">❌</div>
+            <h1 style="font-size:2rem;color:#0f172a;margin-bottom:1rem">Gabim</h1>
+            <p style="color:#64748b;line-height:1.7">Ndodhi një gabim gjatë procesimit. Ju lutem provoni sërisht.</p>
+        }
+
+        <a asp-controller="Home" asp-action="Index"
+           style="display:inline-block;margin-top:2rem;padding:0.875rem 2rem;background:linear-gradient(135deg,#4f46e5,#0ea5e9);color:white;border-radius:50px;font-weight:700;text-decoration:none;transition:all 0.3s">
+            ← Kthehu në Ballina
+        </a>
+    </div>
+</div>

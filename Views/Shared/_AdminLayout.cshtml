@@ -11,7 +11,7 @@
             --admin-bg: #09090b;
             --admin-surface: #18181b;
             --admin-surface-hover: #27272a;
-            --admin-border: rgba(255, 255, 255, 0.1);
+            --admin-border: rgba(255, 255, 255, 0.08);
             --admin-text: #f4f4f5;
             --admin-muted: #a1a1aa;
             --admin-primary: #6366f1;
@@ -19,106 +19,163 @@
             --admin-accent: #8b5cf6;
         }
 
-        body.admin-body {
+        * { box-sizing: border-box; }
+
+        html, body {
             margin: 0;
             padding: 0;
             font-family: 'Inter', sans-serif;
             background-color: var(--admin-bg);
             color: var(--admin-text);
-            display: flex;
             min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.08), transparent 25%);
         }
 
+        body.admin-body {
+            display: flex;
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.06), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.06), transparent 25%);
+        }
+
+        /* ── Sidebar ──────────────────────────────────────────────────── */
         .admin-sidebar {
-            width: 280px;
-            background: rgba(24, 24, 27, 0.7);
+            width: 260px;
+            min-width: 260px;
+            background: rgba(24, 24, 27, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-right: 1px solid var(--admin-border);
             display: flex;
             flex-direction: column;
             flex-shrink: 0;
-            z-index: 10;
+            z-index: 200;
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            overflow-y: auto;
         }
 
         .admin-sidebar-header {
-            padding: 2rem 1.5rem;
-            font-size: 1.5rem;
+            padding: 1.5rem;
+            font-size: 1.3rem;
             font-family: 'Outfit', sans-serif;
             font-weight: 800;
             border-bottom: 1px solid var(--admin-border);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             background: linear-gradient(135deg, #fff, #a1a1aa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            flex-shrink: 0;
         }
-
-        .admin-sidebar-header span { 
-            color: var(--admin-primary); 
+        .admin-sidebar-header span {
+            color: var(--admin-primary);
             -webkit-text-fill-color: var(--admin-primary);
         }
 
         .admin-nav-menu {
             display: flex;
             flex-direction: column;
-            padding: 1.5rem 1rem;
+            padding: 1rem 0.75rem;
             flex: 1;
-            gap: 0.5rem;
+            gap: 0.25rem;
+        }
+
+        .admin-nav-section {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--admin-muted);
+            font-weight: 600;
+            padding: 0.75rem 0.75rem 0.25rem;
+            margin-top: 0.5rem;
         }
 
         .admin-nav-item {
-            padding: 0.8rem 1.2rem;
+            padding: 0.7rem 1rem;
             color: var(--admin-muted);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 12px;
-            border-radius: 12px;
+            gap: 10px;
+            border-radius: 10px;
             font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.9rem;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         .admin-nav-item:hover {
             background: rgba(255, 255, 255, 0.05);
             color: var(--admin-text);
-            transform: translateX(4px);
+            transform: translateX(3px);
         }
-
         .admin-nav-item.active {
             background: linear-gradient(135deg, var(--admin-primary), var(--admin-accent));
             color: #fff;
-            box-shadow: 0 4px 20px var(--admin-primary-glow);
+            box-shadow: 0 4px 15px var(--admin-primary-glow);
             font-weight: 600;
         }
 
+        /* ── Mobile sidebar toggle ───────────────────────────────────── */
+        .admin-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 300;
+            background: var(--admin-primary);
+            border: none;
+            border-radius: 10px;
+            width: 44px;
+            height: 44px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px var(--admin-primary-glow);
+        }
+        .admin-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 150;
+            backdrop-filter: blur(2px);
+        }
+        .admin-overlay.show { display: block; }
+
+        /* ── Main area ───────────────────────────────────────────────── */
         .admin-main {
             flex: 1;
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            margin-left: 260px;
+            min-height: 100vh;
         }
 
         .admin-topbar {
-            height: 80px;
-            background: rgba(9, 9, 11, 0.8);
+            height: 72px;
+            background: rgba(9, 9, 11, 0.9);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--admin-border);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 2.5rem;
-            z-index: 5;
+            padding: 0 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-shrink: 0;
         }
 
         .admin-topbar h2 {
             margin: 0;
             font-family: 'Outfit', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             background: linear-gradient(90deg, #fff, #a1a1aa);
             -webkit-background-clip: text;
@@ -128,91 +185,85 @@
         .topbar-right {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            gap: 0.75rem;
         }
 
         .topbar-btn {
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 1rem;
             border-radius: 8px;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-decoration: none;
             transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
-
         .btn-store {
             background: rgba(255, 255, 255, 0.05);
             color: var(--admin-text);
             border: 1px solid var(--admin-border);
         }
-
-        .btn-store:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-        }
-
+        .btn-store:hover { background: rgba(255,255,255,0.1); color: #fff; }
         .btn-logout {
             background: rgba(239, 68, 68, 0.1);
             color: #ef4444;
             border: 1px solid rgba(239, 68, 68, 0.2);
         }
-
-        .btn-logout:hover {
-            background: rgba(239, 68, 68, 0.2);
-            color: #f87171;
-        }
+        .btn-logout:hover { background: rgba(239,68,68,0.2); color: #f87171; }
 
         .admin-content {
-            padding: 2.5rem;
+            padding: 2rem;
             overflow-y: auto;
             flex: 1;
         }
 
-        /* Overrides for inner views to match the dark theme */
-        .admin-page { 
-            max-width: none !important; 
-            padding: 0 !important; 
-            background: transparent !important; 
-            border: none !important; 
-            box-shadow: none !important; 
-            margin: 0 !important; 
+        /* ── Overrides for inner views ───────────────────────────────── */
+        .admin-page {
+            max-width: none !important;
+            padding: 0 !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            margin: 0 !important;
         }
         .admin-header { display: none !important; }
 
+        /* ── Admin widgets ───────────────────────────────────────────── */
         .admin-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem;
         }
-
         .admin-stat-card {
             background: var(--admin-surface) !important;
             border: 1px solid var(--admin-border) !important;
-            border-radius: 16px !important;
+            border-radius: 14px !important;
             padding: 1.5rem !important;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15) !important;
             position: relative;
             overflow: hidden;
             color: var(--admin-text) !important;
         }
-        
         .admin-stat-card::after {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 4px;
+            top: 0; left: 0; width: 100%; height: 3px;
             background: linear-gradient(90deg, var(--admin-primary), var(--admin-accent));
         }
-
+        .admin-stat-card .stat-icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
         .admin-stat-card strong {
-            font-size: 2.5rem !important;
+            font-size: 2rem !important;
             font-weight: 800 !important;
             font-family: 'Outfit', sans-serif;
-            margin: 0.5rem 0;
+            margin: 0.25rem 0;
             color: #fff !important;
+            line-height: 1;
         }
+        .admin-stat-card span { color: var(--admin-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
 
         .admin-table {
             width: 100%;
@@ -220,49 +271,39 @@
             border-spacing: 0;
             background: var(--admin-surface) !important;
             border: 1px solid var(--admin-border) !important;
-            border-radius: 16px;
+            border-radius: 14px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             color: var(--admin-text) !important;
         }
-
         .admin-table th {
             background: rgba(255,255,255,0.02) !important;
             color: var(--admin-muted) !important;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.75rem;
-            padding: 1.2rem 1.5rem !important;
+            letter-spacing: 0.06em;
+            font-size: 0.72rem;
+            padding: 1rem 1.25rem !important;
             border-bottom: 1px solid var(--admin-border) !important;
         }
-
         .admin-table td {
-            padding: 1.2rem 1.5rem !important;
+            padding: 1rem 1.25rem !important;
             border-bottom: 1px solid var(--admin-border) !important;
             vertical-align: middle;
             color: var(--admin-text) !important;
         }
-
-        .admin-table tr:hover td {
-            background: rgba(255,255,255,0.02) !important;
-        }
+        .admin-table tr:last-child td { border-bottom: none !important; }
+        .admin-table tr:hover td { background: rgba(255,255,255,0.02) !important; }
 
         .admin-section {
             background: var(--admin-surface) !important;
             border: 1px solid var(--admin-border) !important;
-            border-radius: 16px !important;
-            padding: 2rem !important;
-            margin-bottom: 2rem;
+            border-radius: 14px !important;
+            padding: 1.75rem !important;
+            margin-bottom: 1.5rem;
             color: var(--admin-text) !important;
         }
+        .admin-section-header h2 { color: #fff !important; font-family: 'Outfit', sans-serif; }
 
-        .admin-section-header h2 {
-            color: #fff !important;
-            font-family: 'Outfit', sans-serif;
-        }
-
-        /* Customizing Buttons in Admin */
         .btn-primary {
             background: linear-gradient(135deg, var(--admin-primary), var(--admin-accent)) !important;
             color: #fff !important;
@@ -270,73 +311,217 @@
             box-shadow: 0 4px 15px var(--admin-primary-glow) !important;
             border-radius: 8px !important;
             font-weight: 600 !important;
+            padding: 0.6rem 1.2rem !important;
+            font-size: 0.9rem !important;
         }
-        
         .btn-ghost, .btn-ghost-sm {
             background: rgba(255,255,255,0.05) !important;
             color: var(--admin-text) !important;
             border: 1px solid var(--admin-border) !important;
             border-radius: 8px !important;
+            padding: 0.5rem 1rem !important;
+            font-size: 0.85rem !important;
+            font-weight: 600 !important;
         }
-        
-        .btn-ghost:hover, .btn-ghost-sm:hover {
-            background: rgba(255,255,255,0.1) !important;
-        }
+        .btn-ghost:hover, .btn-ghost-sm:hover { background: rgba(255,255,255,0.1) !important; }
+        .btn-danger { color: #ef4444 !important; border-color: rgba(239,68,68,0.3) !important; }
+        .btn-danger:hover { background: rgba(239,68,68,0.15) !important; }
 
         .form-input, .sort-select, .form-textarea {
-            background: rgba(0,0,0,0.2) !important;
+            background: rgba(0,0,0,0.25) !important;
             border: 1px solid var(--admin-border) !important;
             color: var(--admin-text) !important;
             border-radius: 8px !important;
+            padding: 0.6rem 1rem !important;
+            font-family: inherit !important;
+            font-size: 0.9rem !important;
+            transition: border-color 0.2s !important;
         }
         .form-input:focus, .sort-select:focus, .form-textarea:focus {
             border-color: var(--admin-primary) !important;
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2) !important;
+            outline: none !important;
+        }
+        .form-input::placeholder, .form-textarea::placeholder { color: var(--admin-muted) !important; }
+
+        .admin-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .admin-search-form {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10b981;
+            padding: 0.9rem 1.25rem;
+            border-radius: 10px;
+            margin-bottom: 1.25rem;
+            font-weight: 500;
+        }
+        .alert-error {
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+            padding: 0.9rem 1.25rem;
+            border-radius: 10px;
+            margin-bottom: 1.25rem;
+            font-weight: 500;
+        }
+
+        .text-muted { color: var(--admin-muted) !important; }
+
+        .status-badge {
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-pending { background: rgba(245,158,11,0.15); color: #f59e0b; }
+        .status-confirmed { background: rgba(99,102,241,0.15); color: #818cf8; }
+        .status-processing { background: rgba(14,165,233,0.15); color: #38bdf8; }
+        .status-shipped { background: rgba(16,185,129,0.15); color: #34d399; }
+        .status-delivered { background: rgba(16,185,129,0.2); color: #10b981; }
+        .status-cancelled { background: rgba(239,68,68,0.15); color: #f87171; }
+
+        .admin-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+
+        .badge-sale-sm {
+            background: rgba(239,68,68,0.15);
+            color: #f87171;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        /* ── Responsive breakpoints ────────────────────────────────── */
+        @@media (max-width: 900px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+            }
+            .admin-sidebar.open {
+                transform: translateX(0);
+                box-shadow: 4px 0 30px rgba(0,0,0,0.5);
+            }
+            .admin-main { margin-left: 0; }
+            .admin-menu-toggle { display: flex; }
+            .admin-topbar { padding: 0 1rem 0 4rem; }
+            .admin-content { padding: 1.25rem; }
+        }
+
+        @@media (max-width: 600px) {
+            .admin-stats { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+            .admin-stat-card strong { font-size: 1.5rem !important; }
+            .admin-topbar h2 { font-size: 1.1rem; }
+            .topbar-btn span { display: none; }
         }
     </style>
 </head>
 <body class="admin-body">
 
-    <div class="admin-sidebar">
+    <!-- Mobile menu toggle -->
+    <button class="admin-menu-toggle" id="adminMenuToggle" aria-label="Menu" aria-expanded="false">☰</button>
+    <div class="admin-overlay" id="adminOverlay"></div>
+
+    <aside class="admin-sidebar" id="adminSidebar" aria-label="Admin navigation">
         <div class="admin-sidebar-header">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--admin-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--admin-primary)" stroke-width="2.5">
+                <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                <line x1="12" y1="22.08" x2="12" y2="12"/>
             </svg>
             Enisi <span>Admin</span>
         </div>
-        <nav class="admin-nav-menu">
-            <a asp-action="Dashboard" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Dashboard" ? "active" : "")">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+
+        <nav class="admin-nav-menu" aria-label="Admin menu">
+            <span class="admin-nav-section">Kryesor</span>
+
+            <a asp-action="Dashboard"
+               class="admin-nav-item @(ViewContext.RouteData.Values["Action"]?.ToString() == "Dashboard" ? "active" : "")">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                    <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                </svg>
                 Dashboard
             </a>
-            <a asp-action="Products" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Products" ? "active" : "")">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+
+            <a asp-action="Products"
+               class="admin-nav-item @(ViewContext.RouteData.Values["Action"]?.ToString() is "Products" or "EditProduct" ? "active" : "")">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/>
+                    <line x1="7" y1="7" x2="7.01" y2="7"/>
+                </svg>
                 Produktet
             </a>
-            <a asp-action="Orders" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Orders" ? "active" : "")">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+
+            <a asp-action="Orders"
+               class="admin-nav-item @(ViewContext.RouteData.Values["Action"]?.ToString() == "Orders" ? "active" : "")">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/>
+                </svg>
                 Porositë
             </a>
-            <a asp-action="Profiles" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Profiles" ? "active" : "")">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                Profilet
+
+            <span class="admin-nav-section">Marketing</span>
+
+            <a asp-action="Promotions"
+               class="admin-nav-item @(ViewContext.RouteData.Values["Action"]?.ToString() == "Promotions" ? "active" : "")">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
+                Promovime
             </a>
-            <a asp-action="Messages" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Messages" ? "active" : "")">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                Mesazhet
+
+            <a asp-action="Subscribers"
+               class="admin-nav-item @(ViewContext.RouteData.Values["Action"]?.ToString() == "Subscribers" ? "active" : "")">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                </svg>
+                Abonentët
             </a>
-            <a asp-action="Import" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Import" ? "active" : "")">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+
+            <span class="admin-nav-section">Sistem</span>
+
+            <a asp-action="Import"
+               class="admin-nav-item @(ViewContext.RouteData.Values["Action"]?.ToString() == "Import" ? "active" : "")">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
                 Import CSV
             </a>
-            <a asp-action="Settings" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Settings" ? "active" : "")">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+
+            <a asp-action="Messages"
+               class="admin-nav-item @(ViewContext.RouteData.Values["Action"]?.ToString() == "Messages" ? "active" : "")">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+                </svg>
+                Mesazhet
+            </a>
+
+            <a asp-action="Settings"
+               class="admin-nav-item @(ViewContext.RouteData.Values["Action"]?.ToString() == "Settings" ? "active" : "")">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+                </svg>
                 Parametrat
             </a>
         </nav>
-    </div>
+    </aside>
 
     <div class="admin-main">
         <header class="admin-topbar">
@@ -345,12 +530,18 @@
             </div>
             <div class="topbar-right">
                 <a asp-controller="Home" asp-action="Index" target="_blank" class="topbar-btn btn-store">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                    Dyqani
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+                        <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                    </svg>
+                    <span>Dyqani</span>
                 </a>
                 <a asp-action="Logout" class="topbar-btn btn-logout">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-                    Dil
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                    <span>Dil</span>
                 </a>
             </div>
         </header>
@@ -360,6 +551,25 @@
         </main>
     </div>
 
+    <script>
+        // Mobile sidebar toggle
+        const sidebar = document.getElementById('adminSidebar');
+        const overlay = document.getElementById('adminOverlay');
+        const toggle  = document.getElementById('adminMenuToggle');
+
+        toggle?.addEventListener('click', () => {
+            const isOpen = sidebar.classList.toggle('open');
+            overlay.classList.toggle('show', isOpen);
+            toggle.setAttribute('aria-expanded', isOpen);
+            toggle.textContent = isOpen ? '✕' : '☰';
+        });
+        overlay?.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('show');
+            toggle.setAttribute('aria-expanded', false);
+            toggle.textContent = '☰';
+        });
+    </script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

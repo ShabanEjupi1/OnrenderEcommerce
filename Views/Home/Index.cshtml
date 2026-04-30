@@ -213,16 +213,68 @@
 </section>
 
 <!-- -- Newsletter -------------------------------------------------------- -->
-<section class="ec-section" style="background: var(--bg-surface); margin-top: 4rem; border-radius: var(--radius-lg); text-align: center; padding: 4rem 2rem; box-shadow: var(--shadow-sm);">
-    <div class="ec-container">
-        <h2 style="margin-bottom: 1rem; font-size: 2.5rem; color: var(--text-main);">Abonohu në Newsletter</h2>
-        <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem;">Merr njoftime për ofertat dhe produktet e reja direkt në emailin tënd.</p>
-        <form style="display: flex; gap: 1rem; max-width: 500px; margin: 0 auto;" onsubmit="event.preventDefault(); alert('Faleminderit për abonimin!'); this.reset();">
-            <input type="email" placeholder="Shëno emailin tënd..." required style="flex: 1; padding: 1rem 1.5rem; border-radius: var(--radius-pill); border: 2px solid #e2e8f0; font-size: 1rem; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--accent-primary)'" onblur="this.style.borderColor='#e2e8f0'" />
-            <button type="submit" class="btn-primary" style="padding: 1rem 2rem;">Abonohu</button>
+<section class="newsletter-section">
+    <div class="newsletter-section-inner">
+        <h2>📧 Abonohu në Newsletter</h2>
+        <p>Merr oferta ekskluzive dhe lajme nga Enisi Center direkt në emailin tënd.</p>
+        @if (TempData["SubscribeSuccess"] != null)
+        {
+            <div class="newsletter-feedback newsletter-feedback-ok">✅ @TempData["SubscribeSuccess"]</div>
+        }
+        @if (TempData["SubscribeError"] != null)
+        {
+            <div class="newsletter-feedback newsletter-feedback-err">❌ @TempData["SubscribeError"]</div>
+        }
+        <form asp-controller="Home" asp-action="Subscribe" method="post" class="newsletter-inline-form">
+            @Html.AntiForgeryToken()
+            <input type="email" name="email" placeholder="emaili@yt.com" required
+                   class="newsletter-inline-input" aria-label="Emaili juaj" />
+            <button type="submit" class="btn-primary" style="padding:0.875rem 2rem;font-size:1rem">
+                Abonohu →
+            </button>
         </form>
     </div>
 </section>
+
+<style>
+.newsletter-section {
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-primary-hover));
+    border-radius: var(--radius-lg);
+    padding: 4rem 2rem;
+    text-align: center;
+    margin-bottom: 0;
+}
+.newsletter-section-inner { max-width: 560px; margin: 0 auto; }
+.newsletter-section h2 { color: white; font-size: 2.25rem; margin-bottom: 0.75rem; }
+.newsletter-section p { color: rgba(255,255,255,0.85); font-size: 1.05rem; margin-bottom: 1.75rem; }
+.newsletter-inline-form { display: flex; gap: 0.75rem; max-width: 480px; margin: 0 auto; }
+.newsletter-inline-input {
+    flex: 1;
+    padding: 0.875rem 1.25rem;
+    border-radius: var(--radius-pill);
+    border: none;
+    font-family: var(--font-main);
+    font-size: 0.95rem;
+    outline: none;
+    background: rgba(255,255,255,0.95);
+}
+.newsletter-inline-input:focus { box-shadow: 0 0 0 3px rgba(255,255,255,0.4); }
+.newsletter-feedback {
+    padding: 0.875rem 1.25rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 1.25rem;
+    font-weight: 500;
+}
+.newsletter-feedback-ok  { background: rgba(255,255,255,0.2); color: white; }
+.newsletter-feedback-err { background: rgba(239,68,68,0.2);  color: #fca5a5; }
+@@media (max-width: 600px) {
+    .newsletter-section { padding: 2.5rem 1rem; border-radius: 0; margin: 0 -1rem; }
+    .newsletter-section h2 { font-size: 1.625rem; }
+    .newsletter-inline-form { flex-direction: column; }
+    .newsletter-inline-input { width: 100%; }
+}
+</style>
+
 
 @section Scripts {
 <script>

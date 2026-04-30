@@ -1,102 +1,101 @@
-// ProjectTemplate JS
+/**
+ * Enisi Center — site.js
+ * Global interactions: mobile nav, cart badge, search suggestions, product loading.
+ */
 
-// Mobile Menu Toggle
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const mobileMenu = document.querySelector('.nav-links');
-const overlay = document.getElementById('mobileOverlay');
-const closeMenu = document.getElementById('closeMenuBtn');
+// =============================================================================
+// Mobile hamburger menu — toggles cat-nav on small screens
+// =============================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('mobileMenuBtn');
+    const catNav    = document.getElementById('catNav');
 
-function toggleMobileMenu() {
-    mobileMenu.classList.toggle('active');
-    overlay.classList.toggle('active');
-    document.body.classList.toggle('no-scroll');
-}
+    if (hamburger && catNav) {
+        hamburger.addEventListener('click', () => {
+            const isOpen = catNav.classList.toggle('mobile-open');
+            hamburger.setAttribute('aria-expanded', isOpen);
+        });
 
-if (mobileMenuBtn) {
-    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-}
+        // Close nav when a link inside it is clicked (SPA-like behaviour)
+        catNav.querySelectorAll('.cat-nav-item').forEach(link => {
+            link.addEventListener('click', () => {
+                catNav.classList.remove('mobile-open');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
 
-if (overlay) {
-    overlay.addEventListener('click', toggleMobileMenu);
-}
-
-if (closeMenu) {
-    closeMenu.addEventListener('click', toggleMobileMenu);
-}
-
-// Add 'active' class to the link that matches the current route
-document.addEventListener('DOMContentLoaded', function () {
-    const navLinks = document.querySelectorAll('.nav-link');
+    // Highlight active cat-nav link
     const path = window.location.pathname;
-
-    navLinks.forEach(link => {
-        // Check if the link's href matches the current path
-        // This works for absolute paths (e.g., "/shop/category")
-        if (link.getAttribute('href') === path) {
+    document.querySelectorAll('.cat-nav-item').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && href !== '/' && path.startsWith(href)) {
             link.classList.add('active');
-        }
-        // Check for relative paths (e.g., "/shop") when on a subpage (e.g., "/shop/category")
-        else if (path.startsWith(link.getAttribute('href'))) {
+        } else if (href === path) {
             link.classList.add('active');
         }
     });
+
+    // Auto-hide subscribe toast after 5 seconds
+    document.querySelectorAll('.subscribe-toast').forEach(el => {
+        setTimeout(() => {
+            el.style.transition = 'opacity 0.6s';
+            el.style.opacity = '0';
+            setTimeout(() => el.remove(), 700);
+        }, 5000);
+    });
+
+    // Load cart count on page load
+    updateCart();
 });
 
-// Cart Actions
+// =============================================================================
+// Cart helpers
+// =============================================================================
 async function addToCart(productId, btnElement) {
     try {
         const formData = new FormData();
         formData.append('productId', productId);
         formData.append('quantity', 1);
 
-        const response = await fetch('/Cart/Add', {
-            method: 'POST',
-            body: formData
-        });
-        
+        const response = await fetch('/Cart/Add', { method: 'POST', body: formData });
         const data = await response.json();
+
         if (data.success) {
             updateCartBadge(data.cartCount);
-            
-            // Show visual feedback
             if (btnElement) {
-                const originalText = btnElement.innerText;
-                btnElement.innerText = "✓ Shtuar";
-                btnElement.classList.add('btn-success');
+                const orig = btnElement.innerText;
+                btnElement.innerText = '✓ Shtuar!';
+                btnElement.style.background = 'var(--accent-success, #10b981)';
+                btnElement.style.color = 'white';
                 setTimeout(() => {
-                    btnElement.innerText = originalText;
-                    btnElement.classList.remove('btn-success');
+                    btnElement.innerText = orig;
+                    btnElement.style.background = '';
+                    btnElement.style.color = '';
                 }, 2000);
             }
         } else {
             alert(data.message || 'Gabim gjatë shtimit në shportë.');
         }
     } catch (e) {
-        console.error("Error adding to cart:", e);
-        alert('Ndodhi një gabim gjatë shtimit në shportë.');
+        console.error('[Cart] Add error:', e);
     }
 }
 
 function updateCartBadge(count) {
-    const cartBadge = document.getElementById('cartBadge');
-    if (cartBadge) {
-        cartBadge.textContent = count;
-        cartBadge.style.display = count > 0 ? 'flex' : 'none';
-    }
+    const badge = document.getElementById('cartBadge');
+    if (!badge) return;
+    badge.textContent = count;
+    badge.style.display = count > 0 ? 'flex' : 'none';
 }
 
-// Cart Update Logic
 async function updateCart() {
     try {
-        const response = await fetch('/Cart/Count');
-        if (!response.ok) return;
-        
-        const data = await response.json();
+        const r = await fetch('/Cart/Count');
+        if (!r.ok) return;
+        const data = await r.json();
         updateCartBadge(data.count || 0);
     } catch (e) {
-        console.error("Error loading cart count:", e);
+        // Silent fail — cart badge stays at whatever was server-rendered
     }
 }
-
-// Call updateCart when the page loads
-document.addEventListener('DOMContentLoaded', updateCart);

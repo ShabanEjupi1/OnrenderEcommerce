@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -54,6 +54,8 @@ public class Product
     public bool IsActive { get; set; } = true;
 
     public bool IsFeatured { get; set; } = false;
+
+    public bool IsMostSold { get; set; } = false;
 
     /// <summary>VAT rate percentage (e.g. 18, 8, or 0).</summary>
     public decimal VatRate { get; set; } = 18;

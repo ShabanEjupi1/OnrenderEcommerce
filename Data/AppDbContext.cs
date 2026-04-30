@@ -1,4 +1,4 @@
-﻿using ProjectTemplate.Models;
+using ProjectTemplate.Models;
 using ProjectTemplate.Models.Ecommerce;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,6 +31,7 @@ public class AppDbContext : DbContext
     public DbSet<ProductCategory> ProductCategories => Set<ProductCategory>();
     public DbSet<Order> Orders => Set<Order>();
     public DbSet<OrderItem> OrderItems => Set<OrderItem>();
+    public DbSet<Subscriber> Subscribers => Set<Subscriber>();
 
     protected override void OnModelCreating(ModelBuilder mb)
     {
@@ -139,6 +140,14 @@ public class AppDbContext : DbContext
             e.Property(x => x.UnitPrice).HasColumnType("decimal(10,2)");
             e.Property(x => x.TotalPrice).HasColumnType("decimal(10,2)");
             e.Property(x => x.Quantity).HasColumnType("decimal(10,2)");
+        });
+
+        mb.Entity<Subscriber>(e =>
+        {
+            e.HasKey(x => x.Id);
+            e.Property(x => x.Email).IsRequired().HasMaxLength(200);
+            e.HasIndex(x => x.Email).IsUnique();
+            e.HasIndex(x => x.UnsubscribeToken).IsUnique();
         });
     }
 }

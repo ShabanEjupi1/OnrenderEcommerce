@@ -60,6 +60,13 @@ public class ProductService : IProductService
             .Take(count)
             .ToListAsync();
 
+    public async Task<List<Product>> GetMostSoldAsync(int count = 8) =>
+        await _db.Products
+            .Where(p => p.IsActive && p.IsMostSold)
+            .OrderBy(p => p.Name)
+            .Take(count)
+            .ToListAsync();
+
     public async Task<List<Product>> GetRelatedAsync(int productId, int? categoryId, int count = 6) =>
         await _db.Products
             .Where(p => p.IsActive && p.Id != productId &&

@@ -9,6 +9,7 @@ public interface IProductService
 
     Task<Product?> GetByIdAsync(int id);
     Task<List<Product>> GetFeaturedAsync(int count = 8);
+    Task<List<Product>> GetMostSoldAsync(int count = 8);
     Task<List<Product>> GetRelatedAsync(int productId, int? categoryId, int count = 6);
     Task<List<ProductCategory>> GetCategoriesAsync();
 

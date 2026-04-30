@@ -2,66 +2,159 @@
     ViewData["Title"] = "Dashboard — Admin";
     var orders = ViewBag.RecentOrders as List<ProjectTemplate.Models.Ecommerce.Order>;
     var totalProducts = (int)(ViewBag.TotalProducts ?? 0);
+    var subscriberCount = (int)(ViewBag.SubscriberCount ?? 0);
+    var featuredCount = (int)(ViewBag.FeaturedCount ?? 0);
+    var onSaleCount = (int)(ViewBag.OnSaleCount ?? 0);
+    var mostSoldCount = (int)(ViewBag.MostSoldCount ?? 0);
 }
 
 <div class="admin-page">
-    <div class="admin-header">
-        <h1>📊 Dashboard</h1>
-        <div class="admin-nav">
-            <a asp-action="Products" class="admin-nav-link">Produktet</a>
-            <a asp-action="Orders"   class="admin-nav-link">Porositë</a>
-            <a asp-action="Import"   class="admin-nav-link">Import CSV</a>
-            <a asp-action="Logout"   class="admin-nav-link btn-ghost-sm">Dil</a>
-        </div>
-    </div>
 
+    <!-- Quick Stats -->
     <div class="admin-stats">
         <div class="admin-stat-card">
             <span class="stat-icon">🏷️</span>
             <strong>@totalProducts</strong>
-            <span>Produkte</span>
+            <span>Produkte Totale</span>
         </div>
         <div class="admin-stat-card">
             <span class="stat-icon">📦</span>
             <strong>@(orders?.Count ?? 0)</strong>
-            <span>Porosi të fundit</span>
+            <span>Porosi të Fundit</span>
+        </div>
+        <div class="admin-stat-card">
+            <span class="stat-icon">📉</span>
+            <strong>@onSaleCount</strong>
+            <span>Produkte me Zbritje</span>
+        </div>
+        <div class="admin-stat-card">
+            <span class="stat-icon">⭐</span>
+            <strong>@featuredCount</strong>
+            <span>Produkte Featured</span>
+        </div>
+        <div class="admin-stat-card">
+            <span class="stat-icon">🔥</span>
+            <strong>@mostSoldCount</strong>
+            <span>Bestsellers</span>
+        </div>
+        <div class="admin-stat-card">
+            <span class="stat-icon">📧</span>
+            <strong>@subscriberCount</strong>
+            <span>Abonentë Aktivë</span>
         </div>
     </div>
 
+    <!-- Quick Action Links -->
+    <div class="dashboard-quick-actions">
+        <a asp-action="Promotions" class="qa-card qa-promo">
+            <span class="qa-icon">⭐</span>
+            <div>
+                <strong>Promovime</strong>
+                <span>Vendos zbritje, featured & bestsellers</span>
+            </div>
+        </a>
+        <a asp-action="Products" class="qa-card qa-products">
+            <span class="qa-icon">🏷️</span>
+            <div>
+                <strong>Produktet</strong>
+                <span>Menaxho katalogun e produkteve</span>
+            </div>
+        </a>
+        <a asp-action="Orders" class="qa-card qa-orders">
+            <span class="qa-icon">📦</span>
+            <div>
+                <strong>Porositë</strong>
+                <span>Shiko dhe menaxho porositë</span>
+            </div>
+        </a>
+        <a asp-action="Subscribers" class="qa-card qa-subs">
+            <span class="qa-icon">📧</span>
+            <div>
+                <strong>Abonentët</strong>
+                <span>@subscriberCount abonentë aktivë</span>
+            </div>
+        </a>
+    </div>
+
+    <!-- Recent Orders -->
     <div class="admin-section">
-        <div class="admin-section-header">
-            <h2>Porositë e Fundit</h2>
-            <a asp-action="Orders">Shih të gjitha &rarr;</a>
+        <div class="admin-section-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
+            <h2 style="margin:0">Porositë e Fundit</h2>
+            <a asp-action="Orders" style="color:var(--admin-primary);font-size:0.875rem;font-weight:600">Shih të gjitha →</a>
         </div>
         @if (orders != null && orders.Any())
         {
-            <table class="admin-table">
-                <thead>
-                    <tr><th>Nr.</th><th>Klienti</th><th>Tel.</th><th>Total</th><th>Statusi</th><th>Data</th></tr>
-                </thead>
-                <tbody>
-                @foreach (var o in orders)
-                {
-                    <tr>
-                        <td><strong>#@o.OrderNumber</strong></td>
-                        <td>@o.CustomerName</td>
-                        <td>@o.CustomerPhone</td>
-                        <td><strong>@o.TotalAmount.ToString("F2") €</strong></td>
-                        <td><span class="status-badge status-@o.Status.ToString().ToLower()">@o.StatusLabel</span></td>
-                        <td>@o.CreatedAt.ToString("dd/MM HH:mm")</td>
-                    </tr>
-                }
-                </tbody>
-            </table>
+            <div style="overflow-x:auto">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Nr.</th><th>Klienti</th><th>Tel.</th>
+                            <th>Total</th><th>Statusi</th><th>Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var o in orders)
+                    {
+                        <tr>
+                            <td><strong>#@o.OrderNumber</strong></td>
+                            <td>@o.CustomerName</td>
+                            <td>@o.CustomerPhone</td>
+                            <td><strong>@o.TotalAmount.ToString("F2") €</strong></td>
+                            <td>
+                                <span class="status-badge status-@o.Status.ToString().ToLower()">
+                                    @o.StatusLabel
+                                </span>
+                            </td>
+                            <td style="color:var(--admin-muted);font-size:0.875rem">
+                                @o.CreatedAt.ToString("dd/MM HH:mm")
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
         }
         else
         {
-            <p class="text-muted">Nuk ka porosi akoma.</p>
+            <p class="text-muted" style="text-align:center;padding:3rem">
+                📭 Nuk ka porosi akoma.
+            </p>
         }
     </div>
 
     <div class="admin-actions">
         <a asp-action="EditProduct" asp-route-id="0" class="btn-primary">+ Produkt i Ri</a>
+        <a asp-action="Promotions" class="btn-ghost">⭐ Promovime</a>
         <a asp-action="Import" class="btn-ghost">⬆️ Import CSV</a>
     </div>
 </div>
+
+<style>
+.dashboard-quick-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+.qa-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--admin-surface);
+    border: 1px solid var(--admin-border);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    text-decoration: none;
+    transition: all 0.25s;
+    color: var(--admin-text);
+}
+.qa-card:hover {
+    border-color: var(--admin-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(99,102,241,0.15);
+    color: var(--admin-text);
+}
+.qa-icon { font-size: 2rem; flex-shrink: 0; }
+.qa-card strong { display: block; font-size: 1rem; color: #fff; margin-bottom: 0.2rem; }
+.qa-card span { font-size: 0.8rem; color: var(--admin-muted); }
+</style>

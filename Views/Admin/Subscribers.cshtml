@@ -1,0 +1,127 @@
+@{
+    ViewData["Title"] = "Abonentët — Admin";
+    var subscribers = ViewBag.Subscribers as List<ProjectTemplate.Models.Ecommerce.Subscriber> ?? new();
+    var total = (int)(ViewBag.Total ?? 0);
+    var activeCount = (int)(ViewBag.ActiveCount ?? 0);
+}
+
+<div class="admin-page">
+    @if (TempData["Success"] != null) { <div class="alert-success">✅ @TempData["Success"]</div> }
+    @if (TempData["Error"] != null) { <div class="alert-error">❌ @TempData["Error"]</div> }
+
+    <div class="admin-stats" style="margin-bottom:2rem">
+        <div class="admin-stat-card">
+            <span class="stat-icon">📧</span>
+            <strong>@total</strong>
+            <span>Total Abonentë</span>
+        </div>
+        <div class="admin-stat-card">
+            <span class="stat-icon">✅</span>
+            <strong>@activeCount</strong>
+            <span>Abonentë Aktivë</span>
+        </div>
+        <div class="admin-stat-card">
+            <span class="stat-icon">❌</span>
+            <strong>@(total - activeCount)</strong>
+            <span>Të Çabonuar</span>
+        </div>
+    </div>
+
+    <div class="admin-section">
+        <div class="admin-section-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+            <h2 style="margin:0">📧 Lista e Abonentëve</h2>
+            <a asp-action="Promotions" class="promo-btn promo-btn-purple" style="text-decoration:none">
+                📤 Dërgoni Buletin
+            </a>
+        </div>
+
+        @if (subscribers.Any())
+        {
+            <div style="overflow-x:auto">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Emri</th>
+                            <th>Statusi</th>
+                            <th>Data e Abonimit</th>
+                            <th>Data e Çabonimit</th>
+                            <th style="text-align:right">Veprime</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var s in subscribers)
+                        {
+                            <tr id="sub-row-@s.Id">
+                                <td>
+                                    <a href="mailto:@s.Email" style="color:var(--admin-primary)">@s.Email</a>
+                                </td>
+                                <td>@(s.Name ?? "—")</td>
+                                <td>
+                                    @if (s.IsActive)
+                                    {
+                                        <span style="background:rgba(16,185,129,0.15);color:#10b981;padding:3px 10px;border-radius:20px;font-size:0.8rem;font-weight:600">✅ Aktiv</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="background:rgba(239,68,68,0.15);color:#ef4444;padding:3px 10px;border-radius:20px;font-size:0.8rem;font-weight:600">❌ Çabonuar</span>
+                                    }
+                                </td>
+                                <td style="color:var(--admin-muted);font-size:0.875rem">
+                                    @s.SubscribedAt.ToString("dd/MM/yyyy HH:mm")
+                                </td>
+                                <td style="color:var(--admin-muted);font-size:0.875rem">
+                                    @(s.UnsubscribedAt.HasValue ? s.UnsubscribedAt.Value.ToString("dd/MM/yyyy HH:mm") : "—")
+                                </td>
+                                <td style="text-align:right">
+                                    <button onclick="deleteSubscriber(@s.Id)"
+                                            class="btn-ghost-sm btn-danger"
+                                            title="Fshi abonentin">
+                                        🗑️
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div style="text-align:center;padding:4rem;color:var(--admin-muted)">
+                <div style="font-size:3rem;margin-bottom:1rem">📭</div>
+                <p>Nuk ka abonentë akoma. Abonimet futen nga faqja kryesore.</p>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .promo-btn { padding: 0.6rem 1.2rem; border: none; border-radius: 8px; font-weight: 600; font-size: 0.875rem; cursor: pointer; transition: all 0.2s; color: white; }
+    .promo-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+    .promo-btn-purple { background: #8b5cf6; }
+</style>
+
+@section Scripts {
+<script>
+    function deleteSubscriber(id) {
+        if (!confirm('A jeni i sigurt? Ky veprim nuk mund të anulohet.')) return;
+        fetch(`/Admin/DeleteSubscriber`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value ?? ''
+            },
+            body: `id=${id}`
+        }).then(r => r.json()).then(d => {
+            if (d.success) {
+                const row = document.getElementById(`sub-row-${id}`);
+                row.style.opacity = '0';
+                row.style.transition = 'opacity 0.4s';
+                setTimeout(() => row.remove(), 400);
+            }
+        });
+    }
+</script>
+@Html.AntiForgeryToken()
+}
