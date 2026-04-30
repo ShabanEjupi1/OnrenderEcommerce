@@ -10,14 +10,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+    <link rel="icon" type="image/png" href="~/logo.png" />
 </head>
 <body>
     <!-- -- Top Bar ----------------------------------------------------------- -->
     <div class="top-bar">
         <span>🚚 Dorëzim falas për porosi mbi 50€</span>
-        <span>📞 +383 44 000 000</span>
-        <span>📍 Prishtinë, Kosovë</span>
+        <span>📞 +383 45 594 549</span>
+        <span>📍 Podujevë, Kosovë</span>
     </div>
 
     <!-- -- Navigation ------------------------------------------------------- -->
@@ -122,7 +122,7 @@
                     <h4>Kontakt</h4>
                     <ul class="footer-contact-info">
                         <li><span style="font-size:1.2rem; margin-right:8px;">📍</span> Podujevë, Kosovë</li>
-                        <li><span style="font-size:1.2rem; margin-right:8px;">📞</span> +383 44 000 000</li>
+                        <li><span style="font-size:1.2rem; margin-right:8px;">📞</span> +383 45 594 549</li>
                         <li><span style="font-size:1.2rem; margin-right:8px;">📧</span> info@enisicenter.tech</li>
                         <li><span style="font-size:1.2rem; margin-right:8px;">🕒</span> E Hënë–E Shtunë: 08:00–20:00</li>
                     </ul>
@@ -138,6 +138,14 @@
             </div>
         </div>
     </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/38344000000" target="_blank" class="floating-wa" aria-label="Kontakt WhatsApp" style="position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15); z-index: 1000; transition: transform 0.3s;">
+        <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path></svg>
+    </a>
+    <style>
+        .floating-wa:hover { transform: scale(1.1); }
+    </style>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

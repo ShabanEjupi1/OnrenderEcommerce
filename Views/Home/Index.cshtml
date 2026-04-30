@@ -30,17 +30,17 @@
     <div class="ec-hero-visual">
         <div class="hero-card-stack">
             <div class="hero-card hero-card-1">
-                <div class="card-emoji">✨</div>
+                <div class="card-emoji">💻</div>
                 <div>Elektronikë</div>
                 <strong>Nga 49€</strong>
             </div>
             <div class="hero-card hero-card-2">
-                <div class="card-emoji">✨</div>
+                <div class="card-emoji">👕</div>
                 <div>Veshmbathje</div>
                 <strong>Nga 19€</strong>
             </div>
             <div class="hero-card hero-card-3">
-                <div class="card-emoji">✨</div>
+                <div class="card-emoji">🛋️</div>
                 <div>Shtëpi & Kuzhinë</div>
                 <strong>Nga 9€</strong>
             </div>
@@ -52,28 +52,28 @@
 <section class="feature-strip">
     <div class="feature-strip-inner">
         <div class="feature-item">
-            <span class="feature-icon">✨</span>
+            <span class="feature-icon">🚚</span>
             <div>
                 <strong>Dorëzim Falas</strong>
                 <p>Për porosi mbi 50€</p>
             </div>
         </div>
         <div class="feature-item">
-            <span class="feature-icon">✨</span>
+            <span class="feature-icon">🔒</span>
             <div>
                 <strong>Pagim i Sigurt</strong>
                 <p>SSL • Cash • Transfer</p>
             </div>
         </div>
         <div class="feature-item">
-            <span class="feature-icon">✨</span>
+            <span class="feature-icon">🔄</span>
             <div>
                 <strong>Kthim 30 Ditë</strong>
                 <p>Pa pyetje shtesë</p>
             </div>
         </div>
         <div class="feature-item">
-            <span class="feature-icon">✨</span>
+            <span class="feature-icon">🎧</span>
             <div>
                 <strong>Mbështetje 24/7</strong>
                 <p>Gjithmonë gati</p>
@@ -91,27 +91,27 @@
         </div>
         <div class="category-grid">
             <a asp-controller="Shop" asp-action="Index" asp-route-q="elektronike" class="cat-card cat-blue">
-                <span class="cat-icon">🏷️</span>
+                <span class="cat-icon">💻</span>
                 <strong>Elektronikë</strong>
             </a>
             <a asp-controller="Shop" asp-action="Index" asp-route-q="elektroshtepiake" class="cat-card cat-purple">
-                <span class="cat-icon">🏷️</span>
+                <span class="cat-icon">🔌</span>
                 <strong>Elektroshtepiake</strong>
             </a>
             <a asp-controller="Shop" asp-action="Index" asp-route-q="veshmbathje" class="cat-card cat-rose">
-                <span class="cat-icon">🏷️</span>
+                <span class="cat-icon">👗</span>
                 <strong>Veshmbathje</strong>
             </a>
             <a asp-controller="Shop" asp-action="Index" asp-route-q="ushqim" class="cat-card cat-green">
-                <span class="cat-icon">🏷️</span>
+                <span class="cat-icon">🍎</span>
                 <strong>Ushqim & Pije</strong>
             </a>
             <a asp-controller="Shop" asp-action="Index" asp-route-q="kozmetike" class="cat-card cat-pink">
-                <span class="cat-icon">🏷️</span>
+                <span class="cat-icon">💄</span>
                 <strong>Kozmetikë</strong>
             </a>
             <a asp-controller="Shop" asp-action="Index" asp-route-q="shtepi" class="cat-card cat-orange">
-                <span class="cat-icon">🏷️</span>
+                <span class="cat-icon">🍳</span>
                 <strong>Shtëpi & Kuzhinë</strong>
             </a>
             <a asp-controller="Shop" asp-action="Index" asp-route-q="sport" class="cat-card cat-teal">
@@ -119,7 +119,7 @@
                 <strong>Sport</strong>
             </a>
             <a asp-controller="Shop" asp-action="Index" asp-route-q="lodra" class="cat-card cat-yellow">
-                <span class="cat-icon">🏷️</span>
+                <span class="cat-icon">🧸</span>
                 <strong>Lodra & Fëmijë</strong>
             </a>
         </div>
@@ -209,6 +209,18 @@
                 </div>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- -- Newsletter -------------------------------------------------------- -->
+<section class="ec-section" style="background: var(--bg-surface); margin-top: 4rem; border-radius: var(--radius-lg); text-align: center; padding: 4rem 2rem; box-shadow: var(--shadow-sm);">
+    <div class="ec-container">
+        <h2 style="margin-bottom: 1rem; font-size: 2.5rem; color: var(--text-main);">Abonohu në Newsletter</h2>
+        <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem;">Merr njoftime për ofertat dhe produktet e reja direkt në emailin tënd.</p>
+        <form style="display: flex; gap: 1rem; max-width: 500px; margin: 0 auto;" onsubmit="event.preventDefault(); alert('Faleminderit për abonimin!'); this.reset();">
+            <input type="email" placeholder="Shëno emailin tënd..." required style="flex: 1; padding: 1rem 1.5rem; border-radius: var(--radius-pill); border: 2px solid #e2e8f0; font-size: 1rem; outline: none; transition: border-color 0.3s;" onfocus="this.style.borderColor='var(--accent-primary)'" onblur="this.style.borderColor='#e2e8f0'" />
+            <button type="submit" class="btn-primary" style="padding: 1rem 2rem;">Abonohu</button>
+        </form>
     </div>
 </section>
 
