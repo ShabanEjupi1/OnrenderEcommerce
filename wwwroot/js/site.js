@@ -42,47 +42,59 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Cart Update Logic (Mini Cart)
-async function updateCart() {
+// Cart Actions
+async function addToCart(productId, btnElement) {
     try {
-        const response = await fetch('/shop/mini-cart');
-        if (!response.ok) {
-            // Note: Endpoint /shop/mini-cart needs to be implemented in ShopController
-            console.warn('Mini-cart endpoint not found or failed.');
-            return;
-        }
-        const html = await response.text();
+        const formData = new FormData();
+        formData.append('productId', productId);
+        formData.append('quantity', 1);
 
-        // Update the mini-cart content
-        const miniCartContainer = document.querySelector('#cart-mini .cart-container');
-        if (miniCartContainer) {
-            miniCartContainer.innerHTML = html;
-        }
-
-        // Update badge count based on a data attribute or element we can parse reliably
-        const cartBadge = document.querySelector('#cartBadge');
-        if (cartBadge) {
-            // We can look for a specific element in the returned HTML that holds the count
-            // Or extract it via a regex that looks for standard item counts.
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = html;
-            // Assuming the partial view includes something like <span class="cart-total-items" data-count="X">
-            const countElement = tempDiv.querySelector('.cart-total-items') || tempDiv.querySelector('[data-cart-count]');
+        const response = await fetch('/Cart/Add', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const data = await response.json();
+        if (data.success) {
+            updateCartBadge(data.cartCount);
             
-            let totalItems = 0;
-            if (countElement) {
-                totalItems = parseInt(countElement.getAttribute('data-count') || countElement.getAttribute('data-cart-count') || countElement.innerText) || 0;
-            } else {
-                // Fallback: search for number of .cart-item elements
-                const items = tempDiv.querySelectorAll('.cart-item');
-                totalItems = items.length;
+            // Show visual feedback
+            if (btnElement) {
+                const originalText = btnElement.innerText;
+                btnElement.innerText = "✓ Shtuar";
+                btnElement.classList.add('btn-success');
+                setTimeout(() => {
+                    btnElement.innerText = originalText;
+                    btnElement.classList.remove('btn-success');
+                }, 2000);
             }
-
-            cartBadge.textContent = totalItems;
-            cartBadge.style.display = totalItems > 0 ? 'flex' : 'none';
+        } else {
+            alert(data.message || 'Gabim gjatë shtimit në shportë.');
         }
     } catch (e) {
-        console.error("Error loading cart:", e);
+        console.error("Error adding to cart:", e);
+        alert('Ndodhi një gabim gjatë shtimit në shportë.');
+    }
+}
+
+function updateCartBadge(count) {
+    const cartBadge = document.getElementById('cartBadge');
+    if (cartBadge) {
+        cartBadge.textContent = count;
+        cartBadge.style.display = count > 0 ? 'flex' : 'none';
+    }
+}
+
+// Cart Update Logic
+async function updateCart() {
+    try {
+        const response = await fetch('/Cart/Count');
+        if (!response.ok) return;
+        
+        const data = await response.json();
+        updateCartBadge(data.count || 0);
+    } catch (e) {
+        console.error("Error loading cart count:", e);
     }
 }
 

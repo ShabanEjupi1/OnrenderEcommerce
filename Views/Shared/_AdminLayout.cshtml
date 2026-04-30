@@ -3,135 +3,355 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Seller Central</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>@ViewData["Title"] - Admin Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <style>
         :root {
-            --amz-bg: #f2f4f8;
-            --amz-sidebar: #232f3e;
-            --amz-sidebar-hover: #37475a;
-            --amz-text: #0f1111;
-            --amz-orange: #ff9900;
-            --amz-light: #ffffff;
-            --amz-border: #d5d9d9;
+            --admin-bg: #09090b;
+            --admin-surface: #18181b;
+            --admin-surface-hover: #27272a;
+            --admin-border: rgba(255, 255, 255, 0.1);
+            --admin-text: #f4f4f5;
+            --admin-muted: #a1a1aa;
+            --admin-primary: #6366f1;
+            --admin-primary-glow: rgba(99, 102, 241, 0.5);
+            --admin-accent: #8b5cf6;
         }
+
         body.admin-body {
             margin: 0;
             padding: 0;
             font-family: 'Inter', sans-serif;
-            background-color: var(--amz-bg);
-            color: var(--amz-text);
+            background-color: var(--admin-bg);
+            color: var(--admin-text);
             display: flex;
             min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.08), transparent 25%);
         }
+
         .admin-sidebar {
-            width: 250px;
-            background-color: var(--amz-sidebar);
-            color: #fff;
+            width: 280px;
+            background: rgba(24, 24, 27, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-right: 1px solid var(--admin-border);
             display: flex;
             flex-direction: column;
             flex-shrink: 0;
+            z-index: 10;
         }
+
         .admin-sidebar-header {
-            padding: 20px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            border-bottom: 1px solid var(--amz-sidebar-hover);
+            padding: 2rem 1.5rem;
+            font-size: 1.5rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            border-bottom: 1px solid var(--admin-border);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            background: linear-gradient(135deg, #fff, #a1a1aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .admin-sidebar-header span { color: var(--amz-orange); }
+
+        .admin-sidebar-header span { 
+            color: var(--admin-primary); 
+            -webkit-text-fill-color: var(--admin-primary);
+        }
+
         .admin-nav-menu {
             display: flex;
             flex-direction: column;
-            padding: 10px 0;
+            padding: 1.5rem 1rem;
             flex: 1;
+            gap: 0.5rem;
         }
+
         .admin-nav-item {
-            padding: 12px 20px;
-            color: #ccc;
+            padding: 0.8rem 1.2rem;
+            color: var(--admin-muted);
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 12px;
-            transition: all 0.2s;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .admin-nav-item:hover, .admin-nav-item.active {
-            background-color: var(--amz-sidebar-hover);
-            color: #fff;
+
+        .admin-nav-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--admin-text);
+            transform: translateX(4px);
         }
+
         .admin-nav-item.active {
-            border-left: 4px solid var(--amz-orange);
-            padding-left: 16px;
+            background: linear-gradient(135deg, var(--admin-primary), var(--admin-accent));
+            color: #fff;
+            box-shadow: 0 4px 20px var(--admin-primary-glow);
+            font-weight: 600;
         }
+
         .admin-main {
             flex: 1;
             display: flex;
             flex-direction: column;
             overflow: hidden;
         }
+
         .admin-topbar {
-            height: 60px;
-            background: var(--amz-light);
-            border-bottom: 1px solid var(--amz-border);
+            height: 80px;
+            background: rgba(9, 9, 11, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--admin-border);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 30px;
+            padding: 0 2.5rem;
+            z-index: 5;
         }
+
+        .admin-topbar h2 {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #fff, #a1a1aa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         .topbar-right {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 1.5rem;
         }
+
+        .topbar-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-store {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--admin-text);
+            border: 1px solid var(--admin-border);
+        }
+
+        .btn-store:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .btn-logout {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .btn-logout:hover {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+
         .admin-content {
-            padding: 30px;
+            padding: 2.5rem;
             overflow-y: auto;
             flex: 1;
         }
-        
-        /* Modern table styling for admin */
-        .amz-card {
-            background: #fff;
-            border: 1px solid var(--amz-border);
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
+
+        /* Overrides for inner views to match the dark theme */
+        .admin-page { 
+            max-width: none !important; 
+            padding: 0 !important; 
+            background: transparent !important; 
+            border: none !important; 
+            box-shadow: none !important; 
+            margin: 0 !important; 
+        }
+        .admin-header { display: none !important; }
+
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .admin-stat-card {
+            background: var(--admin-surface) !important;
+            border: 1px solid var(--admin-border) !important;
+            border-radius: 16px !important;
+            padding: 1.5rem !important;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
+            position: relative;
+            overflow: hidden;
+            color: var(--admin-text) !important;
         }
         
-        /* Reset old admin page styles since we are wrapping */
-        .admin-page { max-width: none; padding: 0; background: transparent; border: none; box-shadow: none; margin: 0; }
-        .admin-header { display: none; } /* Hide old header since we have topbar/sidebar */
+        .admin-stat-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--admin-primary), var(--admin-accent));
+        }
+
+        .admin-stat-card strong {
+            font-size: 2.5rem !important;
+            font-weight: 800 !important;
+            font-family: 'Outfit', sans-serif;
+            margin: 0.5rem 0;
+            color: #fff !important;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: var(--admin-surface) !important;
+            border: 1px solid var(--admin-border) !important;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            color: var(--admin-text) !important;
+        }
+
+        .admin-table th {
+            background: rgba(255,255,255,0.02) !important;
+            color: var(--admin-muted) !important;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.75rem;
+            padding: 1.2rem 1.5rem !important;
+            border-bottom: 1px solid var(--admin-border) !important;
+        }
+
+        .admin-table td {
+            padding: 1.2rem 1.5rem !important;
+            border-bottom: 1px solid var(--admin-border) !important;
+            vertical-align: middle;
+            color: var(--admin-text) !important;
+        }
+
+        .admin-table tr:hover td {
+            background: rgba(255,255,255,0.02) !important;
+        }
+
+        .admin-section {
+            background: var(--admin-surface) !important;
+            border: 1px solid var(--admin-border) !important;
+            border-radius: 16px !important;
+            padding: 2rem !important;
+            margin-bottom: 2rem;
+            color: var(--admin-text) !important;
+        }
+
+        .admin-section-header h2 {
+            color: #fff !important;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Customizing Buttons in Admin */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--admin-primary), var(--admin-accent)) !important;
+            color: #fff !important;
+            border: none !important;
+            box-shadow: 0 4px 15px var(--admin-primary-glow) !important;
+            border-radius: 8px !important;
+            font-weight: 600 !important;
+        }
+        
+        .btn-ghost, .btn-ghost-sm {
+            background: rgba(255,255,255,0.05) !important;
+            color: var(--admin-text) !important;
+            border: 1px solid var(--admin-border) !important;
+            border-radius: 8px !important;
+        }
+        
+        .btn-ghost:hover, .btn-ghost-sm:hover {
+            background: rgba(255,255,255,0.1) !important;
+        }
+
+        .form-input, .sort-select, .form-textarea {
+            background: rgba(0,0,0,0.2) !important;
+            border: 1px solid var(--admin-border) !important;
+            color: var(--admin-text) !important;
+            border-radius: 8px !important;
+        }
+        .form-input:focus, .sort-select:focus, .form-textarea:focus {
+            border-color: var(--admin-primary) !important;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2) !important;
+        }
     </style>
 </head>
 <body class="admin-body">
 
     <div class="admin-sidebar">
         <div class="admin-sidebar-header">
-            🛍️ <span>Enisi Seller</span>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--admin-primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            Enisi <span>Admin</span>
         </div>
         <nav class="admin-nav-menu">
-            <a asp-action="Dashboard" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Dashboard" ? "active" : "")">📊 Dashboard</a>
-            <a asp-action="Products" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Products" ? "active" : "")">🏷️ Inventory (Produktet)</a>
-            <a asp-action="Orders" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Orders" ? "active" : "")">📦 Porositë</a>
-            <a asp-action="Profiles" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Profiles" ? "active" : "")">👥 Profilet & Logins</a>
-            <a asp-action="Messages" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Messages" ? "active" : "")">✉️ Mesazhet (Kontakti)</a>
-            <a asp-action="Import" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Import" ? "active" : "")">⬆️ Importo CSV</a>
-            <a asp-action="Settings" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Settings" ? "active" : "")">⚙️ Parametrat</a>
+            <a asp-action="Dashboard" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Dashboard" ? "active" : "")">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                Dashboard
+            </a>
+            <a asp-action="Products" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Products" ? "active" : "")">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                Produktet
+            </a>
+            <a asp-action="Orders" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Orders" ? "active" : "")">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                Porositë
+            </a>
+            <a asp-action="Profiles" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Profiles" ? "active" : "")">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                Profilet
+            </a>
+            <a asp-action="Messages" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Messages" ? "active" : "")">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                Mesazhet
+            </a>
+            <a asp-action="Import" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Import" ? "active" : "")">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                Import CSV
+            </a>
+            <a asp-action="Settings" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Settings" ? "active" : "")">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                Parametrat
+            </a>
         </nav>
     </div>
 
     <div class="admin-main">
         <header class="admin-topbar">
             <div>
-                <h2 style="margin:0; font-size:1.2rem; color: var(--amz-text);">@ViewData["Title"]</h2>
+                <h2>@ViewData["Title"]</h2>
             </div>
             <div class="topbar-right">
-                <a asp-controller="Home" asp-action="Index" target="_blank" style="color: #007185; text-decoration:none; font-weight:500;">Shih Dyqanin ↗</a>
-                <a asp-action="Logout" style="color: #B12704; text-decoration:none; font-weight:500;">Dil</a>
+                <a asp-controller="Home" asp-action="Index" target="_blank" class="topbar-btn btn-store">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    Dyqani
+                </a>
+                <a asp-action="Logout" class="topbar-btn btn-logout">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 4px;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    Dil
+                </a>
             </div>
         </header>
 
