@@ -84,8 +84,6 @@ async function updateCart() {
     } catch (e) {
         console.error("Error loading cart:", e);
     }
-        console.error("Error loading cart:", e);
-    }
 }
 
 // Call updateCart when the page loads

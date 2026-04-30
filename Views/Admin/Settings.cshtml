@@ -1,0 +1,49 @@
+@{
+    ViewData["Title"] = "Parametrat e Dyqanit";
+}
+
+<div class="amz-card" style="max-width: 800px;">
+    <h3 style="margin-top:0; margin-bottom: 20px;">Informacionet e Biznesit</h3>
+    
+    <div style="margin-bottom: 15px;">
+        <label style="display:block; font-weight:600; margin-bottom: 5px;">Emri i Dyqanit</label>
+        <input type="text" value="Enisi Center" style="width:100%; max-width:400px; padding:10px; border: 1px solid #d5d9d9; border-radius:4px; outline:none;" />
+    </div>
+
+    <div style="margin-bottom: 15px;">
+        <label style="display:block; font-weight:600; margin-bottom: 5px;">Email për Kontakt</label>
+        <input type="email" value="info@enisicenter.tech" style="width:100%; max-width:400px; padding:10px; border: 1px solid #d5d9d9; border-radius:4px; outline:none;" />
+    </div>
+    
+    <div style="margin-bottom: 25px;">
+        <label style="display:block; font-weight:600; margin-bottom: 5px;">Valuta Kryesore</label>
+        <select style="width:100%; max-width:200px; padding:10px; border: 1px solid #d5d9d9; border-radius:4px; outline:none;">
+            <option value="EUR" selected>Euro (€)</option>
+            <option value="USD">USD ($)</option>
+        </select>
+    </div>
+
+    <hr style="border:0; border-top:1px solid #eee; margin: 25px 0;" />
+    
+    <h3 style="margin-top:0; margin-bottom: 20px;">Parametrat e Pagesave dhe Dorëzimit</h3>
+    <div style="margin-bottom: 15px;">
+        <label style="display:flex; align-items:center; gap: 10px; cursor: pointer; font-weight: 500;">
+            <input type="checkbox" checked style="width: 18px; height: 18px; accent-color: #007185;" />
+            Prano pagesa Cash në Dorëzim (COD)
+        </label>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label style="display:flex; align-items:center; gap: 10px; cursor: pointer; font-weight: 500;">
+            <input type="checkbox" checked style="width: 18px; height: 18px; accent-color: #007185;" />
+            Prano Transfer Bankar
+        </label>
+    </div>
+    <div style="margin-bottom: 30px;">
+        <label style="display:flex; align-items:center; gap: 10px; cursor: pointer; font-weight: 500;">
+            <input type="checkbox" style="width: 18px; height: 18px; accent-color: #007185;" />
+            Aktivizo dërgesën ndërkombëtare
+        </label>
+    </div>
+
+    <button class="btn-primary" style="padding: 10px 24px; font-size: 1rem;">Ruaj Ndryshimet</button>
+</div>

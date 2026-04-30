@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using ProjectTemplate.Models.Ecommerce;
 using ProjectTemplate.Services;
 
@@ -215,5 +215,30 @@ public class AdminController : Controller
             : "Gabim gjatë importit. Kontrolloni skedarin.";
 
         return RedirectToAction("Products");
+    }
+    // -- Profiles, Messages, Settings (Mock) -----------------------------------
+
+    [HttpGet]
+    public IActionResult Profiles()
+    {
+        var auth = RequireAuth();
+        if (auth != null!) return auth;
+        return View();
+    }
+
+    [HttpGet]
+    public IActionResult Messages()
+    {
+        var auth = RequireAuth();
+        if (auth != null!) return auth;
+        return View();
+    }
+
+    [HttpGet]
+    public IActionResult Settings()
+    {
+        var auth = RequireAuth();
+        if (auth != null!) return auth;
+        return View();
     }
 }

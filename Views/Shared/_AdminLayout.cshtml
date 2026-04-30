@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Seller Central</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        :root {
+            --amz-bg: #f2f4f8;
+            --amz-sidebar: #232f3e;
+            --amz-sidebar-hover: #37475a;
+            --amz-text: #0f1111;
+            --amz-orange: #ff9900;
+            --amz-light: #ffffff;
+            --amz-border: #d5d9d9;
+        }
+        body.admin-body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--amz-bg);
+            color: var(--amz-text);
+            display: flex;
+            min-height: 100vh;
+        }
+        .admin-sidebar {
+            width: 250px;
+            background-color: var(--amz-sidebar);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+        .admin-sidebar-header {
+            padding: 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-bottom: 1px solid var(--amz-sidebar-hover);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .admin-sidebar-header span { color: var(--amz-orange); }
+        .admin-nav-menu {
+            display: flex;
+            flex-direction: column;
+            padding: 10px 0;
+            flex: 1;
+        }
+        .admin-nav-item {
+            padding: 12px 20px;
+            color: #ccc;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s;
+        }
+        .admin-nav-item:hover, .admin-nav-item.active {
+            background-color: var(--amz-sidebar-hover);
+            color: #fff;
+        }
+        .admin-nav-item.active {
+            border-left: 4px solid var(--amz-orange);
+            padding-left: 16px;
+        }
+        .admin-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .admin-topbar {
+            height: 60px;
+            background: var(--amz-light);
+            border-bottom: 1px solid var(--amz-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+        }
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .admin-content {
+            padding: 30px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        
+        /* Modern table styling for admin */
+        .amz-card {
+            background: #fff;
+            border: 1px solid var(--amz-border);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        
+        /* Reset old admin page styles since we are wrapping */
+        .admin-page { max-width: none; padding: 0; background: transparent; border: none; box-shadow: none; margin: 0; }
+        .admin-header { display: none; } /* Hide old header since we have topbar/sidebar */
+    </style>
+</head>
+<body class="admin-body">
+
+    <div class="admin-sidebar">
+        <div class="admin-sidebar-header">
+            🛍️ <span>Enisi Seller</span>
+        </div>
+        <nav class="admin-nav-menu">
+            <a asp-action="Dashboard" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Dashboard" ? "active" : "")">📊 Dashboard</a>
+            <a asp-action="Products" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Products" ? "active" : "")">🏷️ Inventory (Produktet)</a>
+            <a asp-action="Orders" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Orders" ? "active" : "")">📦 Porositë</a>
+            <a asp-action="Profiles" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Profiles" ? "active" : "")">👥 Profilet & Logins</a>
+            <a asp-action="Messages" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Messages" ? "active" : "")">✉️ Mesazhet (Kontakti)</a>
+            <a asp-action="Import" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Import" ? "active" : "")">⬆️ Importo CSV</a>
+            <a asp-action="Settings" class="admin-nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Settings" ? "active" : "")">⚙️ Parametrat</a>
+        </nav>
+    </div>
+
+    <div class="admin-main">
+        <header class="admin-topbar">
+            <div>
+                <h2 style="margin:0; font-size:1.2rem; color: var(--amz-text);">@ViewData["Title"]</h2>
+            </div>
+            <div class="topbar-right">
+                <a asp-controller="Home" asp-action="Index" target="_blank" style="color: #007185; text-decoration:none; font-weight:500;">Shih Dyqanin ↗</a>
+                <a asp-action="Logout" style="color: #B12704; text-decoration:none; font-weight:500;">Dil</a>
+            </div>
+        </header>
+
+        <main class="admin-content">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

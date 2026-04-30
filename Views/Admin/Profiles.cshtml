@@ -1,0 +1,53 @@
+@{
+    ViewData["Title"] = "Menaxhimi i Profileve & Logins";
+}
+
+<div class="amz-card">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 20px; align-items: center;">
+        <h3 style="margin:0">Lista e Përdoruesve</h3>
+        <button class="btn-primary" style="padding: 8px 16px;">+ Përdorues i Ri</button>
+    </div>
+
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Emri</th>
+                <th>Email / Login</th>
+                <th>Roli</th>
+                <th>Data Regjistrimit</th>
+                <th>Statusi</th>
+                <th>Veprime</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>101</td>
+                <td><strong>Luan Gashi</strong></td>
+                <td>luan.gashi@example.com</td>
+                <td>Klient</td>
+                <td>24 Prill 2026</td>
+                <td><span style="background:#def7ec;color:#03543f;padding:4px 8px;border-radius:4px;font-size:.8rem;font-weight:600;">Aktiv</span></td>
+                <td><button class="btn-ghost-sm">Edito</button></td>
+            </tr>
+            <tr>
+                <td>102</td>
+                <td><strong>Valmira Morina</strong></td>
+                <td>v.morina@example.com</td>
+                <td>Admin</td>
+                <td>15 Mars 2026</td>
+                <td><span style="background:#def7ec;color:#03543f;padding:4px 8px;border-radius:4px;font-size:.8rem;font-weight:600;">Aktiv</span></td>
+                <td><button class="btn-ghost-sm">Edito</button></td>
+            </tr>
+            <tr>
+                <td>103</td>
+                <td><strong>Arben Haliti</strong></td>
+                <td>a.haliti@example.com</td>
+                <td>Klient</td>
+                <td>12 Shkurt 2026</td>
+                <td><span style="background:#fde8e8;color:#9b1c1c;padding:4px 8px;border-radius:4px;font-size:.8rem;font-weight:600;">Bllokuar</span></td>
+                <td><button class="btn-ghost-sm">Edito</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
