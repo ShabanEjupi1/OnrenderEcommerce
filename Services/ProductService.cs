@@ -25,7 +25,8 @@ public class ProductService : IProductService
                 p.Name.ToLower().Contains(term) ||
                 (p.Description != null && p.Description.ToLower().Contains(term)) ||
                 (p.Brand != null && p.Brand.ToLower().Contains(term)) ||
-                (p.CategoryName != null && p.CategoryName.ToLower().Contains(term)));
+                (p.CategoryName != null && p.CategoryName.ToLower().Contains(term)) ||
+                (p.Category != null && p.Category.Name.ToLower().Contains(term)));
         }
 
         if (categoryId.HasValue)

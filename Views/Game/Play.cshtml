@@ -1,4 +1,4 @@
-@model ChapterViewModel
+﻿@model ChapterViewModel
 @{
     ViewData["Title"] = Model.Chapter.Label;
     int displayNum    = Model.CurrentIndex + 1;
@@ -50,7 +50,7 @@
                     <button class="choice-btn"
                             data-choice-id="@choice.Id"
                             onclick="submitAnswer(@choice.Id, this)">
-                        <span class="choice-arrow">▶</span> @choice.Text
+                        <span class="choice-arrow">?</span> @choice.Text
                     </button>
                 }
             </div>
@@ -61,7 +61,7 @@
             <!-- Next -->
             <div class="next-wrap hidden" id="next-wrap">
                 <a id="next-btn" asp-controller="Game" asp-action="Next" class="btn-primary">
-                    Continue the Quest →
+                    Continue the Quest ?
                 </a>
                 <span id="last-msg" class="hidden" style="display:none"></span>
             </div>
@@ -117,7 +117,7 @@ async function submitAnswer(choiceId, btn) {
 
     if (data.isLastChapter) {
         document.getElementById('next-btn').href = '@Url.Action("Result", "Game")';
-        document.getElementById('next-btn').textContent = 'See Your Results →';
+        document.getElementById('next-btn').textContent = 'See Your Results ?';
     }
 }
 </script>

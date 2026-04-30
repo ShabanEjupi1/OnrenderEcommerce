@@ -58,14 +58,14 @@ public class HomeController : Controller
 
         await _emailService.SendContactMessageAsync(Name, Email, Message, isSq);
 
-        string subject = isSq ? "Faleminderit qÃ« kontaktuat YourBrand" : "Thank you for contacting YourBrand";
+        string subject = isSq ? "Faleminderit që kontaktuat YourBrand" : "Thank you for contacting YourBrand";
         string body = isSq 
-            ? $"PÃ«rshÃ«ndetje {Name},<br/><br/>Kemi pranuar mesazhin tuaj dhe do t'ju pÃ«rgjigjemi sÃ« shpejti.<br/><br/>TÃ« falat,<br/>Ekipi i YourBrand" 
+            ? $"Përshëndetje {Name},<br/><br/>Kemi pranuar mesazhin tuaj dhe do t'ju përgjigjemi së shpejti.<br/><br/>Të falat,<br/>Ekipi i YourBrand" 
             : $"Hi {Name},<br/><br/>We have received your message and will get back to you shortly.<br/><br/>Best regards,<br/>YourBrand Team";
 
         await _emailService.SendNoReplyEmailAsync(Email, subject, body, isSq);
 
-        TempData["SuccessMessage"] = isSq ? "Mesazhi juaj u dÃ«rgua me sukses!" : "Your message has been sent successfully!";
+        TempData["SuccessMessage"] = isSq ? "Mesazhi juaj u dërgua me sukses!" : "Your message has been sent successfully!";
         return RedirectToAction("Contact");
     }
 

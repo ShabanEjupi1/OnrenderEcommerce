@@ -60,7 +60,7 @@ namespace ProjectTemplate.Services
 
             var mailMessage = new MailMessage
             {
-                From = new MailAddress(_smtpUser, isSq ? $"{_brandName} Mos Kthe PÃ«rgjigje" : $"{_brandName} No-Reply"),
+                From = new MailAddress(_smtpUser, isSq ? $"{_brandName} Mos Kthe Përgjigje" : $"{_brandName} No-Reply"),
                 Subject = subject,
                 Body = body,
                 IsBodyHtml = true

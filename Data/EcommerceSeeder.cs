@@ -1,4 +1,4 @@
-using ProjectTemplate.Data;
+﻿using ProjectTemplate.Data;
 using ProjectTemplate.Models.Ecommerce;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
@@ -22,7 +22,7 @@ public static class EcommerceSeeder
             return;
         }
 
-        // ── Categories ─────────────────────────────────────────────────────────
+        // -- Categories ---------------------------------------------------------
         var categories = new[]
         {
             new ProductCategory { Name = "Elektroshtepiake",    SortOrder = 1, IsActive = true },
@@ -39,7 +39,7 @@ public static class EcommerceSeeder
 
         var catMap = db.ProductCategories.ToDictionary(c => c.Name);
 
-        // ── Products ───────────────────────────────────────────────────────────
+        // -- Products -----------------------------------------------------------
         var products = new[]
         {
             // Elektroshtepiake

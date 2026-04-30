@@ -1,4 +1,4 @@
-@model ProjectTemplate.Models.Ecommerce.Product
+﻿@model ProjectTemplate.Models.Ecommerce.Product
 @{
     ViewData["Title"] = (Model.Id == 0 ? "Produkt i Ri" : "Edito Produktin") + " — Admin";
     var categories = ViewBag.Categories as List<ProjectTemplate.Models.Ecommerce.ProductCategory> ?? new();
@@ -6,9 +6,9 @@
 
 <div class="admin-page">
     <div class="admin-header">
-        <h1>@(Model.Id == 0 ? "➕ Produkt i Ri" : "✏️ Edito Produktin")</h1>
+        <h1>@(Model.Id == 0 ? "? Produkt i Ri" : "?? Edito Produktin")</h1>
         <div class="admin-nav">
-            <a asp-action="Products" class="admin-nav-link">← Kthehu</a>
+            <a asp-action="Products" class="admin-nav-link">? Kthehu</a>
         </div>
     </div>
 
@@ -91,7 +91,7 @@
             </div>
 
             <div class="form-actions">
-                <button type="submit" class="btn-primary">💾 Ruaj</button>
+                <button type="submit" class="btn-primary">?? Ruaj</button>
                 <a asp-action="Products" class="btn-ghost">Anulo</a>
             </div>
         </form>

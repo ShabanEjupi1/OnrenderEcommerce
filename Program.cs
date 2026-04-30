@@ -1,9 +1,9 @@
-using ProjectTemplate.Data;
+﻿using ProjectTemplate.Data;
 using ProjectTemplate.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-// ── Load .env ──────────────────────────────────────────────────────────────────
+// -- Load .env ------------------------------------------------------------------
 var envPath = Path.Combine(Directory.GetCurrentDirectory(), ".env");
 if (File.Exists(envPath))
 {
@@ -18,7 +18,7 @@ if (File.Exists(envPath))
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddEnvironmentVariables();
 
-// ── Localisation ───────────────────────────────────────────────────────────────
+// -- Localisation ---------------------------------------------------------------
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.AddControllersWithViews().AddViewLocalization();
 builder.Services.Configure<Microsoft.AspNetCore.Builder.RequestLocalizationOptions>(options =>
@@ -29,7 +29,7 @@ builder.Services.Configure<Microsoft.AspNetCore.Builder.RequestLocalizationOptio
     options.AddSupportedUICultures(supported);
 });
 
-// ── Caching / Compression / Session ───────────────────────────────────────────
+// -- Caching / Compression / Session -------------------------------------------
 builder.Services.AddOutputCache();
 builder.Services.AddResponseCompression(o => o.EnableForHttps = true);
 builder.Services.AddMemoryCache();
@@ -41,7 +41,7 @@ builder.Services.AddSession(options =>
     options.Cookie.Name = ".EnisiCenter.Session";
 });
 
-// ── Database ───────────────────────────────────────────────────────────────────
+// -- Database -------------------------------------------------------------------
 var rawConn = builder.Configuration["SUPABASE_CONNECTION_STRING"]
     ?? builder.Configuration.GetConnectionString("DefaultConnection")
     ?? "Data Source=app.db";
@@ -63,7 +63,7 @@ builder.Services.AddDbContextPool<AppDbContext>(options =>
         options.UseNpgsql(connectionString);
 });
 
-// ── Application services ───────────────────────────────────────────────────────
+// -- Application services -------------------------------------------------------
 builder.Services.AddScoped<IChapterService, ChapterService>();
 builder.Services.AddScoped<IGameSessionService, GameSessionService>();
 builder.Services.AddScoped<ILeaderboardService, LeaderboardService>();
@@ -76,12 +76,12 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 
 var app = builder.Build();
 
-// ── Port binding for Render ────────────────────────────────────────────────────
+// -- Port binding for Render ----------------------------------------------------
 var port = Environment.GetEnvironmentVariable("PORT");
 if (!string.IsNullOrEmpty(port))
     app.Urls.Add($"http://*:{port}");
 
-// ── Middleware ─────────────────────────────────────────────────────────────────
+// -- Middleware -----------------------------------------------------------------
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -96,7 +96,7 @@ app.UseOutputCache();
 app.UseSession();
 app.UseAuthorization();
 
-// ── Database initialisation ────────────────────────────────────────────────────
+// -- Database initialisation ----------------------------------------------------
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -128,7 +128,7 @@ using (var scope = app.Services.CreateScope())
     catch (Exception ex) { Console.WriteLine($"[EcommerceSeeder] {ex.Message}"); }
 }
 
-// ── Routes ─────────────────────────────────────────────────────────────────────
+// -- Routes ---------------------------------------------------------------------
 app.MapControllerRoute(
     name: "shop_product",
     pattern: "shop/product/{id:int}/{slug?}",

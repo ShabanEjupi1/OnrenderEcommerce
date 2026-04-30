@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProjectTemplate.Models.Ecommerce;
 using ProjectTemplate.Services;
 
@@ -92,7 +92,7 @@ public class ShopController : Controller
         }));
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
+    // -- Helpers ---------------------------------------------------------------
 
     private static object MapToCards(IEnumerable<ProjectTemplate.Models.Ecommerce.Product> products) =>
         products.Select(p => new

@@ -1,11 +1,11 @@
-@model ProjectTemplate.Models.Ecommerce.CheckoutViewModel
+﻿@model ProjectTemplate.Models.Ecommerce.CheckoutViewModel
 @{
     ViewData["Title"] = "Porosia";
 }
 
 <div class="checkout-page">
     <div class="ec-container">
-        <h1 class="page-title">📋 Plotëso Porosinë</h1>
+        <h1 class="page-title">?? Plotëso Porosinë</h1>
 
         <div class="checkout-layout">
             <!-- Left: Form -->
@@ -14,7 +14,7 @@
                     @Html.AntiForgeryToken()
 
                     <div class="form-section">
-                        <h3>📞 Informacionet Tuaja</h3>
+                        <h3>?? Informacionet Tuaja</h3>
                         <div class="form-group">
                             <label asp-for="CustomerName">Emri dhe Mbiemri *</label>
                             <input asp-for="CustomerName" class="form-input" placeholder="p.sh. Luan Gashi" />
@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="form-section">
-                        <h3>🚚 Adresa e Dorëzimit</h3>
+                        <h3>?? Adresa e Dorëzimit</h3>
                         <div class="form-group">
                             <label asp-for="DeliveryAddress">Adresa (opcionale)</label>
                             <input asp-for="DeliveryAddress" class="form-input" placeholder="Rruga, Numri, Qyteti" />
@@ -48,11 +48,11 @@
                     </div>
 
                     <div class="form-section">
-                        <h3>💳 Mënyra e Pagesës</h3>
+                        <h3>?? Mënyra e Pagesës</h3>
                         <div class="payment-options">
                             <label class="payment-option">
                                 <input type="radio" asp-for="PaymentMethod" value="CashOnDelivery" checked />
-                                <span class="payment-icon">💵</span>
+                                <span class="payment-icon">??</span>
                                 <div>
                                     <strong>Pagesa me dorëzim</strong>
                                     <small>Paguani kur të merrni porosinë</small>
@@ -60,7 +60,7 @@
                             </label>
                             <label class="payment-option">
                                 <input type="radio" asp-for="PaymentMethod" value="BankTransfer" />
-                                <span class="payment-icon">🏦</span>
+                                <span class="payment-icon">??</span>
                                 <div>
                                     <strong>Transfer bankar</strong>
                                     <small>Transferoni në llogarinë tonë</small>
@@ -70,7 +70,7 @@
                     </div>
 
                     <button type="submit" class="btn-place-order" id="placeOrderBtn">
-                        🛍️ Konfirmo Porosinë
+                        ??? Konfirmo Porosinë
                     </button>
                 </form>
             </div>
@@ -78,7 +78,7 @@
             <!-- Right: Order Summary -->
             <div class="checkout-summary-col">
                 <div class="order-summary-card">
-                    <h3>📦 Përmbledhja</h3>
+                    <h3>?? Përmbledhja</h3>
                     @foreach (var item in Model.Cart.Items)
                     {
                         <div class="summary-item">
@@ -102,9 +102,9 @@
                     </div>
 
                     <div class="checkout-trust">
-                        <div>🔒 Siguri & Privatësi</div>
-                        <div>🚚 Dorëzim i shpejtë</div>
-                        <div>↩️ Kthim 30 ditë</div>
+                        <div>?? Siguri & Privatësi</div>
+                        <div>?? Dorëzim i shpejtë</div>
+                        <div>?? Kthim 30 ditë</div>
                     </div>
                 </div>
             </div>
@@ -116,7 +116,7 @@
 <script>
 document.getElementById('checkoutForm').addEventListener('submit', function() {
     const btn = document.getElementById('placeOrderBtn');
-    btn.textContent = '⏳ Duke procesuar...';
+    btn.textContent = '? Duke procesuar...';
     btn.disabled = true;
 });
 </script>

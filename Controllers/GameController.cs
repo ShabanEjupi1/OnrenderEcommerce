@@ -22,7 +22,7 @@ public class GameController : Controller
         _leaderboard = leaderboard;
     }
 
-    // â”€â”€ GET /Game/Begin â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── GET /Game/Begin ───────────────────────────────────────────────
     public async Task<IActionResult> Begin()
     {
         var playerName = TempData["PlayerName"]?.ToString();
@@ -40,7 +40,7 @@ public class GameController : Controller
         return RedirectToAction("Play");
     }
 
-    // â”€â”€ GET /Game/Play â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── GET /Game/Play ────────────────────────────────────────────────
     public async Task<IActionResult> Play()
     {
         var sessionKey = HttpContext.Session.GetString(SessionKeyName);
@@ -69,7 +69,7 @@ public class GameController : Controller
         return View(vm);
     }
 
-    // â”€â”€ POST /Game/Answer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── POST /Game/Answer ─────────────────────────────────────────────
     [HttpPost]
     public async Task<IActionResult> Answer(int choiceId)
     {
@@ -87,10 +87,10 @@ public class GameController : Controller
         return Json(result);
     }
 
-    // â”€â”€ GET /Game/Next â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── GET /Game/Next ────────────────────────────────────────────────
     public IActionResult Next() => RedirectToAction("Play");
 
-    // â”€â”€ GET /Game/Result â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── GET /Game/Result ──────────────────────────────────────────────
     public async Task<IActionResult> Result()
     {
         var sessionKey = HttpContext.Session.GetString(SessionKeyName);
@@ -120,8 +120,8 @@ public class GameController : Controller
                 ChapterLabel   = ch.Label,
                 Concept        = ch.Concept,
                 WasCorrect     = answer?.WasCorrect ?? false,
-                ChosenAnswer   = chosen?.Text ?? "â€”",
-                CorrectAnswer  = correct?.Text ?? "â€”"
+                ChosenAnswer   = chosen?.Text ?? "—",
+                CorrectAnswer  = correct?.Text ?? "—"
             });
         }
 
@@ -135,7 +135,7 @@ public class GameController : Controller
         return View(vm);
     }
 
-    // â”€â”€ GET /Game/Leaderboard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ── GET /Game/Leaderboard ─────────────────────────────────────────
     public async Task<IActionResult> Leaderboard()
     {
         var entries = await _leaderboard.GetTopAsync(20);

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -64,7 +64,7 @@ public class Product
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
-    // ── Derived helpers ──────────────────────────────────────────────────────
+    // -- Derived helpers ------------------------------------------------------
 
     [NotMapped]
     public decimal DisplayPrice => SalePrice.HasValue && SalePrice.Value < Price ? SalePrice.Value : Price;

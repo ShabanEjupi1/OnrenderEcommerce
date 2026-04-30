@@ -1,4 +1,4 @@
-@model ResultViewModel
+﻿@model ResultViewModel
 @{
     ViewData["Title"] = "Quest Complete";
     int pct = (int)((double)Model.Session.CorrectAnswers / Model.TotalChapters * 100);
@@ -7,7 +7,7 @@
 <div class="result-wrap">
 
     <div class="result-hero">
-        <div class="result-trophy" aria-hidden="true">🏺</div>
+        <div class="result-trophy" aria-hidden="true">??</div>
         <h1 class="result-title">Archive Restored!</h1>
         <p class="result-player">Well done, <strong>@Model.Session.PlayerName</strong></p>
 
@@ -27,7 +27,7 @@
         </div>
 
         <div class="rank-display">
-            <span class="rank-icon">★</span>
+            <span class="rank-icon">?</span>
             <span class="rank-text">@Model.Session.Rank</span>
         </div>
     </div>
@@ -40,7 +40,7 @@
             {
                 <div class="breakdown-row @(d.WasCorrect ? "row-ok" : "row-bad")">
                     <div class="bd-header">
-                        <span class="bd-icon">@(d.WasCorrect ? "✓" : "✗")</span>
+                        <span class="bd-icon">@(d.WasCorrect ? "?" : "?")</span>
                         <span class="bd-label">@d.ChapterLabel</span>
                         <span class="bd-concept">@d.Concept</span>
                     </div>
@@ -71,7 +71,7 @@
 
     <!-- Actions -->
     <div class="result-actions">
-        <a asp-controller="Home" asp-action="Index" class="btn-primary">↩ Play Again</a>
+        <a asp-controller="Home" asp-action="Index" class="btn-primary">? Play Again</a>
         <a asp-controller="Game" asp-action="Leaderboard" class="btn-ghost">View Leaderboard</a>
     </div>
 

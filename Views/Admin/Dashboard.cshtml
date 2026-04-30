@@ -1,4 +1,4 @@
-@{
+﻿@{
     ViewData["Title"] = "Dashboard — Admin";
     var orders = ViewBag.RecentOrders as List<ProjectTemplate.Models.Ecommerce.Order>;
     var totalProducts = (int)(ViewBag.TotalProducts ?? 0);
@@ -6,7 +6,7 @@
 
 <div class="admin-page">
     <div class="admin-header">
-        <h1>📊 Dashboard</h1>
+        <h1>?? Dashboard</h1>
         <div class="admin-nav">
             <a asp-action="Products" class="admin-nav-link">Produktet</a>
             <a asp-action="Orders"   class="admin-nav-link">Porositë</a>
@@ -17,12 +17,12 @@
 
     <div class="admin-stats">
         <div class="admin-stat-card">
-            <span class="stat-icon">📦</span>
+            <span class="stat-icon">??</span>
             <strong>@totalProducts</strong>
             <span>Produkte</span>
         </div>
         <div class="admin-stat-card">
-            <span class="stat-icon">🛍️</span>
+            <span class="stat-icon">???</span>
             <strong>@(orders?.Count ?? 0)</strong>
             <span>Porosi të fundit</span>
         </div>
@@ -31,7 +31,7 @@
     <div class="admin-section">
         <div class="admin-section-header">
             <h2>Porositë e Fundit</h2>
-            <a asp-action="Orders">Shih të gjitha →</a>
+            <a asp-action="Orders">Shih të gjitha ?</a>
         </div>
         @if (orders != null && orders.Any())
         {
@@ -62,6 +62,6 @@
 
     <div class="admin-actions">
         <a asp-action="EditProduct" asp-route-id="0" class="btn-primary">+ Produkt i Ri</a>
-        <a asp-action="Import" class="btn-ghost">📤 Import CSV</a>
+        <a asp-action="Import" class="btn-ghost">?? Import CSV</a>
     </div>
 </div>

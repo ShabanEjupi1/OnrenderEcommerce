@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ProjectTemplate.Data;
 using ProjectTemplate.Models.Ecommerce;
 
@@ -95,7 +95,7 @@ public class OrderService : IOrderService
         }
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
+    // -- Helpers ---------------------------------------------------------------
 
     private static string GenerateOrderNumber()
     {
@@ -118,7 +118,7 @@ public class OrderService : IOrderService
     <p style='color:#cbd5e1;margin:8px 0 0'>Porosia juaj u pranua!</p>
   </div>
   <div style='padding:32px'>
-    <h2 style='color:#1e293b'>Faleminderit, {order.CustomerName}! 🎉</h2>
+    <h2 style='color:#1e293b'>Faleminderit, {order.CustomerName}! ??</h2>
     <p style='color:#64748b'>Porosia juaj me numër <strong style='color:#f59e0b'>#{order.OrderNumber}</strong> u pranua me sukses.</p>
     
     <table style='width:100%;border-collapse:collapse;margin:24px 0'>

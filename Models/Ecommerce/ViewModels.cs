@@ -1,8 +1,8 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ProjectTemplate.Models.Ecommerce;
 
-// ── View Models for Shop pages ────────────────────────────────────────────────
+// -- View Models for Shop pages ------------------------------------------------
 
 public class ShopIndexViewModel
 {
@@ -23,7 +23,7 @@ public class ProductDetailViewModel
     public List<Product> RelatedProducts { get; set; } = new();
 }
 
-// ── View Models for Cart ──────────────────────────────────────────────────────
+// -- View Models for Cart ------------------------------------------------------
 
 public class CartViewModel
 {
@@ -32,7 +32,7 @@ public class CartViewModel
     public decimal Total => Cart.SubTotal + DeliveryFee;
 }
 
-// ── View Models for Checkout ──────────────────────────────────────────────────
+// -- View Models for Checkout --------------------------------------------------
 
 public class CheckoutViewModel
 {

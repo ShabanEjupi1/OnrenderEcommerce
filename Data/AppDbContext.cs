@@ -1,4 +1,4 @@
-using ProjectTemplate.Models;
+﻿using ProjectTemplate.Models;
 using ProjectTemplate.Models.Ecommerce;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,14 +8,14 @@ public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-    // ── Game / Learning ───────────────────────────────────────────────────────
+    // -- Game / Learning -------------------------------------------------------
     public DbSet<Chapter> Chapters => Set<Chapter>();
     public DbSet<Choice> Choices => Set<Choice>();
     public DbSet<GameSession> GameSessions => Set<GameSession>();
     public DbSet<AnswerRecord> AnswerRecords => Set<AnswerRecord>();
     public DbSet<LeaderboardEntry> LeaderboardEntries => Set<LeaderboardEntry>();
 
-    // ── Legacy YourBrand ──────────────────────────────────────────────────────
+    // -- Legacy YourBrand ------------------------------------------------------
     public DbSet<Business> Businesses => Set<Business>();
     public DbSet<PosSystem> PosSystems => Set<PosSystem>();
     public DbSet<ProductItem> ProductItems => Set<ProductItem>();
@@ -26,7 +26,7 @@ public class AppDbContext : DbContext
     public DbSet<Customer> Customers => Set<Customer>();
     public DbSet<PurchaseOrder> PurchaseOrders => Set<PurchaseOrder>();
 
-    // ── Ecommerce ─────────────────────────────────────────────────────────────
+    // -- Ecommerce -------------------------------------------------------------
     public DbSet<Product> Products => Set<Product>();
     public DbSet<ProductCategory> ProductCategories => Set<ProductCategory>();
     public DbSet<Order> Orders => Set<Order>();
@@ -34,7 +34,7 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder mb)
     {
-        // ── Game entities ──────────────────────────────────────────────────────
+        // -- Game entities ------------------------------------------------------
         mb.Entity<Chapter>(e =>
         {
             e.HasKey(x => x.Id);
@@ -57,7 +57,7 @@ public class AppDbContext : DbContext
         mb.Entity<AnswerRecord>(e => e.HasKey(x => x.Id));
         mb.Entity<LeaderboardEntry>(e => e.HasKey(x => x.Id));
 
-        // ── Legacy YourBrand ───────────────────────────────────────────────────
+        // -- Legacy YourBrand ---------------------------------------------------
         mb.Entity<Business>(e =>
         {
             e.HasKey(x => x.Id);
@@ -96,7 +96,7 @@ public class AppDbContext : DbContext
              .OnDelete(DeleteBehavior.Cascade);
         });
 
-        // ── Ecommerce entities ─────────────────────────────────────────────────
+        // -- Ecommerce entities -------------------------------------------------
         mb.Entity<ProductCategory>(e =>
         {
             e.HasKey(x => x.Id);

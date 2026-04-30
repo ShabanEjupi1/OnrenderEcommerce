@@ -1,4 +1,4 @@
-@model ProjectTemplate.Models.Ecommerce.OrderConfirmationViewModel
+﻿@model ProjectTemplate.Models.Ecommerce.OrderConfirmationViewModel
 @{
     var order = Model.Order;
     ViewData["Title"] = "Porosia u Konfirmua";
@@ -7,7 +7,7 @@
 <div class="confirmation-page">
     <div class="ec-container">
         <div class="confirmation-card">
-            <div class="confirmation-icon">✅</div>
+            <div class="confirmation-icon">?</div>
             <h1>Faleminderit, @order.CustomerName!</h1>
             <p class="confirmation-sub">Porosia juaj u pranua me sukses.</p>
 
@@ -18,29 +18,29 @@
 
             <div class="confirmation-details">
                 <div class="conf-detail-row">
-                    <span>📅 Data:</span>
+                    <span>?? Data:</span>
                     <strong>@order.CreatedAt.ToString("dd/MM/yyyy HH:mm")</strong>
                 </div>
                 <div class="conf-detail-row">
-                    <span>📞 Telefoni:</span>
+                    <span>?? Telefoni:</span>
                     <strong>@order.CustomerPhone</strong>
                 </div>
                 @if (!string.IsNullOrEmpty(order.CustomerEmail))
                 {
                     <div class="conf-detail-row">
-                        <span>✉️ Email:</span>
+                        <span>?? Email:</span>
                         <strong>@order.CustomerEmail</strong>
                     </div>
                 }
                 @if (!string.IsNullOrEmpty(order.DeliveryAddress))
                 {
                     <div class="conf-detail-row">
-                        <span>📍 Adresa:</span>
+                        <span>?? Adresa:</span>
                         <strong>@order.DeliveryAddress</strong>
                     </div>
                 }
                 <div class="conf-detail-row">
-                    <span>💳 Pagesa:</span>
+                    <span>?? Pagesa:</span>
                     <strong>@(order.PaymentMethod == ProjectTemplate.Models.Ecommerce.PaymentMethod.CashOnDelivery ? "Pagesa me dorëzim" : "Transfer bankar")</strong>
                 </div>
             </div>
@@ -62,10 +62,10 @@
             </div>
 
             <div class="conf-note">
-                <p>🔔 Do t'ju kontaktojmë shpejt në <strong>@order.CustomerPhone</strong> për konfirmimin e porosisë.</p>
+                <p>?? Do t'ju kontaktojmë shpejt në <strong>@order.CustomerPhone</strong> për konfirmimin e porosisë.</p>
                 @if (!string.IsNullOrEmpty(order.CustomerEmail))
                 {
-                    <p>📧 Konfirmimi i porosisë u dërgua në <strong>@order.CustomerEmail</strong>.</p>
+                    <p>?? Konfirmimi i porosisë u dërgua në <strong>@order.CustomerEmail</strong>.</p>
                 }
             </div>
 

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -69,7 +69,7 @@ public class Order
 
     public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
 
-    // ── Helpers ──────────────────────────────────────────────────────────────
+    // -- Helpers --------------------------------------------------------------
 
     [NotMapped]
     public string StatusLabel => Status switch

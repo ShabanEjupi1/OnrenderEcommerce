@@ -6,38 +6,38 @@
 
 <div class="hero">
     <div class="hero-inner">
-        <div class="hero-eyebrow">@(isSq ? "Qendra e MÃ«simit dhe Trajnimit" : "Learning and Training Center")</div>
+        <div class="hero-eyebrow">@(isSq ? "Qendra e Mësimit dhe Trajnimit" : "Learning and Training Center")</div>
         <h1 class="hero-title">@(isSq ? "Qendra e Trajnimit" : "Training Hub")</h1>
-        <p class="hero-sub">@(isSq ? "PÃ«rdoreni kÃ«tÃ« faqe pÃ«r mÃ«sim, onboardim ose vlerÃ«sime" : "Use this page for lessons, onboarding, or assessments")</p>
+        <p class="hero-sub">@(isSq ? "Përdoreni këtë faqe për mësim, onboardim ose vlerësime" : "Use this page for lessons, onboarding, or assessments")</p>
         <p class="hero-desc">
             @(isSq 
-                ? Html.Raw("PÃ«rdorni kÃ«tÃ« seksion si pikÃ«nisje pÃ«r <strong>module trajnimi, kuize ose simulime</strong>. TÃ« dyja rrjedhat ekzistuese mund t'i zÃ«vendÃ«soni me pÃ«rmbajtjen e projektit tuaj.")
+                ? Html.Raw("Përdorni këtë seksion si pikënisje për <strong>module trajnimi, kuize ose simulime</strong>. Të dyja rrjedhat ekzistuese mund t'i zëvendësoni me përmbajtjen e projektit tuaj.")
                 : Html.Raw("Use this section as a starting point for <strong>training modules, quizzes, or simulations</strong>. Both existing paths can be replaced with your own project content."))
         </p>
 
         <div class="concept-chips">
             <span class="chip">@(isSq ? "Variablat" : "Variables")</span>
-            <span class="chip">@(isSq ? "Llojet e tÃ« DhÃ«nave" : "Data Types")</span>
+            <span class="chip">@(isSq ? "Llojet e të Dhënave" : "Data Types")</span>
             <span class="chip">@(isSq ? "Kushtet" : "Conditionals")</span>
             <span class="chip">@(isSq ? "Unazat" : "Loops")</span>
             <span class="chip">@(isSq ? "Funksionet" : "Functions")</span>
             <span class="chip">@(isSq ? "Listat" : "Lists")</span>
-            <span class="chip">@(isSq ? "FjalorÃ«t" : "Dictionaries")</span>
+            <span class="chip">@(isSq ? "Fjalorët" : "Dictionaries")</span>
             <span class="chip">@(isSq ? "Klasat" : "Classes")</span>
             <span class="chip">@(isSq ? "Gabimet" : "Exceptions")</span>
             <span class="chip">@(isSq ? "Asinkron/Prit" : "Async/Await")</span>
-            <span class="chip">@(isSq ? "API-tÃ«" : "APIs")</span>
-            <span class="chip">@(isSq ? "Bazat e tÃ« DhÃ«nave" : "Databases")</span>
+            <span class="chip">@(isSq ? "API-të" : "APIs")</span>
+            <span class="chip">@(isSq ? "Bazat e të Dhënave" : "Databases")</span>
             <span class="chip">@(isSq ? "Kontrolli i Versioneve" : "Version Control")</span>
-            <span class="chip">@(isSq ? "TrashÃ«gimia" : "Inheritance")</span>
-            <span class="chip">@(isSq ? "Testimi i NjÃ«sive" : "Unit Testing")</span>
+            <span class="chip">@(isSq ? "Trashëgimia" : "Inheritance")</span>
+            <span class="chip">@(isSq ? "Testimi i Njësive" : "Unit Testing")</span>
         </div>
 
         <form method="post" asp-controller="Home" asp-action="Start" class="start-form">
             <input type="text"
                    name="PlayerName"
                    class="name-input"
-                   placeholder="@(isSq ? "ShÃ«noni emrin tuaj, Menaxher i Sistemitâ€¦" : "Enter your name, System Managerâ€¦")"
+                   placeholder="@(isSq ? "Shënoni emrin tuaj, Menaxher i Sistemit…" : "Enter your name, System Manager…")"
                    maxlength="40"
                    autocomplete="off"
                    required />
@@ -46,10 +46,10 @@
                 <option value="sq">Shqip</option>
             </select>
             <select name="GameType" class="name-input" style="width: auto;">
-                <option value="Coding">@(isSq ? "MÃ«so Programim" : "Learn Coding")</option>
+                <option value="Coding">@(isSq ? "Mëso Programim" : "Learn Coding")</option>
                 <option value="POS">@(isSq ? "Trajnim Operacional" : "Operational Training")</option>
             </select>
-            <button type="submit" class="btn-primary">@(isSq ? "Nis Trajnimin â†’" : "Start Training â†’")</button>
+            <button type="submit" class="btn-primary">@(isSq ? "Nis Trajnimin →" : "Start Training →")</button>
         </form>
     </div>
 
@@ -57,21 +57,21 @@
         <div class="deco-ring r1"></div>
         <div class="deco-ring r2"></div>
         <div class="deco-ring r3"></div>
-        <span class="deco-glyph">â—†</span>
+        <span class="deco-glyph">◆</span>
     </div>
 </div>
 
 @if (Model.Any())
 {
     <section class="home-leaderboard">
-        <h2 class="section-title">@(isSq ? "PjesÃ«marrÃ«sit mÃ« tÃ« mirÃ«" : "Top Participants")</h2>
+        <h2 class="section-title">@(isSq ? "Pjesëmarrësit më të mirë" : "Top Participants")</h2>
         <table class="lb-table">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>@(isSq ? "Emri" : "Name")</th>
-                    <th>@(isSq ? "PikÃ«t" : "Score")</th>
-                    <th>@(isSq ? "TÃ« Sakta" : "Correct")</th>
+                    <th>@(isSq ? "Pikët" : "Score")</th>
+                    <th>@(isSq ? "Të Sakta" : "Correct")</th>
                     <th>@(isSq ? "Rangu" : "Rank")</th>
                 </tr>
             </thead>
@@ -89,7 +89,7 @@
                 }
             </tbody>
         </table>
-        <a asp-controller="Game" asp-action="Leaderboard" class="lb-link">@(isSq ? "Shiko tÃ« gjithÃ« liderÃ«t â†’" : "View full leaderboard â†’")</a>
+        <a asp-controller="Game" asp-action="Leaderboard" class="lb-link">@(isSq ? "Shiko të gjithë liderët →" : "View full leaderboard →")</a>
     </section>
 }
 

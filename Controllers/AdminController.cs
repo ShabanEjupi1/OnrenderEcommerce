@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProjectTemplate.Models.Ecommerce;
 using ProjectTemplate.Services;
 
@@ -21,7 +21,7 @@ public class AdminController : Controller
         _config   = config;
     }
 
-    // ── Authentication ────────────────────────────────────────────────────────
+    // -- Authentication --------------------------------------------------------
 
     private bool IsAuthenticated =>
         HttpContext.Session.GetString("AdminAuth") == "1";
@@ -51,7 +51,7 @@ public class AdminController : Controller
         return RedirectToAction("Login");
     }
 
-    // ── Dashboard ─────────────────────────────────────────────────────────────
+    // -- Dashboard -------------------------------------------------------------
 
     [HttpGet]
     public async Task<IActionResult> Dashboard()
@@ -68,7 +68,7 @@ public class AdminController : Controller
         return View();
     }
 
-    // ── Products ──────────────────────────────────────────────────────────────
+    // -- Products --------------------------------------------------------------
 
     [HttpGet]
     public async Task<IActionResult> Products(string? q, int? catId, int page = 1)
@@ -134,7 +134,7 @@ public class AdminController : Controller
         return RedirectToAction("Products");
     }
 
-    // ── Orders ────────────────────────────────────────────────────────────────
+    // -- Orders ----------------------------------------------------------------
 
     [HttpGet]
     public async Task<IActionResult> Orders(int page = 1)
@@ -158,7 +158,7 @@ public class AdminController : Controller
         return Json(new { success = true });
     }
 
-    // ── Product Import from POS CSV ───────────────────────────────────────────
+    // -- Product Import from POS CSV -------------------------------------------
 
     [HttpGet]
     public IActionResult Import()

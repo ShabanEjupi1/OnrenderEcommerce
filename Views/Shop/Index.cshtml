@@ -1,11 +1,11 @@
-@model ProjectTemplate.Models.Ecommerce.ShopIndexViewModel
+﻿@model ProjectTemplate.Models.Ecommerce.ShopIndexViewModel
 @{
     ViewData["Title"] = "Dyqani";
     ViewData["Description"] = "Shfleto të gjitha produktet e Enisi Center – elektronikë, veshmbathje, ushqim dhe shumë më tepër.";
 }
 
 <div class="shop-page">
-    <!-- ── Sidebar ───────────────────────────────────────────────────────── -->
+    <!-- -- Sidebar --------------------------------------------------------- -->
     <aside class="shop-sidebar">
         <h3>Kategorite</h3>
         <ul class="filter-list">
@@ -34,7 +34,7 @@
         </div>
     </aside>
 
-    <!-- ── Main Content ──────────────────────────────────────────────────── -->
+    <!-- -- Main Content ---------------------------------------------------- -->
     <main class="shop-main">
         <!-- Toolbar -->
         <div class="shop-toolbar">
@@ -127,7 +127,7 @@
         else
         {
             <div class="empty-state">
-                <div class="empty-icon">🔍</div>
+                <div class="empty-icon">??</div>
                 <h3>Nuk u gjetën produkte</h3>
                 <p>Provoni me terma të ndryshëm ose shfleto kategoritë tona.</p>
                 <a asp-controller="Shop" asp-action="Index" class="btn-primary">Shiko të gjitha produktet</a>
