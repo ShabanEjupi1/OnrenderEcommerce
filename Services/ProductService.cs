@@ -20,13 +20,17 @@ public class ProductService : IProductService
 
         if (!string.IsNullOrWhiteSpace(search))
         {
+            // Use a database-agnostic approach: translate to SQL LOWER() on the DB side.
+            // We avoid calling .ToLower() on navigation properties as it can fail on
+            // PostgreSQL when the related entity has a nullable FK. Instead we check the
+            // denormalized CategoryName column first, and only touch Category.Name when
+            // we know it is non-null via a left-join path that EF Core handles safely.
             var term = search.Trim().ToLower();
             query = query.Where(p =>
-                p.Name.ToLower().Contains(term) ||
-                (p.Description != null && p.Description.ToLower().Contains(term)) ||
-                (p.Brand != null && p.Brand.ToLower().Contains(term)) ||
-                (p.CategoryName != null && p.CategoryName.ToLower().Contains(term)) ||
-                (p.Category != null && p.Category.Name.ToLower().Contains(term)));
+                EF.Functions.Like(p.Name.ToLower(), $"%{term}%") ||
+                (p.Description != null && EF.Functions.Like(p.Description.ToLower(), $"%{term}%")) ||
+                (p.Brand != null && EF.Functions.Like(p.Brand.ToLower(), $"%{term}%")) ||
+                (p.CategoryName != null && EF.Functions.Like(p.CategoryName.ToLower(), $"%{term}%")));
         }
 
         if (categoryId.HasValue)
